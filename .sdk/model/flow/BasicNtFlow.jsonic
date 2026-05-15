@@ -1,0 +1,32 @@
+# BasicNtFlow
+
+main: kit: flow: BasicNtFlow:
+{
+  entity: "nt",
+  kind: "basic",
+  name: "BasicNtFlow",
+  step: [
+    {
+      input: {
+        ref: "nt_ref01",
+        srcdatavar: "nt_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "nt01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-nt_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicNtFlow"
+}

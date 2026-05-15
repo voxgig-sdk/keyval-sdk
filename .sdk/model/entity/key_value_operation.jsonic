@@ -1,0 +1,110 @@
+# Entity: key_value_operation
+
+main: kit: entity: key_value_operation: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "key"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "value"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "key_value_operation"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "mykey"
+                kind: "param"
+                name: "key"
+                orig: "key"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "myvalue"
+                kind: "param"
+                name: "value"
+                orig: "value"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/set/{key}/{value}"
+          parts: [
+            "set"
+            "{key}"
+            "{value}"
+          ]
+          select: {
+            exist: [
+              "key"
+              "value"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                example: "mykey"
+                kind: "param"
+                name: "key"
+                orig: "key"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/get/{key}"
+          parts: [
+            "get"
+            "{key}"
+          ]
+          select: {
+            exist: [
+              "key"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "get"
+      ]
+      [
+        "set"
+      ]
+    ]
+  }
+
+
+
+}

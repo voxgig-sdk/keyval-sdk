@@ -1,0 +1,68 @@
+# Entity: nt
+
+main: kit: entity: nt: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "key"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "value"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "nt"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "myvalue"
+                kind: "param"
+                name: "value"
+                orig: "value"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/-/{value}"
+          parts: [
+            "-"
+            "{value}"
+          ]
+          select: {
+            exist: [
+              "value"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        ""
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,32 @@
+# BasicKeyValueOperationFlow
+
+main: kit: flow: BasicKeyValueOperationFlow:
+{
+  entity: "key_value_operation",
+  kind: "basic",
+  name: "BasicKeyValueOperationFlow",
+  step: [
+    {
+      input: {
+        ref: "key_value_operation_ref01",
+        srcdatavar: "key_value_operation_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "key_value_operation01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-key_value_operation_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicKeyValueOperationFlow"
+}

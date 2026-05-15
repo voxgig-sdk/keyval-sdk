@@ -1,0 +1,67 @@
+<?php
+declare(strict_types=1);
+
+// Keyval SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+KeyvalUtility::setRegistrar(function (KeyvalUtility $u): void {
+    $u->clean = [KeyvalClean::class, 'call'];
+    $u->done = [KeyvalDone::class, 'call'];
+    $u->make_error = [KeyvalMakeError::class, 'call'];
+    $u->feature_add = [KeyvalFeatureAdd::class, 'call'];
+    $u->feature_hook = [KeyvalFeatureHook::class, 'call'];
+    $u->feature_init = [KeyvalFeatureInit::class, 'call'];
+    $u->fetcher = [KeyvalFetcher::class, 'call'];
+    $u->make_fetch_def = [KeyvalMakeFetchDef::class, 'call'];
+    $u->make_context = [KeyvalMakeContext::class, 'call'];
+    $u->make_options = [KeyvalMakeOptions::class, 'call'];
+    $u->make_request = [KeyvalMakeRequest::class, 'call'];
+    $u->make_response = [KeyvalMakeResponse::class, 'call'];
+    $u->make_result = [KeyvalMakeResult::class, 'call'];
+    $u->make_point = [KeyvalMakePoint::class, 'call'];
+    $u->make_spec = [KeyvalMakeSpec::class, 'call'];
+    $u->make_url = [KeyvalMakeUrl::class, 'call'];
+    $u->param = [KeyvalParam::class, 'call'];
+    $u->prepare_auth = [KeyvalPrepareAuth::class, 'call'];
+    $u->prepare_body = [KeyvalPrepareBody::class, 'call'];
+    $u->prepare_headers = [KeyvalPrepareHeaders::class, 'call'];
+    $u->prepare_method = [KeyvalPrepareMethod::class, 'call'];
+    $u->prepare_params = [KeyvalPrepareParams::class, 'call'];
+    $u->prepare_path = [KeyvalPreparePath::class, 'call'];
+    $u->prepare_query = [KeyvalPrepareQuery::class, 'call'];
+    $u->result_basic = [KeyvalResultBasic::class, 'call'];
+    $u->result_body = [KeyvalResultBody::class, 'call'];
+    $u->result_headers = [KeyvalResultHeaders::class, 'call'];
+    $u->transform_request = [KeyvalTransformRequest::class, 'call'];
+    $u->transform_response = [KeyvalTransformResponse::class, 'call'];
+});

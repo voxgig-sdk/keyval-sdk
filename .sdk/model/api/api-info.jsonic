@@ -1,0 +1,23 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://keyval.org"
+      }
+      description: "A super simple key value database with APIs for setting and getting key/value pairs."
+      servers: [
+        {
+          description: "Production server"
+          url: "https://api.keyval.org"
+        }
+      ]
+      title: "KeyVal API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

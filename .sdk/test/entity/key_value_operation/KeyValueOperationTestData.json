@@ -1,0 +1,26 @@
+{
+  "existing": {
+    "key_value_operation": {
+      "KEY_VALUE_OPERATION00": {
+        "key": "s14",
+        "value": "s15"
+      },
+      "KEY_VALUE_OPERATION01": {
+        "key": "s28",
+        "value": "s29"
+      },
+      "KEY_VALUE_OPERATION02": {
+        "key": "s3c",
+        "value": "s3d"
+      }
+    }
+  },
+  "new": {
+    "key_value_operation": {
+      "key_value_operation_ref01": {
+        "key": "s50",
+        "value": "s51"
+      }
+    }
+  }
+}
