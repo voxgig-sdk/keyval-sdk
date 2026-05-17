@@ -3,15 +3,18 @@
     "nt": {
       "NT00": {
         "key": "s14",
-        "value": "s15"
+        "value": "s15",
+        "id": "NT00"
       },
       "NT01": {
         "key": "s28",
-        "value": "s29"
+        "value": "s29",
+        "id": "NT01"
       },
       "NT02": {
         "key": "s3c",
-        "value": "s3d"
+        "value": "s3d",
+        "id": "NT02"
       }
     }
   },

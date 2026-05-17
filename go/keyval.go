@@ -1,10 +1,10 @@
 package voxgigkeyvalsdk
 
 import (
-	"github.com/voxgig-sdk/keyval-sdk/core"
-	"github.com/voxgig-sdk/keyval-sdk/entity"
-	"github.com/voxgig-sdk/keyval-sdk/feature"
-	_ "github.com/voxgig-sdk/keyval-sdk/utility"
+	"github.com/voxgig-sdk/keyval-sdk/go/core"
+	"github.com/voxgig-sdk/keyval-sdk/go/entity"
+	"github.com/voxgig-sdk/keyval-sdk/go/feature"
+	_ "github.com/voxgig-sdk/keyval-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

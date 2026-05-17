@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/keyval-sdk/core"
+import "github.com/voxgig-sdk/keyval-sdk/go/core"
 
 func makeResultUtil(ctx *core.Context) (*core.Result, error) {
 	if ctx.Out["result"] != nil {

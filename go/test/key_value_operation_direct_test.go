@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/keyval-sdk"
-	"github.com/voxgig-sdk/keyval-sdk/core"
+	sdk "github.com/voxgig-sdk/keyval-sdk/go"
+	"github.com/voxgig-sdk/keyval-sdk/go/core"
 )
 
 func TestKeyValueOperationDirect(t *testing.T) {
