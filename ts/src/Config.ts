@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://api.keyval.org',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },

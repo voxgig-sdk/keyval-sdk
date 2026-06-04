@@ -66,14 +66,12 @@ def _nt_direct_setup(mockres):
     env = runner.env_override({
         "KEYVAL_TEST_NT_ENTID": {},
         "KEYVAL_TEST_LIVE": "FALSE",
-        "KEYVAL_APIKEY": "NONE",
     })
 
     live = env.get("KEYVAL_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("KEYVAL_APIKEY"),
         }
         client = KeyvalSDK(merged_opts)
         return {

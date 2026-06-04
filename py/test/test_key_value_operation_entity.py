@@ -91,7 +91,6 @@ def _key_value_operation_basic_setup(extra):
         "KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID": idmap,
         "KEYVAL_TEST_LIVE": "FALSE",
         "KEYVAL_TEST_EXPLAIN": "FALSE",
-        "KEYVAL_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +101,6 @@ def _key_value_operation_basic_setup(extra):
     if env.get("KEYVAL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("KEYVAL_APIKEY"),
             },
             extra or {},
         ])

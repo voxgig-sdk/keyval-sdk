@@ -75,14 +75,12 @@ function nt_direct_setup($mockres)
     $env = Runner::env_override([
         "KEYVAL_TEST_NT_ENTID" => [],
         "KEYVAL_TEST_LIVE" => "FALSE",
-        "KEYVAL_APIKEY" => "NONE",
     ]);
 
     $live = $env["KEYVAL_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["KEYVAL_APIKEY"],
         ];
         $client = new KeyvalSDK($merged_opts);
         return [

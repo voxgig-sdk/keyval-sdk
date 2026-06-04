@@ -16,7 +16,16 @@
           }
         ],
         "title": "KeyVal API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "tagline": "Store and retrieve simple key/value pairs over plain HTTP GET requests",
+        "homepage": "https://keyval.org",
+        "docs_url": "https://keyval.org",
+        "about_md": "KeyVal is a minimal public key/value store reachable over HTTP at `https://api.keyval.org`. It is designed for quick prototypes, demos, and lightweight scripts that need a remote scratch space without setting up a database.\n\nWhat you get from the API:\n\n- `GET /set/{key}/{value}` — store a value under the given key\n- `GET /get/{key}/` — read back the value previously stored under that key\n\nOperationally the service has CORS enabled, so it can be called directly from browser code. The endpoints are unauthenticated in the documentation surfaced by community catalogues, and no rate limits or durability guarantees are published — treat stored values as public and ephemeral.",
+        "entity_desc": {
+          "key_value_operation": "Read and write operations against the shared key/value store, exposed as `GET /set/{key}/{value}` and `GET /get/{key}/`.",
+          "nt": "Catch-all grouping for operations the generator could not attach to a more specific entity."
+        },
+        "auth": false
       },
       "config": {
         "auth": {
@@ -24,7 +33,15 @@
         },
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ]
       },
       "entity": {
         "key_value_operation": {
