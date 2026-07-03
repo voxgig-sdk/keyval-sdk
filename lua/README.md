@@ -10,7 +10,7 @@ The Lua SDK for the Keyval API — an entity-oriented client using Lua conventio
 
 ## Install
 ```bash
-luarocks install keyval-sdk
+luarocks install voxgig-sdk-keyval
 ```
 
 If the module is not yet published, add the source directory to

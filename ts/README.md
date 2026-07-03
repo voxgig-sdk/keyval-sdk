@@ -10,7 +10,7 @@ The TypeScript SDK for the Keyval API — a type-safe, entity-oriented client wi
 
 ## Install
 ```bash
-npm install keyval
+npm install @voxgig-sdk/keyval
 ```
 ## Tutorial: your first API call
 

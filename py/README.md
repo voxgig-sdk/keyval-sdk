@@ -10,7 +10,7 @@ The Python SDK for the Keyval API — an entity-oriented client following Python
 
 ## Install
 ```bash
-pip install keyval-sdk
+pip install voxgig-sdk-keyval
 ```
 
 Or install from source:

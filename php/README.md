@@ -10,7 +10,7 @@ The PHP SDK for the Keyval API — an entity-oriented client using PHP conventio
 
 ## Install
 ```bash
-composer require voxgig/keyval-sdk
+composer require voxgig-sdk/keyval
 ```
 
 

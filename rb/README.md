@@ -10,13 +10,13 @@ The Ruby SDK for the Keyval API — an entity-oriented client using idiomatic Ru
 
 ## Install
 ```bash
-gem install keyval-sdk
+gem install voxgig-sdk-keyval
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "keyval-sdk"
+gem "voxgig-sdk-keyval"
 ```
 
 Then run:
