@@ -117,6 +117,7 @@ func ntBasicSetup(extra map[string]any) *entityTestSetup {
 		"KEYVAL_TEST_NT_ENTID": idmap,
 		"KEYVAL_TEST_LIVE":      "FALSE",
 		"KEYVAL_TEST_EXPLAIN":   "FALSE",
+		"KEYVAL_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["KEYVAL_TEST_NT_ENTID"])
@@ -127,6 +128,7 @@ func ntBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["KEYVAL_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["KEYVAL_APIKEY"],
 			},
 			extra,
 		})

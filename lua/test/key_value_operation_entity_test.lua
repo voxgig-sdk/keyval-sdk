@@ -91,6 +91,7 @@ function key_value_operation_basic_setup(extra)
     ["KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID"] = idmap,
     ["KEYVAL_TEST_LIVE"] = "FALSE",
     ["KEYVAL_TEST_EXPLAIN"] = "FALSE",
+    ["KEYVAL_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -102,6 +103,7 @@ function key_value_operation_basic_setup(extra)
   if env["KEYVAL_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["KEYVAL_APIKEY"],
       },
       extra or {},
     })

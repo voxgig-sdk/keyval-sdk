@@ -115,12 +115,14 @@ func key_value_operationDirectSetup(mockres any) *key_value_operationDirectSetup
 	env := envOverride(map[string]any{
 		"KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID": map[string]any{},
 		"KEYVAL_TEST_LIVE":    "FALSE",
+		"KEYVAL_APIKEY":       "NONE",
 	})
 
 	live := env["KEYVAL_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["KEYVAL_APIKEY"],
 		}
 		client := sdk.NewKeyvalSDK(mergedOpts)
 

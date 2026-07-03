@@ -1,19 +1,8 @@
 # Keyval SDK
 
-Store and retrieve simple key/value pairs over plain HTTP GET requests
+KeyVal API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About KeyVal API
-
-KeyVal is a minimal public key/value store reachable over HTTP at `https://api.keyval.org`. It is designed for quick prototypes, demos, and lightweight scripts that need a remote scratch space without setting up a database.
-
-What you get from the API:
-
-- `GET /set/{key}/{value}` — store a value under the given key
-- `GET /get/{key}/` — read back the value previously stored under that key
-
-Operationally the service has CORS enabled, so it can be called directly from browser code. The endpoints are unauthenticated in the documentation surfaced by community catalogues, and no rate limits or durability guarantees are published — treat stored values as public and ephemeral.
 
 ## Try it
 
@@ -47,27 +36,31 @@ gem install keyval-sdk
 luarocks install keyval-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { KeyvalSDK } from 'keyval'
 
-const client = new KeyvalSDK({})
+const client = new KeyvalSDK({
+  apikey: process.env.KEYVAL_APIKEY,
+})
 
+// Load keyvalueoperation data
+const keyvalueoperation = await client.KeyValueOperation().load({})
+console.log(keyvalueoperation.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -97,8 +90,8 @@ The API exposes 2 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **KeyValueOperation** | Read and write operations against the shared key/value store, exposed as `GET /set/{key}/{value}` and `GET /get/{key}/`. | `/set/{key}/{value}` |
-| **Nt** | Catch-all grouping for operations the generator could not attach to a more specific entity. | `/-/{value}` |
+| **KeyValueOperation** |  | `/set/{key}/{value}` |
+| **Nt** |  | `/-/{value}` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -108,15 +101,17 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from keyval_sdk import KeyvalSDK
 
-client = KeyvalSDK({})
+client = KeyvalSDK({
+    "apikey": os.environ.get("KEYVAL_APIKEY"),
+})
 
 
 # Load a specific keyvalueoperation
-keyvalueoperation, err = client.KeyValueOperation(None).load(
-    {"id": "example_id"}, None
-)
+keyvalueoperation, err = client.KeyValueOperation().load({"id": "example_id"})
+print(keyvalueoperation)
 ```
 
 ### PHP
@@ -125,13 +120,14 @@ keyvalueoperation, err = client.KeyValueOperation(None).load(
 <?php
 require_once 'keyval_sdk.php';
 
-$client = new KeyvalSDK([]);
+$client = new KeyvalSDK([
+    "apikey" => getenv("KEYVAL_APIKEY"),
+]);
 
 
 // Load a specific keyvalueoperation
-[$keyvalueoperation, $err] = $client->KeyValueOperation(null)->load(
-    ["id" => "example_id"], null
-);
+[$keyvalueoperation, $err] = $client->KeyValueOperation()->load(["id" => "example_id"]);
+print_r($keyvalueoperation);
 ```
 
 ### Golang
@@ -139,8 +135,13 @@ $client = new KeyvalSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/keyval-sdk/go"
 
-client := sdk.NewKeyvalSDK(map[string]any{})
+client := sdk.NewKeyvalSDK(map[string]any{
+    "apikey": os.Getenv("KEYVAL_APIKEY"),
+})
 
+// Load keyvalueoperation data
+keyvalueoperation, err := client.KeyValueOperation(nil).Load(map[string]any{}, nil)
+fmt.Println(keyvalueoperation)
 ```
 
 ### Ruby
@@ -148,13 +149,14 @@ client := sdk.NewKeyvalSDK(map[string]any{})
 ```ruby
 require_relative "Keyval_sdk"
 
-client = KeyvalSDK.new({})
+client = KeyvalSDK.new({
+  "apikey" => ENV["KEYVAL_APIKEY"],
+})
 
 
 # Load a specific keyvalueoperation
-keyvalueoperation, err = client.KeyValueOperation(nil).load(
-  { "id" => "example_id" }, nil
-)
+keyvalueoperation, err = client.KeyValueOperation().load({ "id" => "example_id" })
+puts keyvalueoperation
 ```
 
 ### Lua
@@ -162,13 +164,14 @@ keyvalueoperation, err = client.KeyValueOperation(nil).load(
 ```lua
 local sdk = require("keyval_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("KEYVAL_APIKEY"),
+})
 
 
 -- Load a specific keyvalueoperation
-local keyvalueoperation, err = client:KeyValueOperation(nil):load(
-  { id = "example_id" }, nil
-)
+local keyvalueoperation, err = client:KeyValueOperation():load({ id = "example_id" })
+print(keyvalueoperation)
 ```
 
 ## Unit testing in offline mode
@@ -187,25 +190,21 @@ const result = await client.KeyValueOperation().load({ id: 'test01' })
 ### Python
 
 ```python
-client = KeyvalSDK.test(None, None)
-result, err = client.KeyValueOperation(None).load(
-    {"id": "test01"}, None
-)
+client = KeyvalSDK.test()
+result, err = client.KeyValueOperation().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = KeyvalSDK::test(null, null);
-[$result, $err] = $client->KeyValueOperation(null)->load(
-    ["id" => "test01"], null
-);
+$client = KeyvalSDK::test();
+[$result, $err] = $client->KeyValueOperation()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.KeyValueOperation(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -214,19 +213,15 @@ result, err := client.KeyValueOperation(nil).Load(
 ### Ruby
 
 ```ruby
-client = KeyvalSDK.test(nil, nil)
-result, err = client.KeyValueOperation(nil).load(
-  { "id" => "test01" }, nil
-)
+client = KeyvalSDK.test
+result, err = client.KeyValueOperation().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:KeyValueOperation(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:KeyValueOperation():load({ id = "test01" })
 ```
 
 ## How it works
@@ -330,10 +325,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the KeyVal API
-
-- Upstream: [https://keyval.org](https://keyval.org)
 
 ---
 

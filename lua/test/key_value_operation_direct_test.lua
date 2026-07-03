@@ -72,12 +72,14 @@ function key_value_operation_direct_setup(mockres)
   local env = runner.env_override({
     ["KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID"] = {},
     ["KEYVAL_TEST_LIVE"] = "FALSE",
+    ["KEYVAL_APIKEY"] = "NONE",
   })
 
   local live = env["KEYVAL_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["KEYVAL_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

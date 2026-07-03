@@ -82,6 +82,7 @@ def nt_basic_setup(extra)
     "KEYVAL_TEST_NT_ENTID" => idmap,
     "KEYVAL_TEST_LIVE" => "FALSE",
     "KEYVAL_TEST_EXPLAIN" => "FALSE",
+    "KEYVAL_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -93,6 +94,7 @@ def nt_basic_setup(extra)
   if env["KEYVAL_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
+        "apikey" => env["KEYVAL_APIKEY"],
       },
       extra || {},
     ])

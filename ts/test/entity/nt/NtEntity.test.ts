@@ -111,6 +111,7 @@ function basicSetup(extra?: any) {
     'KEYVAL_TEST_NT_ENTID': idmap,
     'KEYVAL_TEST_LIVE': 'FALSE',
     'KEYVAL_TEST_EXPLAIN': 'FALSE',
+    'KEYVAL_APIKEY': 'NONE',
   })
 
   idmap = env['KEYVAL_TEST_NT_ENTID']
@@ -120,6 +121,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new KeyvalSDK(merge([
       {
+        apikey: env.KEYVAL_APIKEY,
       },
       extra
     ]))

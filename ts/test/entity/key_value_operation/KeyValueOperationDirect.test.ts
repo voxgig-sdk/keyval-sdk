@@ -82,12 +82,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID': {},
     'KEYVAL_TEST_LIVE': 'FALSE',
+    'KEYVAL_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.KEYVAL_TEST_LIVE
 
   if (live) {
     const client = new KeyvalSDK({
+      apikey: env.KEYVAL_APIKEY,
     })
 
     let idmap: any = env['KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID']
