@@ -33,10 +33,12 @@ client = KeyvalSDK()
 
 ### 3. Load a keyvalueoperation
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.keyvalueoperation.load({"id": "example_id"})
-    print(result)
+    keyvalueoperation = client.KeyValueOperation().load({"id": "example_id"})
+    print(keyvalueoperation)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -84,8 +86,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = KeyvalSDK.test()
 
-result = client.keyvalueoperation.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+keyvalueoperation = client.KeyValueOperation().load({"id": "test01"})
+# keyvalueoperation contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -231,7 +234,7 @@ API path: `/-/{value}`
 
 ### KeyValueOperation
 
-Create an instance: `const key_value_operation = client.key_value_operation`
+Create an instance: `key_value_operation = client.KeyValueOperation()`
 
 #### Operations
 
@@ -248,14 +251,14 @@ Create an instance: `const key_value_operation = client.key_value_operation`
 
 #### Example: Load
 
-```ts
-const key_value_operation = await client.key_value_operation.load({ id: 'key_value_operation_id' })
+```python
+key_value_operation = client.KeyValueOperation().load({"id": "key_value_operation_id"})
 ```
 
 
 ### Nt
 
-Create an instance: `const nt = client.nt`
+Create an instance: `nt = client.Nt()`
 
 #### Operations
 
@@ -272,8 +275,8 @@ Create an instance: `const nt = client.nt`
 
 #### Example: Load
 
-```ts
-const nt = await client.nt.load({ id: 'nt_id' })
+```python
+nt = client.Nt().load({"id": "nt_id"})
 ```
 
 
@@ -347,7 +350,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-keyvalueoperation = client.keyvalueoperation
+keyvalueoperation = client.KeyValueOperation()
 keyvalueoperation.load({"id": "example_id"})
 
 # keyvalueoperation.data_get() now returns the loaded keyvalueoperation data

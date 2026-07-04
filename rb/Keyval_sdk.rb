@@ -208,26 +208,14 @@ class KeyvalSDK
   end
 
 
-  # Idiomatic facade: client.key_value_operation.list / client.key_value_operation.load({ "id" => ... })
-  def key_value_operation
-    require_relative 'entity/key_value_operation_entity'
-    @key_value_operation ||= KeyValueOperationEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.key_value_operation instead.
+  # Canonical facade: client.KeyValueOperation.list / client.KeyValueOperation.load({ "id" => ... })
   def KeyValueOperation(data = nil)
     require_relative 'entity/key_value_operation_entity'
     KeyValueOperationEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.nt.list / client.nt.load({ "id" => ... })
-  def nt
-    require_relative 'entity/nt_entity'
-    @nt ||= NtEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.nt instead.
+  # Canonical facade: client.Nt.list / client.Nt.load({ "id" => ... })
   def Nt(data = nil)
     require_relative 'entity/nt_entity'
     NtEntity.new(self, data)

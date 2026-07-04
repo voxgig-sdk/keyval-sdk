@@ -32,8 +32,9 @@ client = KeyvalSDK.new
 
 ```ruby
 begin
-  result = client.keyvalueoperation.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare KeyValueOperation record (raises on error).
+  keyvalueoperation = client.KeyValueOperation.load({ "id" => "example_id" })
+  puts keyvalueoperation
 rescue => err
   warn "load failed: #{err}"
 end
@@ -80,13 +81,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = KeyvalSDK.test
+client = KeyvalSDK.test({
+  "entity" => { "keyvalueoperation" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.keyvalueoperation.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+keyvalueoperation = client.KeyValueOperation.load({ "id" => "test01" })
+puts keyvalueoperation
 ```
 
 ### Use a custom fetch function
@@ -231,7 +236,7 @@ API path: `/-/{value}`
 
 ### KeyValueOperation
 
-Create an instance: `const key_value_operation = client.key_value_operation`
+Create an instance: `key_value_operation = client.KeyValueOperation`
 
 #### Operations
 
@@ -248,14 +253,15 @@ Create an instance: `const key_value_operation = client.key_value_operation`
 
 #### Example: Load
 
-```ts
-const key_value_operation = await client.key_value_operation.load({ id: 'key_value_operation_id' })
+```ruby
+# load returns the bare KeyValueOperation record (raises on error).
+key_value_operation = client.KeyValueOperation.load({ "id" => "key_value_operation_id" })
 ```
 
 
 ### Nt
 
-Create an instance: `const nt = client.nt`
+Create an instance: `nt = client.Nt`
 
 #### Operations
 
@@ -272,8 +278,9 @@ Create an instance: `const nt = client.nt`
 
 #### Example: Load
 
-```ts
-const nt = await client.nt.load({ id: 'nt_id' })
+```ruby
+# load returns the bare Nt record (raises on error).
+nt = client.Nt.load({ "id" => "nt_id" })
 ```
 
 
@@ -348,7 +355,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-keyvalueoperation = client.keyvalueoperation
+keyvalueoperation = client.KeyValueOperation
 keyvalueoperation.load({ "id" => "example_id" })
 
 # keyvalueoperation.data_get now returns the loaded keyvalueoperation data

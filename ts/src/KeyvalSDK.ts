@@ -205,28 +205,14 @@ class KeyvalSDK {
 
 
 
-  _key_value_operation?: KeyValueOperationEntity
-
-  // Idiomatic facade: `client.key_value_operation.list()` / `client.key_value_operation.load({ id })`.
-  get key_value_operation(): KeyValueOperationEntity {
-    return (this._key_value_operation ??= new KeyValueOperationEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.key_value_operation` instead. */
+  // Entity access: `client.KeyValueOperation().list()` / `client.KeyValueOperation().load({ id })`.
   KeyValueOperation(data?: any) {
     const self = this
     return new KeyValueOperationEntity(self,data)
   }
 
 
-  _nt?: NtEntity
-
-  // Idiomatic facade: `client.nt.list()` / `client.nt.load({ id })`.
-  get nt(): NtEntity {
-    return (this._nt ??= new NtEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.nt` instead. */
+  // Entity access: `client.Nt().list()` / `client.Nt().load({ id })`.
   Nt(data?: any) {
     const self = this
     return new NtEntity(self,data)

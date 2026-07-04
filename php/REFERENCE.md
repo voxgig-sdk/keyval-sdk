@@ -89,7 +89,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## KeyValueOperationEntity
 
 ```php
-$key_value_operation = $client->key_value_operation();
+$key_value_operation = $client->KeyValueOperation();
 ```
 
 ### Fields
@@ -106,7 +106,7 @@ $key_value_operation = $client->key_value_operation();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->key_value_operation()->load(["id" => "key_value_operation_id"]);
+$result = $client->KeyValueOperation()->load(["id" => "key_value_operation_id"]);
 ```
 
 ### Common Methods
@@ -142,7 +142,7 @@ Return the entity name.
 ## NtEntity
 
 ```php
-$nt = $client->nt();
+$nt = $client->Nt();
 ```
 
 ### Fields
@@ -159,7 +159,7 @@ $nt = $client->nt();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->nt()->load(["id" => "nt_id"]);
+$result = $client->Nt()->load(["id" => "nt_id"]);
 ```
 
 ### Common Methods

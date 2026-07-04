@@ -233,10 +233,10 @@ class KeyvalSDK
 
     private $_key_value_operation = null;
 
-    // Idiomatic facade: $client->key_value_operation()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias KeyValueOperation() (PHP method
-    // names are case-insensitive).
-    public function key_value_operation($data = null)
+    // Canonical facade: $client->KeyValueOperation()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->key_value_operation()
+    // resolves here too.
+    public function KeyValueOperation($data = null)
     {
         require_once __DIR__ . '/entity/key_value_operation_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class KeyvalSDK
 
     private $_nt = null;
 
-    // Idiomatic facade: $client->nt()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Nt() (PHP method
-    // names are case-insensitive).
-    public function nt($data = null)
+    // Canonical facade: $client->Nt()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->nt()
+    // resolves here too.
+    public function Nt($data = null)
     {
         require_once __DIR__ . '/entity/nt_entity.php';
         if ($data === null) {

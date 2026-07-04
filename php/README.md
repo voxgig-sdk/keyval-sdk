@@ -33,9 +33,10 @@ $client = new KeyvalSDK();
 
 ```php
 try {
-    $result = $client->keyvalueoperation()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare KeyValueOperation record (throws on error).
+    $keyvalueoperation = $client->KeyValueOperation()->load(["id" => "example_id"]);
+    print_r($keyvalueoperation);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -81,13 +82,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = KeyvalSDK::test();
+$client = KeyvalSDK::test([
+    "entity" => ["keyvalueoperation" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->keyvalueoperation()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$keyvalueoperation = $client->KeyValueOperation()->load(["id" => "test01"]);
+print_r($keyvalueoperation);
 ```
 
 ### Use a custom fetch function
@@ -236,7 +241,7 @@ API path: `/-/{value}`
 
 ### KeyValueOperation
 
-Create an instance: `const key_value_operation = client.key_value_operation`
+Create an instance: `$key_value_operation = $client->KeyValueOperation();`
 
 #### Operations
 
@@ -253,14 +258,15 @@ Create an instance: `const key_value_operation = client.key_value_operation`
 
 #### Example: Load
 
-```ts
-const key_value_operation = await client.key_value_operation.load({ id: 'key_value_operation_id' })
+```php
+// load() returns the bare KeyValueOperation record (throws on error).
+$key_value_operation = $client->KeyValueOperation()->load(["id" => "key_value_operation_id"]);
 ```
 
 
 ### Nt
 
-Create an instance: `const nt = client.nt`
+Create an instance: `$nt = $client->Nt();`
 
 #### Operations
 
@@ -277,8 +283,9 @@ Create an instance: `const nt = client.nt`
 
 #### Example: Load
 
-```ts
-const nt = await client.nt.load({ id: 'nt_id' })
+```php
+// load() returns the bare Nt record (throws on error).
+$nt = $client->Nt()->load(["id" => "nt_id"]);
 ```
 
 
@@ -353,7 +360,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$keyvalueoperation = $client->keyvalueoperation();
+$keyvalueoperation = $client->KeyValueOperation();
 $keyvalueoperation->load(["id" => "example_id"]);
 
 // $keyvalueoperation->dataGet() now returns the loaded keyvalueoperation data

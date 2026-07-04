@@ -26,9 +26,9 @@ import { KeyvalSDK } from '@voxgig-sdk/keyval'
 
 const client = new KeyvalSDK()
 
-// Load keyvalueoperation data
-const keyvalueoperation = await client.keyvalueoperation.load({})
-console.log(keyvalueoperation.data)
+// Load keyvalueoperation data (returns a KeyValueOperation)
+const keyvalueoperation = await client.KeyValueOperation().load()
+console.log(keyvalueoperation)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -85,8 +85,8 @@ from keyval_sdk import KeyvalSDK
 client = KeyvalSDK()
 
 
-# Load a specific keyvalueoperation
-keyvalueoperation = client.keyvalueoperation.load({"id": "example_id"})
+# Load a specific keyvalueoperation (returns the record, raises on error)
+keyvalueoperation = client.KeyValueOperation().load({"id": "example_id"})
 print(keyvalueoperation)
 ```
 
@@ -99,8 +99,8 @@ require_once 'keyval_sdk.php';
 $client = new KeyvalSDK();
 
 
-// Load a specific keyvalueoperation
-$keyvalueoperation = $client->keyvalueoperation()->load(["id" => "example_id"]);
+// Load a specific keyvalueoperation (returns the bare record; throws on error)
+$keyvalueoperation = $client->KeyValueOperation()->load(["id" => "example_id"]);
 print_r($keyvalueoperation);
 ```
 
@@ -124,8 +124,8 @@ require_relative "Keyval_sdk"
 client = KeyvalSDK.new
 
 
-# Load a specific keyvalueoperation
-keyvalueoperation = client.keyvalueoperation.load({ "id" => "example_id" })
+# Load a specific keyvalueoperation (returns the bare record; raises on error)
+keyvalueoperation = client.KeyValueOperation.load({ "id" => "example_id" })
 puts keyvalueoperation
 ```
 
@@ -138,7 +138,7 @@ local client = sdk.new()
 
 
 -- Load a specific keyvalueoperation
-local keyvalueoperation, err = client:keyvalueoperation():load({ id = "example_id" })
+local keyvalueoperation, err = client:KeyValueOperation():load({ id = "example_id" })
 print(keyvalueoperation)
 ```
 
@@ -151,22 +151,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = KeyvalSDK.test()
-const result = await client.keyvalueoperation.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const keyvalueoperation = await client.KeyValueOperation().load({ id: 'test01' })
+// keyvalueoperation is a bare KeyValueOperation populated with mock data
+console.log(keyvalueoperation)
 ```
 
 ### Python
 
 ```python
 client = KeyvalSDK.test()
-result = client.keyvalueoperation.load({"id": "test01"})
+keyvalueoperation = client.KeyValueOperation().load({"id": "test01"})
+print(keyvalueoperation)
 ```
 
 ### PHP
 
 ```php
-$client = KeyvalSDK::test();
-$result = $client->keyvalueoperation()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = KeyvalSDK::test([
+    "entity" => ["keyvalueoperation" => ["test01" => ["id" => "test01"]]],
+]);
+$keyvalueoperation = $client->KeyValueOperation()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -181,15 +186,18 @@ result, err := client.KeyValueOperation(nil).Load(
 ### Ruby
 
 ```ruby
-client = KeyvalSDK.test
-result = client.keyvalueoperation.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = KeyvalSDK.test({
+  "entity" => { "keyvalueoperation" => { "test01" => { "id" => "test01" } } },
+})
+keyvalueoperation = client.KeyValueOperation.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:keyvalueoperation():load({ id = "test01" })
+local result, err = client:KeyValueOperation():load({ id = "test01" })
 ```
 
 ## How it works
@@ -237,6 +245,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

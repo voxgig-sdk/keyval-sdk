@@ -220,41 +220,21 @@ class KeyvalSDK:
         }
 
 
-    @property
-    def key_value_operation(self):
-        """Idiomatic facade: client.key_value_operation.list() / client.key_value_operation.load({"id": ...})."""
-        from entity.key_value_operation_entity import KeyValueOperationEntity
-        cached = getattr(self, "_key_value_operation", None)
-        if cached is None:
-            cached = KeyValueOperationEntity(self, None)
-            self._key_value_operation = cached
-        return cached
-
-    def KeyValueOperation(self, data=None):
-        # Deprecated: use client.key_value_operation instead.
+    def KeyValueOperation(self, data=None) -> "KeyValueOperationEntity":
+        """Entity factory: client.KeyValueOperation().list({}) / client.KeyValueOperation().load({"id": ...})."""
         from entity.key_value_operation_entity import KeyValueOperationEntity
         return KeyValueOperationEntity(self, data)
 
 
-    @property
-    def nt(self):
-        """Idiomatic facade: client.nt.list() / client.nt.load({"id": ...})."""
-        from entity.nt_entity import NtEntity
-        cached = getattr(self, "_nt", None)
-        if cached is None:
-            cached = NtEntity(self, None)
-            self._nt = cached
-        return cached
-
-    def Nt(self, data=None):
-        # Deprecated: use client.nt instead.
+    def Nt(self, data=None) -> "NtEntity":
+        """Entity factory: client.Nt().list({}) / client.Nt().load({"id": ...})."""
         from entity.nt_entity import NtEntity
         return NtEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "KeyvalSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -274,3 +254,10 @@ class KeyvalSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.key_value_operation_entity import KeyValueOperationEntity
+    from entity.nt_entity import NtEntity

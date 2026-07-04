@@ -84,7 +84,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## KeyValueOperationEntity
 
 ```python
-key_value_operation = client.key_value_operation
+key_value_operation = client.KeyValueOperation()
 ```
 
 ### Fields
@@ -101,7 +101,7 @@ key_value_operation = client.key_value_operation
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.key_value_operation.load({"id": "key_value_operation_id"})
+result = client.KeyValueOperation().load({"id": "key_value_operation_id"})
 ```
 
 ### Common Methods
@@ -136,7 +136,7 @@ Return the entity name.
 ## NtEntity
 
 ```python
-nt = client.nt
+nt = client.Nt()
 ```
 
 ### Fields
@@ -153,7 +153,7 @@ nt = client.nt
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.nt.load({"id": "nt_id"})
+result = client.Nt().load({"id": "nt_id"})
 ```
 
 ### Common Methods

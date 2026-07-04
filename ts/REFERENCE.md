@@ -121,7 +121,7 @@ Alias for `KeyvalSDK.test()`.
 ## KeyValueOperationEntity
 
 ```ts
-const key_value_operation = client.key_value_operation
+const key_value_operation = client.KeyValueOperation()
 ```
 
 ### Fields
@@ -138,7 +138,7 @@ const key_value_operation = client.key_value_operation
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.key_value_operation.load({ id: 'key_value_operation_id' })
+const result = await client.KeyValueOperation().load({ id: 'key_value_operation_id' })
 ```
 
 ### Common Methods
@@ -172,7 +172,7 @@ Return a copy of the entity options.
 ## NtEntity
 
 ```ts
-const nt = client.nt
+const nt = client.Nt()
 ```
 
 ### Fields
@@ -189,7 +189,7 @@ const nt = client.nt
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.nt.load({ id: 'nt_id' })
+const result = await client.Nt().load({ id: 'nt_id' })
 ```
 
 ### Common Methods
