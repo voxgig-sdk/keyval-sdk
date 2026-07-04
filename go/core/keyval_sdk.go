@@ -245,11 +245,17 @@ func (sdk *KeyvalSDK) Direct(fetchargs map[string]any) (map[string]any, error) {
 }
 
 
+// KeyValueOperation returns a KeyValueOperation entity bound to this client.
+// Idiomatic usage: client.KeyValueOperation(nil).List(nil, nil) or
+// client.KeyValueOperation(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *KeyvalSDK) KeyValueOperation(data map[string]any) KeyvalEntity {
 	return NewKeyValueOperationEntityFunc(sdk, data)
 }
 
 
+// Nt returns a Nt entity bound to this client.
+// Idiomatic usage: client.Nt(nil).List(nil, nil) or
+// client.Nt(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *KeyvalSDK) Nt(data map[string]any) KeyvalEntity {
 	return NewNtEntityFunc(sdk, data)
 }

@@ -49,8 +49,7 @@ class NtEntityTest extends TestCase
         // LOAD
         $nt_ref01_ent = $client->Nt(null);
         $nt_ref01_match_dt0 = [];
-        [$nt_ref01_data_dt0_loaded, $err] = $nt_ref01_ent->load($nt_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $nt_ref01_data_dt0_loaded = $nt_ref01_ent->load($nt_ref01_match_dt0, null);
         $this->assertNotNull($nt_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function nt_basic_setup($extra)
         "KEYVAL_TEST_NT_ENTID" => $idmap,
         "KEYVAL_TEST_LIVE" => "FALSE",
         "KEYVAL_TEST_EXPLAIN" => "FALSE",
-        "KEYVAL_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function nt_basic_setup($extra)
     if ($env["KEYVAL_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["KEYVAL_APIKEY"],
             ],
             $extra ?? [],
         ]);

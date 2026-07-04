@@ -42,8 +42,7 @@ class NtEntityTest < Minitest::Test
     # LOAD
     nt_ref01_ent = client.Nt(nil)
     nt_ref01_match_dt0 = {}
-    nt_ref01_data_dt0_loaded, err = nt_ref01_ent.load(nt_ref01_match_dt0, nil)
-    assert_nil err
+    nt_ref01_data_dt0_loaded = nt_ref01_ent.load(nt_ref01_match_dt0, nil)
     assert !nt_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def nt_basic_setup(extra)
     "KEYVAL_TEST_NT_ENTID" => idmap,
     "KEYVAL_TEST_LIVE" => "FALSE",
     "KEYVAL_TEST_EXPLAIN" => "FALSE",
-    "KEYVAL_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def nt_basic_setup(extra)
   if env["KEYVAL_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["KEYVAL_APIKEY"],
       },
       extra || {},
     ])

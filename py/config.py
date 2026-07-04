@@ -15,9 +15,6 @@ def make_config():
         },
         "options": {
             "base": "https://api.keyval.org",
-            "auth": {
-                "prefix": "Bearer",
-            },
             "headers": {
         "content-type": "application/json",
       },
@@ -62,6 +59,7 @@ def make_config():
                       "orig": "key",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -71,6 +69,7 @@ def make_config():
                       "orig": "value",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                 },
@@ -105,6 +104,7 @@ def make_config():
                       "orig": "key",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                 },
@@ -175,6 +175,7 @@ def make_config():
                       "orig": "value",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                 },

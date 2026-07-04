@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Nt,
+  NtLoadMatch,
+} from '../KeyvalTypes'
 
 // TODO: needs Entity superclass
-class NtEntity extends KeyvalEntityBase {
+class NtEntity extends KeyvalEntityBase<Nt> {
 
   constructor(client: KeyvalSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class NtEntity extends KeyvalEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: NtLoadMatch, ctrl?: Control): Promise<Nt> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class NtEntity extends KeyvalEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Nt> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

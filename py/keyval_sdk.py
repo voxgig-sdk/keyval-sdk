@@ -144,16 +144,23 @@ class KeyvalSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class KeyvalSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,20 +212,42 @@ class KeyvalSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def key_value_operation(self):
+        """Idiomatic facade: client.key_value_operation.list() / client.key_value_operation.load({"id": ...})."""
+        from entity.key_value_operation_entity import KeyValueOperationEntity
+        cached = getattr(self, "_key_value_operation", None)
+        if cached is None:
+            cached = KeyValueOperationEntity(self, None)
+            self._key_value_operation = cached
+        return cached
 
     def KeyValueOperation(self, data=None):
+        # Deprecated: use client.key_value_operation instead.
         from entity.key_value_operation_entity import KeyValueOperationEntity
         return KeyValueOperationEntity(self, data)
 
 
+    @property
+    def nt(self):
+        """Idiomatic facade: client.nt.list() / client.nt.load({"id": ...})."""
+        from entity.nt_entity import NtEntity
+        cached = getattr(self, "_nt", None)
+        if cached is None:
+            cached = NtEntity(self, None)
+            self._nt = cached
+        return cached
+
     def Nt(self, data=None):
+        # Deprecated: use client.nt instead.
         from entity.nt_entity import NtEntity
         return NtEntity(self, data)
 

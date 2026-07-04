@@ -9,9 +9,12 @@ The TypeScript SDK for the Keyval API — a type-safe, entity-oriented client wi
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/keyval
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/keyval-sdk/releases](https://github.com/voxgig-sdk/keyval-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { KeyvalSDK } from 'keyval'
+import { KeyvalSDK } from '@voxgig-sdk/keyval'
 
-const client = new KeyvalSDK({
-  apikey: process.env.KEYVAL_APIKEY,
-})
+const client = new KeyvalSDK()
 ```
 
 ### 3. Load a keyvalueoperation
 
 ```ts
-const result = await client.KeyValueOperation().load({ id: 'example_id' })
+const result = await client.keyvalueoperation.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -79,7 +80,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = KeyvalSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.keyvalueoperation.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -87,7 +88,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new KeyvalSDK({ apikey: '...' })
+const client = new KeyvalSDK()
 const testClient = client.tester()
 ```
 
@@ -96,7 +97,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.keyvalueoperation
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -123,7 +124,6 @@ const logger = {
 }
 
 const client = new KeyvalSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -134,7 +134,6 @@ Create a `.env.local` file at the project root:
 
 ```
 KEYVAL_TEST_LIVE=TRUE
-KEYVAL_APIKEY=<your-key>
 ```
 
 Then run:
@@ -152,7 +151,6 @@ cd ts && npm test
 
 ```ts
 new KeyvalSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -163,7 +161,6 @@ new KeyvalSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -279,7 +276,7 @@ API path: `/-/{value}`
 
 ### KeyValueOperation
 
-Create an instance: `const key_value_operation = client.KeyValueOperation()`
+Create an instance: `const key_value_operation = client.key_value_operation`
 
 #### Operations
 
@@ -297,13 +294,13 @@ Create an instance: `const key_value_operation = client.KeyValueOperation()`
 #### Example: Load
 
 ```ts
-const key_value_operation = await client.KeyValueOperation().load({ id: 'key_value_operation_id' })
+const key_value_operation = await client.key_value_operation.load({ id: 'key_value_operation_id' })
 ```
 
 
 ### Nt
 
-Create an instance: `const nt = client.Nt()`
+Create an instance: `const nt = client.nt`
 
 #### Operations
 
@@ -321,7 +318,7 @@ Create an instance: `const nt = client.Nt()`
 #### Example: Load
 
 ```ts
-const nt = await client.Nt().load({ id: 'nt_id' })
+const nt = await client.nt.load({ id: 'nt_id' })
 ```
 
 
@@ -382,7 +379,7 @@ keyval/
 Import the SDK from the package root:
 
 ```ts
-import { KeyvalSDK } from 'keyval'
+import { KeyvalSDK } from '@voxgig-sdk/keyval'
 ```
 
 ### Entity state
@@ -392,11 +389,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const keyvalueoperation = client.keyvalueoperation
+await keyvalueoperation.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// keyvalueoperation.data() now returns the loaded keyvalueoperation data
+// keyvalueoperation.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

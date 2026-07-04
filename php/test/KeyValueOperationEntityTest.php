@@ -49,8 +49,7 @@ class KeyValueOperationEntityTest extends TestCase
         // LOAD
         $key_value_operation_ref01_ent = $client->KeyValueOperation(null);
         $key_value_operation_ref01_match_dt0 = [];
-        [$key_value_operation_ref01_data_dt0_loaded, $err] = $key_value_operation_ref01_ent->load($key_value_operation_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $key_value_operation_ref01_data_dt0_loaded = $key_value_operation_ref01_ent->load($key_value_operation_ref01_match_dt0, null);
         $this->assertNotNull($key_value_operation_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function key_value_operation_basic_setup($extra)
         "KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID" => $idmap,
         "KEYVAL_TEST_LIVE" => "FALSE",
         "KEYVAL_TEST_EXPLAIN" => "FALSE",
-        "KEYVAL_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function key_value_operation_basic_setup($extra)
     if ($env["KEYVAL_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["KEYVAL_APIKEY"],
             ],
             $extra ?? [],
         ]);

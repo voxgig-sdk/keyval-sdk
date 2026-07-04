@@ -49,8 +49,7 @@ class TestKeyValueOperationEntity:
         # LOAD
         key_value_operation_ref01_ent = client.KeyValueOperation(None)
         key_value_operation_ref01_match_dt0 = {}
-        key_value_operation_ref01_data_dt0_loaded, err = key_value_operation_ref01_ent.load(key_value_operation_ref01_match_dt0, None)
-        assert err is None
+        key_value_operation_ref01_data_dt0_loaded = key_value_operation_ref01_ent.load(key_value_operation_ref01_match_dt0, None)
         assert key_value_operation_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _key_value_operation_basic_setup(extra):
         "KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID": idmap,
         "KEYVAL_TEST_LIVE": "FALSE",
         "KEYVAL_TEST_EXPLAIN": "FALSE",
-        "KEYVAL_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _key_value_operation_basic_setup(extra):
     if env.get("KEYVAL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("KEYVAL_APIKEY"),
             },
             extra or {},
         ])

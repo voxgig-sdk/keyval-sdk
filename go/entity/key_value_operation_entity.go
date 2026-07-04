@@ -85,6 +85,27 @@ func (e *KeyValueOperationEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an KeyValueOperation; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *KeyValueOperationEntity) DataTyped(data ...KeyValueOperation) KeyValueOperation {
+	if len(data) > 0 {
+		return typedFrom[KeyValueOperation](e.Data(asMap(data[0])))
+	}
+	return typedFrom[KeyValueOperation](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through KeyValueOperation (all fields
+// optional at the wire level).
+func (e *KeyValueOperationEntity) MatchTyped(match ...KeyValueOperation) KeyValueOperation {
+	if len(match) > 0 {
+		return typedFrom[KeyValueOperation](e.Match(asMap(match[0])))
+	}
+	return typedFrom[KeyValueOperation](e.Match())
+}
+
 
 func (e *KeyValueOperationEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -109,6 +130,17 @@ func (e *KeyValueOperationEntity) Load(reqmatch map[string]any, ctrl map[string]
 			}
 		}
 	})
+}
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// KeyValueOperationLoadMatch and returns an KeyValueOperation. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *KeyValueOperationEntity) LoadTyped(reqmatch KeyValueOperationLoadMatch, ctrl map[string]any) (KeyValueOperation, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return KeyValueOperation{}, err
+	}
+	return typedFrom[KeyValueOperation](res), nil
 }
 
 

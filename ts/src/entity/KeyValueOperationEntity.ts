@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  KeyValueOperation,
+  KeyValueOperationLoadMatch,
+} from '../KeyvalTypes'
 
 // TODO: needs Entity superclass
-class KeyValueOperationEntity extends KeyvalEntityBase {
+class KeyValueOperationEntity extends KeyvalEntityBase<KeyValueOperation> {
 
   constructor(client: KeyvalSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class KeyValueOperationEntity extends KeyvalEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: KeyValueOperationLoadMatch, ctrl?: Control): Promise<KeyValueOperation> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class KeyValueOperationEntity extends KeyvalEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<KeyValueOperation> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

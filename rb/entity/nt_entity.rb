@@ -45,6 +45,7 @@ class NtEntity
     end
   end
 
+  # @return [Nt, Hash] the current Nt data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class NtEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Nt fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Nt.
+  #
+  # @param reqmatch [NtLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Nt, Hash] the loaded Nt; raises KeyvalError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

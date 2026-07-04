@@ -9,12 +9,9 @@ The Lua SDK for the Keyval API — an entity-oriented client using Lua conventio
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-keyval
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/keyval-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("keyval_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("KEYVAL_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 3. Load a keyvalueoperation
 
 ```lua
-local result, err = client:KeyValueOperation():load({ id = "example_id" })
+local result, err = client:keyvalueoperation():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -87,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Keyval():load({ id = "test01" })
+local result, err = client:keyvalueoperation():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -121,7 +116,6 @@ Create a `.env.local` file at the project root:
 
 ```
 KEYVAL_TEST_LIVE=TRUE
-KEYVAL_APIKEY=<your-key>
 ```
 
 Then run:
@@ -144,7 +138,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -234,7 +227,7 @@ API path: `/-/{value}`
 
 ### KeyValueOperation
 
-Create an instance: `const key_value_operation = client.KeyValueOperation()`
+Create an instance: `const key_value_operation = client.key_value_operation`
 
 #### Operations
 
@@ -252,13 +245,13 @@ Create an instance: `const key_value_operation = client.KeyValueOperation()`
 #### Example: Load
 
 ```ts
-const key_value_operation = await client.KeyValueOperation().load({ id: 'key_value_operation_id' })
+const key_value_operation = await client.key_value_operation.load({ id: 'key_value_operation_id' })
 ```
 
 
 ### Nt
 
-Create an instance: `const nt = client.Nt()`
+Create an instance: `const nt = client.nt`
 
 #### Operations
 
@@ -276,7 +269,7 @@ Create an instance: `const nt = client.Nt()`
 #### Example: Load
 
 ```ts
-const nt = await client.Nt().load({ id: 'nt_id' })
+const nt = await client.nt.load({ id: 'nt_id' })
 ```
 
 
@@ -351,11 +344,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local keyvalueoperation = client:keyvalueoperation()
+keyvalueoperation:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- keyvalueoperation:data_get() now returns the loaded keyvalueoperation data
+-- keyvalueoperation:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

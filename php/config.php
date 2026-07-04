@@ -20,9 +20,6 @@ class KeyvalConfig
             ],
             "options" => [
                 "base" => "https://api.keyval.org",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -67,6 +64,7 @@ class KeyvalConfig
                         'orig' => 'key',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -76,6 +74,7 @@ class KeyvalConfig
                         'orig' => 'value',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                   ],
@@ -110,6 +109,7 @@ class KeyvalConfig
                         'orig' => 'key',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -180,6 +180,7 @@ class KeyvalConfig
                         'orig' => 'value',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                   ],

@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -122,7 +121,7 @@ Alias for `KeyvalSDK.test()`.
 ## KeyValueOperationEntity
 
 ```ts
-const key_value_operation = client.KeyValueOperation()
+const key_value_operation = client.key_value_operation
 ```
 
 ### Fields
@@ -139,7 +138,7 @@ const key_value_operation = client.KeyValueOperation()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.KeyValueOperation().load({ id: 'key_value_operation_id' })
+const result = await client.key_value_operation.load({ id: 'key_value_operation_id' })
 ```
 
 ### Common Methods
@@ -173,7 +172,7 @@ Return a copy of the entity options.
 ## NtEntity
 
 ```ts
-const nt = client.Nt()
+const nt = client.nt
 ```
 
 ### Fields
@@ -190,7 +189,7 @@ const nt = client.Nt()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Nt().load({ id: 'nt_id' })
+const result = await client.nt.load({ id: 'nt_id' })
 ```
 
 ### Common Methods

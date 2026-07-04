@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -88,7 +87,7 @@ same parameters as `direct()`.
 ## KeyValueOperationEntity
 
 ```lua
-local key_value_operation = client:KeyValueOperation(nil)
+local key_value_operation = client:key_value_operation(nil)
 ```
 
 ### Fields
@@ -105,7 +104,7 @@ local key_value_operation = client:KeyValueOperation(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:KeyValueOperation():load({ id = "key_value_operation_id" })
+local result, err = client:key_value_operation():load({ id = "key_value_operation_id" })
 ```
 
 ### Common Methods
@@ -141,7 +140,7 @@ Return the entity name.
 ## NtEntity
 
 ```lua
-local nt = client:Nt(nil)
+local nt = client:nt(nil)
 ```
 
 ### Fields
@@ -158,7 +157,7 @@ local nt = client:Nt(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Nt():load({ id = "nt_id" })
+local result, err = client:nt():load({ id = "nt_id" })
 ```
 
 ### Common Methods

@@ -244,12 +244,38 @@ end
 
 
 
+-- Idiomatic facade: client:key_value_operation():list() / client:key_value_operation():load({ id = ... })
+function KeyvalSDK:key_value_operation(data)
+  local EntityMod = require("entity.key_value_operation_entity")
+  if data == nil then
+    if self._key_value_operation == nil then
+      self._key_value_operation = EntityMod.new(self, nil)
+    end
+    return self._key_value_operation
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:key_value_operation() instead.
 function KeyvalSDK:KeyValueOperation(data)
   local EntityMod = require("entity.key_value_operation_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:nt():list() / client:nt():load({ id = ... })
+function KeyvalSDK:nt(data)
+  local EntityMod = require("entity.nt_entity")
+  if data == nil then
+    if self._nt == nil then
+      self._nt = EntityMod.new(self, nil)
+    end
+    return self._nt
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:nt() instead.
 function KeyvalSDK:Nt(data)
   local EntityMod = require("entity.nt_entity")
   return EntityMod.new(self, data)

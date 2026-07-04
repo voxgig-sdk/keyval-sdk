@@ -15,9 +15,6 @@ module KeyvalConfig
       },
       "options" => {
         "base" => "https://api.keyval.org",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -62,6 +59,7 @@ module KeyvalConfig
                         "orig" => "key",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -71,6 +69,7 @@ module KeyvalConfig
                         "orig" => "value",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                   },
@@ -105,6 +104,7 @@ module KeyvalConfig
                         "orig" => "key",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },
@@ -175,6 +175,7 @@ module KeyvalConfig
                         "orig" => "value",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },

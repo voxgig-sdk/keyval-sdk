@@ -49,8 +49,7 @@ class TestNtEntity:
         # LOAD
         nt_ref01_ent = client.Nt(None)
         nt_ref01_match_dt0 = {}
-        nt_ref01_data_dt0_loaded, err = nt_ref01_ent.load(nt_ref01_match_dt0, None)
-        assert err is None
+        nt_ref01_data_dt0_loaded = nt_ref01_ent.load(nt_ref01_match_dt0, None)
         assert nt_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _nt_basic_setup(extra):
         "KEYVAL_TEST_NT_ENTID": idmap,
         "KEYVAL_TEST_LIVE": "FALSE",
         "KEYVAL_TEST_EXPLAIN": "FALSE",
-        "KEYVAL_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _nt_basic_setup(extra):
     if env.get("KEYVAL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("KEYVAL_APIKEY"),
             },
             extra or {},
         ])

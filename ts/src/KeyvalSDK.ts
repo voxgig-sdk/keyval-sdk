@@ -3,6 +3,8 @@
 import { KeyValueOperationEntity } from './entity/KeyValueOperationEntity'
 import { NtEntity } from './entity/NtEntity'
 
+export type * from './KeyvalTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -203,12 +205,28 @@ class KeyvalSDK {
 
 
 
+  _key_value_operation?: KeyValueOperationEntity
+
+  // Idiomatic facade: `client.key_value_operation.list()` / `client.key_value_operation.load({ id })`.
+  get key_value_operation(): KeyValueOperationEntity {
+    return (this._key_value_operation ??= new KeyValueOperationEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.key_value_operation` instead. */
   KeyValueOperation(data?: any) {
     const self = this
     return new KeyValueOperationEntity(self,data)
   }
 
 
+  _nt?: NtEntity
+
+  // Idiomatic facade: `client.nt.list()` / `client.nt.load({ id })`.
+  get nt(): NtEntity {
+    return (this._nt ??= new NtEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.nt` instead. */
   Nt(data?: any) {
     const self = this
     return new NtEntity(self,data)

@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://api.keyval.org',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -93,7 +89,8 @@ class Config {
                     "name": "key",
                     "orig": "key",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -102,7 +99,8 @@ class Config {
                     "name": "value",
                     "orig": "value",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -136,7 +134,8 @@ class Config {
                     "name": "key",
                     "orig": "key",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -206,7 +205,8 @@ class Config {
                     "name": "value",
                     "orig": "value",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },

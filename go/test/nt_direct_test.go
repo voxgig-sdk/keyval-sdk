@@ -110,14 +110,12 @@ func ntDirectSetup(mockres any) *ntDirectSetupResult {
 	env := envOverride(map[string]any{
 		"KEYVAL_TEST_NT_ENTID": map[string]any{},
 		"KEYVAL_TEST_LIVE":    "FALSE",
-		"KEYVAL_APIKEY":       "NONE",
 	})
 
 	live := env["KEYVAL_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["KEYVAL_APIKEY"],
 		}
 		client := sdk.NewKeyvalSDK(mergedOpts)
 

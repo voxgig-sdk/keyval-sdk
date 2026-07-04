@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch KeyValueOperationLoadMatch
+---@param ctrl? table
+---@return KeyValueOperation
+---@return string? err
 function KeyValueOperationEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

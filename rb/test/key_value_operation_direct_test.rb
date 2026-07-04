@@ -25,7 +25,7 @@ class KeyValueOperationDirectTest < Minitest::Test
       params["value"] = "direct02"
     end
 
-    result, err = client.direct({
+    result = client.direct({
       "path" => "set/{key}/{value}",
       "method" => "GET",
       "params" => params,
@@ -35,8 +35,8 @@ class KeyValueOperationDirectTest < Minitest::Test
       # Live mode is lenient: synthetic IDs frequently 4xx. Skip rather
       # than fail when the load endpoint isn't reachable with the IDs
       # we can construct from setup.idmap.
-      if !err.nil?
-        skip("load call failed (likely synthetic IDs against live API): #{err}")
+      if !result["err"].nil?
+        skip("load call failed (likely synthetic IDs against live API): #{result["err"]}")
         return
       end
       unless result["ok"]
@@ -49,7 +49,7 @@ class KeyValueOperationDirectTest < Minitest::Test
         return
       end
     else
-      assert_nil err
+      assert_nil result["err"]
       assert result["ok"]
       assert_equal 200, Helpers.to_int(result["status"])
       assert !result["data"].nil?
@@ -71,14 +71,12 @@ def key_value_operation_direct_setup(mockres)
   env = Runner.env_override({
     "KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID" => {},
     "KEYVAL_TEST_LIVE" => "FALSE",
-    "KEYVAL_APIKEY" => "NONE",
   })
 
   live = env["KEYVAL_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["KEYVAL_APIKEY"],
     }
     client = KeyvalSDK.new(merged_opts)
     return {
