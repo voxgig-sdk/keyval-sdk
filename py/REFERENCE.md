@@ -91,8 +91,8 @@ key_value_operation = client.KeyValueOperation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `str` | No |  |
+| `value` | `str` | No |  |
 
 ### Operations
 
@@ -101,7 +101,7 @@ key_value_operation = client.KeyValueOperation()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.KeyValueOperation().load({"id": "key_value_operation_id"})
+result = client.KeyValueOperation().load()
 ```
 
 ### Common Methods
@@ -143,8 +143,8 @@ nt = client.Nt()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `str` | No |  |
+| `value` | `str` | No |  |
 
 ### Operations
 
@@ -153,7 +153,7 @@ nt = client.Nt()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Nt().load({"id": "nt_id"})
+result = client.Nt().load()
 ```
 
 ### Common Methods

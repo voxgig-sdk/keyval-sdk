@@ -101,8 +101,8 @@ key_value_operation := client.KeyValueOperation(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
@@ -111,7 +111,7 @@ key_value_operation := client.KeyValueOperation(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.KeyValueOperation(nil).Load(map[string]any{"id": "key_value_operation_id"}, nil)
+result, err := client.KeyValueOperation(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -148,8 +148,8 @@ nt := client.Nt(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
@@ -158,7 +158,7 @@ nt := client.Nt(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Nt(nil).Load(map[string]any{"id": "nt_id"}, nil)
+result, err := client.Nt(nil).Load(nil, nil)
 ```
 
 ### Common Methods

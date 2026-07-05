@@ -16,7 +16,6 @@ go build -o keyval-cli ./...
 
 ```sh
 # One-shot: arguments form a single AQL expression
-./keyval-cli list key_value_operation
 ./keyval-cli load 1 key_value_operation
 ./keyval-cli load '{id:1}' key_value_operation
 
@@ -28,9 +27,7 @@ go build -o keyval-cli ./...
 
 | Word     | Signatures                                   | Description                |
 |----------|----------------------------------------------|----------------------------|
-| `list`   | `[entity]` · `[query entity]`                | List records               |
 | `load`   | `[entity]` · `[query entity]`                | Load a single record       |
-| `update` | `[entity]` · `[query entity]`                | Update a record            |
 
 `query` is either a Map (`{id:1}`) or a Scalar (`1`, treated as `{id:1}`).
 `entity` is one of the SDK's entity names (auto-quoted as an atom).

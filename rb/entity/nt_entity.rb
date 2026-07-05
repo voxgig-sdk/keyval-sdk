@@ -67,10 +67,12 @@ class NtEntity
   
   # Load a single Nt.
   #
-  # @param reqmatch [NtLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param reqmatch [NtLoadMatch, Hash, nil] match criteria (id/query fields);
+  #   optional — an entity with no id-like key loads with no match (nil is treated
+  #   as an empty match, so client.Nt.load works with no args).
   # @param ctrl [Object, nil] optional per-call control
   # @return [Nt, Hash] the loaded Nt; raises KeyvalError on failure
-  def load(reqmatch, ctrl = nil)
+  def load(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
       "opname" => "load",

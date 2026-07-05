@@ -49,11 +49,11 @@ Create a new `KeyValueOperationEntity` instance. Pass `null` for no initial data
 
 Create a new `NtEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): KeyvalUtility`
 
 Return a copy of the SDK utility object.
 
@@ -96,8 +96,8 @@ $key_value_operation = $client->KeyValueOperation();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
@@ -106,24 +106,24 @@ $key_value_operation = $client->KeyValueOperation();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->KeyValueOperation()->load(["id" => "key_value_operation_id"]);
+$result = $client->KeyValueOperation()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -132,7 +132,7 @@ Set the entity match criteria.
 Create a new `KeyValueOperationEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -149,8 +149,8 @@ $nt = $client->Nt();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
@@ -159,24 +159,24 @@ $nt = $client->Nt();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Nt()->load(["id" => "nt_id"]);
+$result = $client->Nt()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -185,7 +185,7 @@ Set the entity match criteria.
 Create a new `NtEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

@@ -221,13 +221,13 @@ class KeyvalSDK:
 
 
     def KeyValueOperation(self, data=None) -> "KeyValueOperationEntity":
-        """Entity factory: client.KeyValueOperation().list({}) / client.KeyValueOperation().load({"id": ...})."""
+        """Entity factory: client.KeyValueOperation().list() / client.KeyValueOperation().load({"id": ...})."""
         from entity.key_value_operation_entity import KeyValueOperationEntity
         return KeyValueOperationEntity(self, data)
 
 
     def Nt(self, data=None) -> "NtEntity":
-        """Entity factory: client.Nt().list({}) / client.Nt().load({"id": ...})."""
+        """Entity factory: client.Nt().list() / client.Nt().load({"id": ...})."""
         from entity.nt_entity import NtEntity
         return NtEntity(self, data)
 

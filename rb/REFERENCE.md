@@ -8,7 +8,7 @@ Complete API reference for the Keyval Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'keyval_sdk'
+require_relative 'Keyval_sdk'
 
 client = KeyvalSDK.new(options)
 ```
@@ -97,8 +97,8 @@ key_value_operation = client.KeyValueOperation
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `String` | No |  |
+| `value` | `String` | No |  |
 
 ### Operations
 
@@ -107,7 +107,7 @@ key_value_operation = client.KeyValueOperation
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.KeyValueOperation.load({ "id" => "key_value_operation_id" })
+result = client.KeyValueOperation.load()
 ```
 
 ### Common Methods
@@ -150,8 +150,8 @@ nt = client.Nt
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `String` | No |  |
+| `value` | `String` | No |  |
 
 ### Operations
 
@@ -160,7 +160,7 @@ nt = client.Nt
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Nt.load({ "id" => "nt_id" })
+result = client.Nt.load()
 ```
 
 ### Common Methods

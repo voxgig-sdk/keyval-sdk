@@ -128,8 +128,8 @@ const key_value_operation = client.KeyValueOperation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
@@ -138,7 +138,7 @@ const key_value_operation = client.KeyValueOperation()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.KeyValueOperation().load({ id: 'key_value_operation_id' })
+const result = await client.KeyValueOperation().load()
 ```
 
 ### Common Methods
@@ -179,8 +179,8 @@ const nt = client.Nt()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
@@ -189,7 +189,7 @@ const nt = client.Nt()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Nt().load({ id: 'nt_id' })
+const result = await client.Nt().load()
 ```
 
 ### Common Methods

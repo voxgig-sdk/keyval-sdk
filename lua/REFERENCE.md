@@ -94,8 +94,8 @@ local key_value_operation = client:KeyValueOperation(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
@@ -104,7 +104,7 @@ local key_value_operation = client:KeyValueOperation(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:KeyValueOperation():load({ id = "key_value_operation_id" })
+local result, err = client:KeyValueOperation():load()
 ```
 
 ### Common Methods
@@ -147,8 +147,8 @@ local nt = client:Nt(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `key` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Operations
 
@@ -157,7 +157,7 @@ local nt = client:Nt(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Nt():load({ id = "nt_id" })
+local result, err = client:Nt():load()
 ```
 
 ### Common Methods
