@@ -23,7 +23,7 @@ class KeyValueOperation
 class KeyValueOperationLoadMatch
 {
     public string $key;
-    public string $value;
+    public ?string $value = null;
 }
 
 /** Nt entity data model. */

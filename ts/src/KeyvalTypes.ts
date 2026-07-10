@@ -12,7 +12,7 @@ export interface KeyValueOperation {
 
 export interface KeyValueOperationLoadMatch {
   key: string
-  value: string
+  value?: string
 }
 
 export interface Nt {

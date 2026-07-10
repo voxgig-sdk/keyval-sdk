@@ -17,7 +17,7 @@ type KeyValueOperation struct {
 // KeyValueOperationLoadMatch is the typed request payload for KeyValueOperation.LoadTyped.
 type KeyValueOperationLoadMatch struct {
 	Key string `json:"key"`
-	Value string `json:"value"`
+	Value *string `json:"value,omitempty"`
 }
 
 // Nt is the typed data model for the nt entity.

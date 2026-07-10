@@ -33,10 +33,12 @@ $client = new KeyvalSDK();
 
 ### 3. Load a keyvalueoperation
 
+KeyValueOperation is nested under key, so provide the `key`.
+
 ```php
 try {
     // load() returns the bare KeyValueOperation record (throws on error).
-    $keyvalueoperation = $client->KeyValueOperation()->load();
+    $keyvalueoperation = $client->KeyValueOperation()->load(["key" => "example_key"]);
     print_r($keyvalueoperation);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -289,7 +291,7 @@ Create an instance: `$key_value_operation = $client->KeyValueOperation();`
 
 ```php
 // load() returns the bare KeyValueOperation record (throws on error).
-$key_value_operation = $client->KeyValueOperation()->load();
+$key_value_operation = $client->KeyValueOperation()->load(["key" => "key"]);
 ```
 
 
@@ -314,7 +316,7 @@ Create an instance: `$nt = $client->Nt();`
 
 ```php
 // load() returns the bare Nt record (throws on error).
-$nt = $client->Nt()->load();
+$nt = $client->Nt()->load(["value" => "value"]);
 ```
 
 

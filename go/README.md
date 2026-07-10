@@ -50,12 +50,12 @@ import (
 func main() {
     client := sdk.New()
 
-    // Load a single keyvalueoperation — the value is the loaded record.
-    keyvalueoperation, err := client.KeyValueOperation(nil).Load(nil, nil)
+    // Load a single keyValueOperation — the value is the loaded record.
+    keyValueOperation, err := client.KeyValueOperation(nil).Load(map[string]any{"key": "example_key"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(keyvalueoperation)
+    fmt.Println(keyValueOperation)
 }
 ```
 
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-keyvalueoperation, err := client.KeyValueOperation(nil).Load(
+keyValueOperation, err := client.KeyValueOperation(nil).Load(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(keyvalueoperation) // the returned mock data
+fmt.Println(keyValueOperation) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -246,9 +246,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    keyvalueoperation, err := client.KeyValueOperation(nil).Load(nil, nil)
+    keyValueOperation, err := client.KeyValueOperation(nil).Load(nil, nil)
     if err != nil { /* handle */ }
-    // keyvalueoperation is the returned record
+    // keyValueOperation is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -284,7 +284,7 @@ API path: `/-/{value}`
 
 ### KeyValueOperation
 
-Create an instance: `key_value_operation := client.KeyValueOperation(nil)`
+Create an instance: `keyValueOperation := client.KeyValueOperation(nil)`
 
 #### Operations
 
@@ -302,11 +302,11 @@ Create an instance: `key_value_operation := client.KeyValueOperation(nil)`
 #### Example: Load
 
 ```go
-key_value_operation, err := client.KeyValueOperation(nil).Load(nil, nil)
+keyValueOperation, err := client.KeyValueOperation(nil).Load(map[string]any{"key": "key"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(key_value_operation) // the loaded record
+fmt.Println(keyValueOperation) // the loaded record
 ```
 
 
@@ -330,7 +330,7 @@ Create an instance: `nt := client.Nt(nil)`
 #### Example: Load
 
 ```go
-nt, err := client.Nt(nil).Load(nil, nil)
+nt, err := client.Nt(nil).Load(map[string]any{"value": "value"}, nil)
 if err != nil {
     panic(err)
 }

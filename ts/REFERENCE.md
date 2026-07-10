@@ -138,7 +138,7 @@ const key_value_operation = client.KeyValueOperation()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.KeyValueOperation().load()
+const result = await client.KeyValueOperation().load({ key: 'key' })
 ```
 
 ### Common Methods
@@ -189,7 +189,7 @@ const nt = client.Nt()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Nt().load()
+const result = await client.Nt().load({ value: 'value' })
 ```
 
 ### Common Methods

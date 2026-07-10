@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -367,14 +364,17 @@
           "url": "https://keyval.org"
         },
         "description": "A super simple key value database with APIs for setting and getting key/value pairs.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://api.keyval.org"
           }
         ],
+        "summary": "A super simple key value database with APIs for setting and getting key/value pairs.",
         "title": "KeyVal API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://keyval.org"
       },
       "option": {},
       "target": {
@@ -427,6 +427,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -477,6 +480,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

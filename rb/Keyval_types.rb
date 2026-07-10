@@ -27,7 +27,7 @@ KeyValueOperation = Struct.new(
 #   @return [String]
 #
 # @!attribute [rw] value
-#   @return [String]
+#   @return [String, nil]
 KeyValueOperationLoadMatch = Struct.new(
   :key,
   :value,

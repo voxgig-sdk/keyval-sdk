@@ -35,8 +35,10 @@ local client = sdk.new()
 
 ### 3. Load a keyvalueoperation
 
+KeyValueOperation is nested under key, so provide the `key`.
+
 ```lua
-local keyvalueoperation, err = client:KeyValueOperation():load()
+local keyvalueoperation, err = client:KeyValueOperation():load({ key = "example_key" })
 if err then error(err) end
 print(keyvalueoperation)
 ```
@@ -269,7 +271,7 @@ Create an instance: `local key_value_operation = client:KeyValueOperation(nil)`
 #### Example: Load
 
 ```lua
-local key_value_operation, err = client:KeyValueOperation():load()
+local key_value_operation, err = client:KeyValueOperation():load({ key = "key" })
 ```
 
 
@@ -293,7 +295,7 @@ Create an instance: `local nt = client:Nt(nil)`
 #### Example: Load
 
 ```lua
-local nt, err = client:Nt():load()
+local nt, err = client:Nt():load({ value = "value" })
 ```
 
 

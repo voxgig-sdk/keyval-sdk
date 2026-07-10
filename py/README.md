@@ -38,11 +38,12 @@ client = KeyvalSDK()
 
 ### 3. Load a keyvalueoperation
 
+KeyValueOperation is nested under key, so provide the `key`.
 `load()` returns the bare record (a `dict`) and raises on error.
 
 ```python
 try:
-    keyvalueoperation = client.KeyValueOperation().load()
+    keyvalueoperation = client.KeyValueOperation().load({"key": "example_key"})
     print(keyvalueoperation)
 except Exception as err:
     print(f"load failed: {err}")
@@ -284,7 +285,7 @@ Create an instance: `key_value_operation = client.KeyValueOperation()`
 #### Example: Load
 
 ```python
-key_value_operation = client.KeyValueOperation().load()
+key_value_operation = client.KeyValueOperation().load({"key": "key"})
 ```
 
 
@@ -308,7 +309,7 @@ Create an instance: `nt = client.Nt()`
 #### Example: Load
 
 ```python
-nt = client.Nt().load()
+nt = client.Nt().load({"value": "value"})
 ```
 
 

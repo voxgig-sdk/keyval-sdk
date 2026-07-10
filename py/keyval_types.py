@@ -21,8 +21,11 @@ class KeyValueOperation(TypedDict, total=False):
     value: str
 
 
-class KeyValueOperationLoadMatch(TypedDict):
+class KeyValueOperationLoadMatchRequired(TypedDict):
     key: str
+
+
+class KeyValueOperationLoadMatch(KeyValueOperationLoadMatchRequired, total=False):
     value: str
 
 

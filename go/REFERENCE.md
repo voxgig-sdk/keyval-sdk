@@ -94,7 +94,8 @@ same parameters as `Direct()`.
 ## KeyValueOperationEntity
 
 ```go
-key_value_operation := client.KeyValueOperation(nil)
+keyValueOperation := client.KeyValueOperation(nil)
+fmt.Println(keyValueOperation.GetName()) // "key_value_operation"
 ```
 
 ### Fields
@@ -111,7 +112,11 @@ key_value_operation := client.KeyValueOperation(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.KeyValueOperation(nil).Load(nil, nil)
+result, err := client.KeyValueOperation(nil).Load(map[string]any{"key": "key"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -142,6 +147,7 @@ Return the entity name.
 
 ```go
 nt := client.Nt(nil)
+fmt.Println(nt.GetName()) // "nt"
 ```
 
 ### Fields
@@ -158,7 +164,11 @@ nt := client.Nt(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Nt(nil).Load(nil, nil)
+result, err := client.Nt(nil).Load(map[string]any{"value": "value"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

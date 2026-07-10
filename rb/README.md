@@ -32,10 +32,12 @@ client = KeyvalSDK.new
 
 ### 3. Load a keyvalueoperation
 
+KeyValueOperation is nested under key, so provide the `key`.
+
 ```ruby
 begin
   # load returns the bare KeyValueOperation record (raises on error).
-  keyvalueoperation = client.KeyValueOperation.load()
+  keyvalueoperation = client.KeyValueOperation.load({ "key" => "example_key" })
   puts keyvalueoperation
 rescue => err
   warn "load failed: #{err}"
@@ -279,7 +281,7 @@ Create an instance: `key_value_operation = client.KeyValueOperation`
 
 ```ruby
 # load returns the bare KeyValueOperation record (raises on error).
-key_value_operation = client.KeyValueOperation.load()
+key_value_operation = client.KeyValueOperation.load({ "key" => "key" })
 ```
 
 
@@ -304,7 +306,7 @@ Create an instance: `nt = client.Nt`
 
 ```ruby
 # load returns the bare Nt record (raises on error).
-nt = client.Nt.load()
+nt = client.Nt.load({ "value" => "value" })
 ```
 
 

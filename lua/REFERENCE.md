@@ -104,7 +104,7 @@ local key_value_operation = client:KeyValueOperation(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:KeyValueOperation():load()
+local result, err = client:KeyValueOperation():load({ key = "key" })
 ```
 
 ### Common Methods
@@ -157,7 +157,7 @@ local nt = client:Nt(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Nt():load()
+local result, err = client:Nt():load({ value = "value" })
 ```
 
 ### Common Methods

@@ -101,7 +101,7 @@ key_value_operation = client.KeyValueOperation()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.KeyValueOperation().load()
+result = client.KeyValueOperation().load({"key": "key"})
 ```
 
 ### Common Methods
@@ -153,7 +153,7 @@ nt = client.Nt()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Nt().load()
+result = client.Nt().load({"value": "value"})
 ```
 
 ### Common Methods

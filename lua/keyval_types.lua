@@ -12,7 +12,7 @@
 
 ---@class KeyValueOperationLoadMatch
 ---@field key string
----@field value string
+---@field value? string
 
 ---@class Nt
 ---@field key? string

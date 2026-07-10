@@ -35,11 +35,14 @@ const client = new KeyvalSDK()
 
 ### 3. Load a keyvalueoperation
 
+KeyValueOperation is nested under key, so provide the `key`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const keyvalueoperation = await client.KeyValueOperation().load()
+  const keyvalueoperation = await client.KeyValueOperation().load({
+    key: 'example_key',
+  })
   console.log(keyvalueoperation)
 } catch (err) {
   console.error('load failed:', err)
@@ -328,7 +331,7 @@ Create an instance: `const key_value_operation = client.KeyValueOperation()`
 #### Example: Load
 
 ```ts
-const key_value_operation = await client.KeyValueOperation().load()
+const key_value_operation = await client.KeyValueOperation().load({ key: 'key' })
 ```
 
 
@@ -352,7 +355,7 @@ Create an instance: `const nt = client.Nt()`
 #### Example: Load
 
 ```ts
-const nt = await client.Nt().load()
+const nt = await client.Nt().load({ value: 'value' })
 ```
 
 
