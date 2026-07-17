@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- Keyval SDK exists test
 
 local sdk = require("keyval_sdk")
 
