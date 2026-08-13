@@ -39,7 +39,7 @@ client = KeyvalSDK()
 ### 3. Load a keyvalueoperation
 
 KeyValueOperation is nested under key, so provide the `key`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -56,7 +56,7 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    keyvalueoperation = client.KeyValueOperation().load()
+    keyvalueoperation = client.KeyValueOperation().load({"key": "example"})
     print(keyvalueoperation)
 except Exception as err:
     print(f"load failed: {err}")
@@ -123,8 +123,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = KeyvalSDK.test()
 
-# Entity ops return the bare record and raise on error.
-keyvalueoperation = client.KeyValueOperation().load()
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+keyvalueoperation = client.KeyValueOperation().load({"key": "example"})
 # keyvalueoperation contains the mock response record
 ```
 
@@ -220,7 +221,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -389,7 +390,7 @@ stores the returned data and match criteria internally.
 
 ```python
 keyvalueoperation = client.KeyValueOperation()
-keyvalueoperation.load()
+keyvalueoperation.load({"key": "example"})
 
 # keyvalueoperation.data_get() now returns the keyvalueoperation data from the last load
 # keyvalueoperation.match_get() returns the last match criteria

@@ -16,11 +16,11 @@
 import pytest
 
 from keyval_sdk import KeyvalSDK
-from core.error import KeyvalError
-from core.result import KeyvalResult
-from core.response import KeyvalResponse
-from core.spec import KeyvalSpec
-from feature.base_feature import KeyvalBaseFeature
+from keyval_sdk.core.error import KeyvalError
+from keyval_sdk.core.result import KeyvalResult
+from keyval_sdk.core.response import KeyvalResponse
+from keyval_sdk.core.spec import KeyvalSpec
+from keyval_sdk.feature.base_feature import KeyvalBaseFeature
 
 
 def _client():

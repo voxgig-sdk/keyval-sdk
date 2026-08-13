@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import KeyvalControl
-from core.error import KeyvalError
-from core.result import KeyvalResult
-from core.spec import KeyvalSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import KeyvalControl
+from projectname_sdk.core.error import KeyvalError
+from projectname_sdk.core.result import KeyvalResult
+from projectname_sdk.core.spec import KeyvalSpec
 
 
 # True when this SDK was generated with the named feature.

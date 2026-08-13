@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from keyval_sdk.utility.voxgig_struct import voxgig_struct as vs
 from keyval_sdk import KeyvalSDK
-from core import helpers
+from keyval_sdk.core import helpers
 from test import runner
 
 

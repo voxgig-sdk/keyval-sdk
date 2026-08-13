@@ -72,6 +72,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/set/{key}/{value}",
                 ["parts"] = {
@@ -107,6 +108,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/get/{key}",
                 ["parts"] = {
@@ -178,6 +180,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/-/{value}",
                 ["parts"] = {

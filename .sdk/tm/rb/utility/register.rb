@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ KeyvalUtility.registrar = ->(u) {
   u.prepare_params = KeyvalUtilities::PrepareParams
   u.prepare_path = KeyvalUtilities::PreparePath
   u.prepare_query = KeyvalUtilities::PrepareQuery
+  u.graphql_body = KeyvalUtilities::GraphqlBody
+  u.graphql_errors = KeyvalUtilities::GraphqlErrors
   u.result_basic = KeyvalUtilities::ResultBasic
   u.result_body = KeyvalUtilities::ResultBody
   u.result_headers = KeyvalUtilities::ResultHeaders

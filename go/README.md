@@ -66,7 +66,7 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-keyvalueoperation, err := client.KeyValueOperation(nil).Load(nil, nil)
+keyvalueoperation, err := client.KeyValueOperation(nil).Load(map[string]any{"key": "example"}, nil)
 if err != nil {
     // handle err
     return
@@ -136,7 +136,7 @@ Create a mock client for unit testing — no server required:
 client := sdk.Test()
 
 keyValueOperation, err := client.KeyValueOperation(nil).Load(
-    nil, nil,
+    map[string]any{"key": "example"}, nil,
 )
 if err != nil {
     panic(err)
@@ -412,7 +412,7 @@ stores the returned data and match criteria internally.
 
 ```go
 keyvalueoperation := client.KeyValueOperation(nil)
-keyvalueoperation.Load(nil, nil)
+keyvalueoperation.Load(map[string]any{"key": "example"}, nil)
 
 // keyvalueoperation.Data() now returns the keyvalueoperation data from the last load
 // keyvalueoperation.Match() returns the last match criteria

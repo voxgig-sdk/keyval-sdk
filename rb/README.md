@@ -36,7 +36,7 @@ KeyValueOperation is nested under key, so provide the `key`.
 
 ```ruby
 begin
-  # load returns the bare KeyValueOperation record (raises on error).
+  # load returns the ENTITY — call data_get for the KeyValueOperation record (raises on error).
   keyvalueoperation = client.KeyValueOperation.load({ "key" => "example_key" })
   puts keyvalueoperation
 rescue => err
@@ -51,7 +51,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  keyvalueoperation = client.KeyValueOperation.load()
+  keyvalueoperation = client.KeyValueOperation.load({ "key" => "example" })
 rescue => err
   warn "load failed: #{err}"
 end
@@ -119,8 +119,9 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = KeyvalSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-keyvalueoperation = client.KeyValueOperation.load()
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+keyvalueoperation = client.KeyValueOperation.load({ "key" => "example" })
 puts keyvalueoperation
 ```
 
@@ -280,7 +281,7 @@ Create an instance: `key_value_operation = client.KeyValueOperation`
 #### Example: Load
 
 ```ruby
-# load returns the bare KeyValueOperation record (raises on error).
+# load returns the ENTITY — call data_get for the KeyValueOperation record (raises on error).
 key_value_operation = client.KeyValueOperation.load({ "key" => "key" })
 ```
 
@@ -305,7 +306,7 @@ Create an instance: `nt = client.Nt`
 #### Example: Load
 
 ```ruby
-# load returns the bare Nt record (raises on error).
+# load returns the ENTITY — call data_get for the Nt record (raises on error).
 nt = client.Nt.load({ "value" => "value" })
 ```
 
@@ -387,7 +388,7 @@ stores the returned data and match criteria internally.
 
 ```ruby
 keyvalueoperation = client.KeyValueOperation
-keyvalueoperation.load()
+keyvalueoperation.load({ "key" => "example" })
 
 # keyvalueoperation.data_get now returns the keyvalueoperation data from the last load
 # keyvalueoperation.match_get returns the last match criteria

@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ KeyvalUtility::setRegistrar(function (KeyvalUtility $u): void {
     $u->prepare_params = [KeyvalPrepareParams::class, 'call'];
     $u->prepare_path = [KeyvalPreparePath::class, 'call'];
     $u->prepare_query = [KeyvalPrepareQuery::class, 'call'];
+    $u->graphql_body = [KeyvalGraphql::class, 'body'];
+    $u->graphql_errors = [KeyvalGraphql::class, 'errors'];
     $u->result_basic = [KeyvalResultBasic::class, 'call'];
     $u->result_body = [KeyvalResultBody::class, 'call'];
     $u->result_headers = [KeyvalResultHeaders::class, 'call'];

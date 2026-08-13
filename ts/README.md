@@ -56,7 +56,7 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const keyvalueoperation = await client.KeyValueOperation().load()
+  const keyvalueoperation = await client.KeyValueOperation().load({ key: "example" })
   console.log(keyvalueoperation)
 } catch (err) {
   console.error('load failed:', err)
@@ -123,8 +123,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = KeyvalSDK.test()
 
-const keyvalueoperation = await client.KeyValueOperation().load()
-// keyvalueoperation is a bare entity populated with mock response data
+const keyvalueoperation = await client.KeyValueOperation().load({ key: 'example_key' })
+// keyvalueoperation is the entity, populated with mock response data
+// — call keyvalueoperation.data() for the record itself
 console.log(keyvalueoperation)
 ```
 
@@ -143,7 +144,7 @@ Entity instances remember their last match and data:
 const entity = client.KeyValueOperation()
 
 // First call runs the operation and stores its result
-await entity.load()
+await entity.load({ key: 'example_key' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -429,7 +430,7 @@ calls on the same instance can rely on this state.
 
 ```ts
 const keyvalueoperation = client.KeyValueOperation()
-await keyvalueoperation.load()
+await keyvalueoperation.load({ key: "example" })
 
 // keyvalueoperation.data() now returns the keyvalueoperation data from the last `load`
 // keyvalueoperation.match() returns the last match criteria

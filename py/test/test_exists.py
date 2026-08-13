@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Keyval SDK exists test
 
 import pytest
 from keyval_sdk import KeyvalSDK

@@ -23,7 +23,7 @@ support (`load`):
 
 ```ts
 const client = new KeyvalSDK()
-const keyvalueoperation = await client.KeyValueOperation().load()
+const keyvalueoperation = await client.KeyValueOperation().load({ key: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = KeyvalSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = KeyvalSDK.test({
+  entity: {
+    key_value_operation: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const keyvalueoperation = await client.KeyValueOperation().load({ key: 'example_key' })
-// keyvalueoperation is a bare KeyValueOperation populated with mock data
+// keyvalueoperation is the KeyValueOperation entity, populated with mock data
+// — call keyvalueoperation.data() for the record itself
 console.log(keyvalueoperation)
 ```
 
@@ -186,7 +195,7 @@ require_once 'keyval_sdk.php';
 $client = new KeyvalSDK();
 
 
-// Load a specific keyvalueoperation (returns the bare record; throws on error)
+// Load a specific keyvalueoperation (returns the ENTITY; call data_get() for the record; throws on error)
 $keyvalueoperation = $client->KeyValueOperation()->load(["key" => "example_key"]);
 print_r($keyvalueoperation);
 ```
@@ -217,7 +226,7 @@ require_relative "Keyval_sdk"
 client = KeyvalSDK.new
 
 
-# Load a specific keyvalueoperation (returns the bare record; raises on error)
+# Load a specific keyvalueoperation (returns the ENTITY; call data_get for the record)
 keyvalueoperation = client.KeyValueOperation.load({ "key" => "example_key" })
 puts keyvalueoperation
 ```
@@ -351,6 +360,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://keyval.org](https://keyval.org)
 

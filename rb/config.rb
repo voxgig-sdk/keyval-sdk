@@ -73,6 +73,7 @@ module KeyvalConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/set/{key}/{value}",
                   "parts" => [
@@ -108,6 +109,7 @@ module KeyvalConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/get/{key}",
                   "parts" => [
@@ -179,6 +181,7 @@ module KeyvalConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/-/{value}",
                   "parts" => [

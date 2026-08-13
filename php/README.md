@@ -37,7 +37,7 @@ KeyValueOperation is nested under key, so provide the `key`.
 
 ```php
 try {
-    // load() returns the bare KeyValueOperation record (throws on error).
+    // load() returns the ENTITY — call data_get() for the KeyValueOperation record (throws on error).
     $keyvalueoperation = $client->KeyValueOperation()->load(["key" => "example_key"]);
     print_r($keyvalueoperation);
 } catch (\Throwable $err) {
@@ -53,7 +53,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $keyvalueoperation = $client->KeyValueOperation()->load();
+    $keyvalueoperation = $client->KeyValueOperation()->load(["key" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -125,8 +125,9 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = KeyvalSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$keyvalueoperation = $client->KeyValueOperation()->load();
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$keyvalueoperation = $client->KeyValueOperation()->load(["key" => "example"]);
 print_r($keyvalueoperation);
 ```
 
@@ -225,7 +226,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -290,7 +291,7 @@ Create an instance: `$key_value_operation = $client->KeyValueOperation();`
 #### Example: Load
 
 ```php
-// load() returns the bare KeyValueOperation record (throws on error).
+// load() returns the ENTITY — call data_get() for the KeyValueOperation record (throws on error).
 $key_value_operation = $client->KeyValueOperation()->load(["key" => "key"]);
 ```
 
@@ -315,7 +316,7 @@ Create an instance: `$nt = $client->Nt();`
 #### Example: Load
 
 ```php
-// load() returns the bare Nt record (throws on error).
+// load() returns the ENTITY — call data_get() for the Nt record (throws on error).
 $nt = $client->Nt()->load(["value" => "value"]);
 ```
 
@@ -397,7 +398,7 @@ stores the returned data and match criteria internally.
 
 ```php
 $keyvalueoperation = $client->KeyValueOperation();
-$keyvalueoperation->load();
+$keyvalueoperation->load(["key" => "example"]);
 
 // $keyvalueoperation->data_get() now returns the keyvalueoperation data from the last load
 // $keyvalueoperation->match_get() returns the last match criteria

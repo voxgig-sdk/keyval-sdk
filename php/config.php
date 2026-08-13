@@ -78,6 +78,7 @@ class KeyvalConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/set/{key}/{value}',
                   'parts' => [
@@ -113,6 +114,7 @@ class KeyvalConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/get/{key}',
                   'parts' => [
@@ -184,6 +186,7 @@ class KeyvalConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/-/{value}',
                   'parts' => [
