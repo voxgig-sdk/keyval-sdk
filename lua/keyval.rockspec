@@ -23,6 +23,7 @@ build = {
   modules = {
     ["keyval_sdk"] = "keyval_sdk.lua",
     ["config"] = "config.lua",
+    ["config_shared"] = "config_shared.lua",
     ["features"] = "features.lua",
   }
 }

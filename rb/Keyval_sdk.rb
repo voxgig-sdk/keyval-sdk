@@ -28,7 +28,7 @@ class KeyvalSDK
     utility = KeyvalUtility.new
     @_utility = utility
 
-    config = KeyvalConfig.make_config
+    config = KeyvalConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

@@ -40,7 +40,7 @@ class KeyvalSDK
         $utility = new KeyvalUtility();
         $this->_utility = $utility;
 
-        $config = KeyvalConfig::make_config();
+        $config = KeyvalConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
