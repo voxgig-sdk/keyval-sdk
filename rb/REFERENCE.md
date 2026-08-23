@@ -97,8 +97,8 @@ key_value_operation = client.KeyValueOperation
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | `String` | No |  |
-| `value` | `String` | No |  |
+| `key` | `String` | No | The key that was stored (auto-generated if '-' was used) |
+| `value` | `String` | No | The value that was stored |
 
 ### Operations
 
@@ -150,8 +150,8 @@ nt = client.Nt
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | `String` | No |  |
-| `value` | `String` | No |  |
+| `key` | `String` | No | The auto-generated key |
+| `value` | `String` | No | The value that was stored |
 
 ### Operations
 

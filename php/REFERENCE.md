@@ -96,8 +96,8 @@ $key_value_operation = $client->KeyValueOperation();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | `string` | No |  |
-| `value` | `string` | No |  |
+| `key` | `string` | No | The key that was stored (auto-generated if '-' was used) |
+| `value` | `string` | No | The value that was stored |
 
 ### Operations
 
@@ -149,8 +149,8 @@ $nt = $client->Nt();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | `string` | No |  |
-| `value` | `string` | No |  |
+| `key` | `string` | No | The auto-generated key |
+| `value` | `string` | No | The value that was stored |
 
 ### Operations
 

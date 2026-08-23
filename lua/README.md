@@ -228,8 +228,8 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `key` |  |
-| `value` |  |
+| `key` | The key that was stored (auto-generated if '-' was used) |
+| `value` | The value that was stored |
 
 Operations: Load.
 
@@ -239,8 +239,8 @@ API path: `/set/{key}/{value}`
 
 | Field | Description |
 | --- | --- |
-| `key` |  |
-| `value` |  |
+| `key` | The auto-generated key |
+| `value` | The value that was stored |
 
 Operations: Load.
 
@@ -265,8 +265,8 @@ Create an instance: `local key_value_operation = client:KeyValueOperation(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `key` | `string` |  |
-| `value` | `string` |  |
+| `key` | `string` | The key that was stored (auto-generated if '-' was used) |
+| `value` | `string` | The value that was stored |
 
 #### Example: Load
 
@@ -289,8 +289,8 @@ Create an instance: `local nt = client:Nt(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `key` | `string` |  |
-| `value` | `string` |  |
+| `key` | `string` | The auto-generated key |
+| `value` | `string` | The value that was stored |
 
 #### Example: Load
 

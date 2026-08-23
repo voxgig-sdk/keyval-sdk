@@ -8,11 +8,13 @@ main: kit: entity: nt: {
     {
       name: "key"
       req: false
+      short: "The auto-generated key"
       type: "`$STRING`"
     }
     {
       name: "value"
       req: false
+      short: "The value that was stored"
       type: "`$STRING`"
     }
   ]

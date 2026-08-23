@@ -19,6 +19,9 @@ module KeyvalConfig
     {
       "main" => {
         "name" => "Keyval",
+        "slug" => "keyval",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -42,10 +45,12 @@ module KeyvalConfig
           "fields" => [
             {
               "name" => "key",
+              "short" => "The key that was stored (auto-generated if '-' was used)",
               "type" => "`$STRING`",
             },
             {
               "name" => "value",
+              "short" => "The value that was stored",
               "type" => "`$STRING`",
             },
           ],
@@ -143,10 +148,12 @@ module KeyvalConfig
           "fields" => [
             {
               "name" => "key",
+              "short" => "The auto-generated key",
               "type" => "`$STRING`",
             },
             {
               "name" => "value",
+              "short" => "The value that was stored",
               "type" => "`$STRING`",
             },
           ],

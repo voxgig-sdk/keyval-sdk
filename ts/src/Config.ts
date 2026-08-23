@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'Keyval',
+        slug: "keyval",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -59,10 +70,12 @@ class Config {
       "fields": [
         {
           "name": "key",
+          "short": "The key that was stored (auto-generated if '-' was used)",
           "type": "`$STRING`"
         },
         {
           "name": "value",
+          "short": "The value that was stored",
           "type": "`$STRING`"
         }
       ],
@@ -160,10 +173,12 @@ class Config {
       "fields": [
         {
           "name": "key",
+          "short": "The auto-generated key",
           "type": "`$STRING`"
         },
         {
           "name": "value",
+          "short": "The value that was stored",
           "type": "`$STRING`"
         }
       ],

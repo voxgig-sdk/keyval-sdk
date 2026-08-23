@@ -36,12 +36,14 @@
               "active": true,
               "name": "key",
               "req": false,
+              "short": "The key that was stored (auto-generated if '-' was used)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "value",
               "req": false,
+              "short": "The value that was stored",
               "type": "`$STRING`"
             }
           ],
@@ -150,12 +152,14 @@
               "active": true,
               "name": "key",
               "req": false,
+              "short": "The auto-generated key",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "value",
               "req": false,
+              "short": "The value that was stored",
               "type": "`$STRING`"
             }
           ],

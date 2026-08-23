@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -289,8 +289,8 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `key` |  |
-| `value` |  |
+| `key` | The key that was stored (auto-generated if '-' was used) |
+| `value` | The value that was stored |
 
 Operations: load.
 
@@ -300,8 +300,8 @@ API path: `/set/{key}/{value}`
 
 | Field | Description |
 | --- | --- |
-| `key` |  |
-| `value` |  |
+| `key` | The auto-generated key |
+| `value` | The value that was stored |
 
 Operations: load.
 
@@ -326,8 +326,8 @@ Create an instance: `const key_value_operation = client.KeyValueOperation()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `key` | `string` |  |
-| `value` | `string` |  |
+| `key` | `string` | The key that was stored (auto-generated if '-' was used) |
+| `value` | `string` | The value that was stored |
 
 #### Example: Load
 
@@ -350,8 +350,8 @@ Create an instance: `const nt = client.Nt()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `key` | `string` |  |
-| `value` | `string` |  |
+| `key` | `string` | The auto-generated key |
+| `value` | `string` | The value that was stored |
 
 #### Example: Load
 

@@ -238,8 +238,8 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `key` |  |
-| `value` |  |
+| `key` | The key that was stored (auto-generated if '-' was used) |
+| `value` | The value that was stored |
 
 Operations: Load.
 
@@ -249,8 +249,8 @@ API path: `/set/{key}/{value}`
 
 | Field | Description |
 | --- | --- |
-| `key` |  |
-| `value` |  |
+| `key` | The auto-generated key |
+| `value` | The value that was stored |
 
 Operations: Load.
 
@@ -275,8 +275,8 @@ Create an instance: `key_value_operation = client.KeyValueOperation`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `key` | `String` |  |
-| `value` | `String` |  |
+| `key` | `String` | The key that was stored (auto-generated if '-' was used) |
+| `value` | `String` | The value that was stored |
 
 #### Example: Load
 
@@ -300,8 +300,8 @@ Create an instance: `nt = client.Nt`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `key` | `String` |  |
-| `value` | `String` |  |
+| `key` | `String` | The auto-generated key |
+| `value` | `String` | The value that was stored |
 
 #### Example: Load
 

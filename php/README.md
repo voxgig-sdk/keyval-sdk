@@ -248,8 +248,8 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `key` |  |
-| `value` |  |
+| `key` | The key that was stored (auto-generated if '-' was used) |
+| `value` | The value that was stored |
 
 Operations: Load.
 
@@ -259,8 +259,8 @@ API path: `/set/{key}/{value}`
 
 | Field | Description |
 | --- | --- |
-| `key` |  |
-| `value` |  |
+| `key` | The auto-generated key |
+| `value` | The value that was stored |
 
 Operations: Load.
 
@@ -285,8 +285,8 @@ Create an instance: `$key_value_operation = $client->KeyValueOperation();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `key` | `string` |  |
-| `value` | `string` |  |
+| `key` | `string` | The key that was stored (auto-generated if '-' was used) |
+| `value` | `string` | The value that was stored |
 
 #### Example: Load
 
@@ -310,8 +310,8 @@ Create an instance: `$nt = $client->Nt();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `key` | `string` |  |
-| `value` | `string` |  |
+| `key` | `string` | The auto-generated key |
+| `value` | `string` | The value that was stored |
 
 #### Example: Load
 
