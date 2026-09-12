@@ -33,6 +33,10 @@ local function make_config()
       ["key_value_operation"] = {
         ["fields"] = {
           {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
+          },
+          {
             ["name"] = "key",
             ["short"] = "The key that was stored (auto-generated if '-' was used)",
             ["type"] = "`$STRING`",
@@ -42,6 +46,19 @@ local function make_config()
             ["short"] = "The value that was stored",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["from"] = {
+            ["key"] = "key",
+            ["value"] = "value",
+          },
+          ["name"] = "id",
+          ["parts"] = {
+            "key",
+            "value",
+          },
+          ["sep"] = "/",
         },
         ["name"] = "key_value_operation",
         ["op"] = {
@@ -73,10 +90,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/set/{key}/{value}",
-                ["parts"] = {
-                  "set",
-                  "{key}",
-                  "{value}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "set",
+                  },
+                  {
+                    ["var"] = "key",
+                  },
+                  {
+                    ["var"] = "value",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -87,6 +110,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "set",
+                  "{key}",
+                  "{value}",
                 },
               },
               {
@@ -105,9 +133,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/get/{key}",
-                ["parts"] = {
-                  "get",
-                  "{key}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "get",
+                  },
+                  {
+                    ["var"] = "key",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -117,6 +149,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "get",
+                  "{key}",
                 },
               },
             },
@@ -168,9 +204,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/-/{value}",
-                ["parts"] = {
-                  "-",
-                  "{value}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "-",
+                  },
+                  {
+                    ["var"] = "value",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -180,6 +220,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "-",
+                  "{value}",
                 },
               },
             },

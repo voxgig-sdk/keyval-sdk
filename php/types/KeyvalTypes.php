@@ -15,6 +15,7 @@ declare(strict_types=1);
 /** KeyValueOperation entity data model. */
 class KeyValueOperation
 {
+    public ?string $id = null;
     public ?string $key = null;
     public ?string $value = null;
 }

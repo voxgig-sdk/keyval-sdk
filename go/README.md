@@ -259,6 +259,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
+| `"id"` |  |
 | `"key"` | The key that was stored (auto-generated if '-' was used) |
 | `"value"` | The value that was stored |
 
@@ -296,6 +297,7 @@ Create an instance: `keyValueOperation := client.KeyValueOperation(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `key` | `string` | The key that was stored (auto-generated if '-' was used) |
 | `value` | `string` | The value that was stored |
 

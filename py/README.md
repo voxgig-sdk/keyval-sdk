@@ -243,6 +243,7 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `key` | The key that was stored (auto-generated if '-' was used) |
 | `value` | The value that was stored |
 
@@ -280,6 +281,7 @@ Create an instance: `key_value_operation = client.KeyValueOperation()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `str` |  |
 | `key` | `str` | The key that was stored (auto-generated if '-' was used) |
 | `value` | `str` | The value that was stored |
 

@@ -10,12 +10,16 @@
 
 # KeyValueOperation entity data model.
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] key
 #   @return [String, nil]
 #
 # @!attribute [rw] value
 #   @return [String, nil]
 KeyValueOperation = Struct.new(
+  :id,
   :key,
   :value,
   keyword_init: true

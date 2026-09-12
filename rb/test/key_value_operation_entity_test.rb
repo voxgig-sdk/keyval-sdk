@@ -41,9 +41,13 @@ class KeyValueOperationEntityTest < Minitest::Test
 
     # LOAD
     key_value_operation_ref01_ent = client.KeyValueOperation(nil)
-    key_value_operation_ref01_match_dt0 = {}
+    key_value_operation_ref01_match_dt0 = {
+      "id" => key_value_operation_ref01_data["id"],
+    }
     key_value_operation_ref01_data_dt0_loaded = key_value_operation_ref01_ent.load(key_value_operation_ref01_match_dt0, nil)
-    assert !key_value_operation_ref01_data_dt0_loaded.nil?
+    key_value_operation_ref01_data_dt0_load_result = Helpers.to_map(key_value_operation_ref01_data_dt0_loaded.respond_to?(:data_get) ? key_value_operation_ref01_data_dt0_loaded.data_get : key_value_operation_ref01_data_dt0_loaded)
+    assert !key_value_operation_ref01_data_dt0_load_result.nil?
+    assert_equal key_value_operation_ref01_data_dt0_load_result["id"], key_value_operation_ref01_data["id"]
 
   end
 end
@@ -91,6 +95,9 @@ def key_value_operation_basic_setup(extra)
 
   if env["KEYVAL_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
       },
       extra || {},

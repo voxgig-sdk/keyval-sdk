@@ -2,27 +2,27 @@
   "existing": {
     "key_value_operation": {
       "KEY_VALUE_OPERATION00": {
-        "key": "s14",
-        "value": "s15",
-        "id": "KEY_VALUE_OPERATION00"
+        "id": "KEY_VALUE_OPERATION00",
+        "key": "s1f",
+        "value": "s20"
       },
       "KEY_VALUE_OPERATION01": {
-        "key": "s28",
-        "value": "s29",
-        "id": "KEY_VALUE_OPERATION01"
+        "id": "KEY_VALUE_OPERATION01",
+        "key": "s3d",
+        "value": "s3e"
       },
       "KEY_VALUE_OPERATION02": {
-        "key": "s3c",
-        "value": "s3d",
-        "id": "KEY_VALUE_OPERATION02"
+        "id": "KEY_VALUE_OPERATION02",
+        "key": "s5b",
+        "value": "s5c"
       }
     }
   },
   "new": {
     "key_value_operation": {
       "key_value_operation_ref01": {
-        "key": "s50",
-        "value": "s51"
+        "key": "s79",
+        "value": "s7a"
       }
     }
   }

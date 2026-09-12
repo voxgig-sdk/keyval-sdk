@@ -248,6 +248,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `key` | The key that was stored (auto-generated if '-' was used) |
 | `value` | The value that was stored |
 
@@ -285,6 +286,7 @@ Create an instance: `$key_value_operation = $client->KeyValueOperation();`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `key` | `string` | The key that was stored (auto-generated if '-' was used) |
 | `value` | `string` | The value that was stored |
 

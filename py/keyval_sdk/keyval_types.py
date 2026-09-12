@@ -17,6 +17,7 @@ from typing import TypedDict, Any
 
 
 class KeyValueOperation(TypedDict, total=False):
+    id: str
     key: str
     value: str
 

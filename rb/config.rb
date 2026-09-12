@@ -45,6 +45,10 @@ module KeyvalConfig
         "key_value_operation" => {
           "fields" => [
             {
+              "name" => "id",
+              "type" => "`$STRING`",
+            },
+            {
               "name" => "key",
               "short" => "The key that was stored (auto-generated if '-' was used)",
               "type" => "`$STRING`",
@@ -55,6 +59,19 @@ module KeyvalConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "from" => {
+              "key" => "key",
+              "value" => "value",
+            },
+            "name" => "id",
+            "parts" => [
+              "key",
+              "value",
+            ],
+            "sep" => "/",
+          },
           "name" => "key_value_operation",
           "op" => {
             "load" => {
@@ -85,10 +102,16 @@ module KeyvalConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/set/{key}/{value}",
-                  "parts" => [
-                    "set",
-                    "{key}",
-                    "{value}",
+                  "segments" => [
+                    {
+                      "lit" => "set",
+                    },
+                    {
+                      "var" => "key",
+                    },
+                    {
+                      "var" => "value",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -100,6 +123,11 @@ module KeyvalConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "set",
+                    "{key}",
+                    "{value}",
+                  ],
                 },
                 {
                   "args" => {
@@ -117,9 +145,13 @@ module KeyvalConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/get/{key}",
-                  "parts" => [
-                    "get",
-                    "{key}",
+                  "segments" => [
+                    {
+                      "lit" => "get",
+                    },
+                    {
+                      "var" => "key",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -130,6 +162,10 @@ module KeyvalConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "get",
+                    "{key}",
+                  ],
                 },
               ],
             },
@@ -180,9 +216,13 @@ module KeyvalConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/-/{value}",
-                  "parts" => [
-                    "-",
-                    "{value}",
+                  "segments" => [
+                    {
+                      "lit" => "-",
+                    },
+                    {
+                      "var" => "value",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -193,6 +233,10 @@ module KeyvalConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "-",
+                    "{value}",
+                  ],
                 },
               ],
             },

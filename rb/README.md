@@ -238,6 +238,7 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `key` | The key that was stored (auto-generated if '-' was used) |
 | `value` | The value that was stored |
 
@@ -275,6 +276,7 @@ Create an instance: `key_value_operation = client.KeyValueOperation`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `String` |  |
 | `key` | `String` | The key that was stored (auto-generated if '-' was used) |
 | `value` | `String` | The value that was stored |
 

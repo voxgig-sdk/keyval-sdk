@@ -94,6 +94,7 @@ local key_value_operation = client:KeyValueOperation(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `string` | No |  |
 | `key` | `string` | No | The key that was stored (auto-generated if '-' was used) |
 | `value` | `string` | No | The value that was stored |
 

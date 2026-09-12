@@ -7,6 +7,7 @@
 -- edit by hand.
 
 ---@class KeyValueOperation
+---@field id? string
 ---@field key? string
 ---@field value? string
 

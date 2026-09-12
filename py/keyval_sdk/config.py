@@ -1,6 +1,14 @@
 # Keyval SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -54,6 +62,10 @@ def make_config():
       "key_value_operation": {
         "fields": [
           {
+            "name": "id",
+            "type": "`$STRING`",
+          },
+          {
             "name": "key",
             "short": "The key that was stored (auto-generated if '-' was used)",
             "type": "`$STRING`",
@@ -64,6 +76,19 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "from": {
+            "key": "key",
+            "value": "value",
+          },
+          "name": "id",
+          "parts": [
+            "key",
+            "value",
+          ],
+          "sep": "/",
+        },
         "name": "key_value_operation",
         "op": {
           "load": {
@@ -94,10 +119,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/set/{key}/{value}",
-                "parts": [
-                  "set",
-                  "{key}",
-                  "{value}",
+                "segments": [
+                  {
+                    "lit": "set",
+                  },
+                  {
+                    "var": "key",
+                  },
+                  {
+                    "var": "value",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -109,6 +140,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "set",
+                  "{key}",
+                  "{value}",
+                ],
               },
               {
                 "args": {
@@ -126,9 +162,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/get/{key}",
-                "parts": [
-                  "get",
-                  "{key}",
+                "segments": [
+                  {
+                    "lit": "get",
+                  },
+                  {
+                    "var": "key",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -139,6 +179,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "get",
+                  "{key}",
+                ],
               },
             ],
           },
@@ -189,9 +233,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/-/{value}",
-                "parts": [
-                  "-",
-                  "{value}",
+                "segments": [
+                  {
+                    "lit": "-",
+                  },
+                  {
+                    "var": "value",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -202,6 +250,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "-",
+                  "{value}",
+                ],
               },
             ],
           },

@@ -6,6 +6,7 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface KeyValueOperation {
+  id?: string
   key?: string
   value?: string
 }

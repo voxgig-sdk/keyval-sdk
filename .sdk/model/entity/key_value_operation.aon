@@ -6,6 +6,11 @@ main: kit: entity: key_value_operation: {
 
   fields: [
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "key"
       req: false
       short: "The key that was stored (auto-generated if '-' was used)"
@@ -18,6 +23,20 @@ main: kit: entity: key_value_operation: {
       type: "`$STRING`"
     }
   ]
+
+  id: {
+    field: "id"
+    from: {
+      key: "key"
+      value: "value"
+    }
+    name: "id"
+    parts: [
+      "key"
+      "value"
+    ]
+    sep: "/"
+  }
 
   name: "key_value_operation"
   op: {
@@ -47,10 +66,16 @@ main: kit: entity: key_value_operation: {
           }
           method: "GET"
           orig: "/set/{key}/{value}"
-          parts: [
-            "set"
-            "{key}"
-            "{value}"
+          segments: [
+            {
+              lit: "set"
+            }
+            {
+              var: "key"
+            }
+            {
+              var: "value"
+            }
           ]
           select: {
             exist: [
@@ -78,9 +103,13 @@ main: kit: entity: key_value_operation: {
           }
           method: "GET"
           orig: "/get/{key}"
-          parts: [
-            "get"
-            "{key}"
+          segments: [
+            {
+              lit: "get"
+            }
+            {
+              var: "key"
+            }
           ]
           select: {
             exist: [

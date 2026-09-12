@@ -14,6 +14,7 @@ import (
 
 // KeyValueOperation is the typed data model for the key_value_operation entity.
 type KeyValueOperation struct {
+	Id *string `json:"id,omitempty"`
 	Key *string `json:"key,omitempty"`
 	Value *string `json:"value,omitempty"`
 }

@@ -48,9 +48,13 @@ class TestKeyValueOperationEntity:
 
         # LOAD
         key_value_operation_ref01_ent = client.KeyValueOperation(None)
-        key_value_operation_ref01_match_dt0 = {}
+        key_value_operation_ref01_match_dt0 = {
+            "id": key_value_operation_ref01_data["id"],
+        }
         key_value_operation_ref01_data_dt0_loaded = key_value_operation_ref01_ent.load(key_value_operation_ref01_match_dt0, None)
-        assert key_value_operation_ref01_data_dt0_loaded is not None
+        key_value_operation_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(key_value_operation_ref01_data_dt0_loaded))
+        assert key_value_operation_ref01_data_dt0_load_result is not None
+        assert key_value_operation_ref01_data_dt0_load_result["id"] == key_value_operation_ref01_data["id"]
 
 
 
@@ -99,6 +103,10 @@ def _key_value_operation_basic_setup(extra):
 
     if env.get("KEYVAL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
             },
             extra or {},

@@ -44,10 +44,14 @@ describe("KeyValueOperationEntity", function()
 
     -- LOAD
     local key_value_operation_ref01_ent = client:KeyValueOperation(nil)
-    local key_value_operation_ref01_match_dt0 = {}
+    local key_value_operation_ref01_match_dt0 = {
+      id = key_value_operation_ref01_data["id"],
+    }
     local key_value_operation_ref01_data_dt0_loaded, err = key_value_operation_ref01_ent:load(key_value_operation_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(key_value_operation_ref01_data_dt0_loaded)
+    local key_value_operation_ref01_data_dt0_load_result = helpers.to_map(type(key_value_operation_ref01_data_dt0_loaded) == 'table' and key_value_operation_ref01_data_dt0_loaded.data_get and key_value_operation_ref01_data_dt0_loaded:data_get() or key_value_operation_ref01_data_dt0_loaded)
+    assert.is_not_nil(key_value_operation_ref01_data_dt0_load_result)
+    assert.are.equal(key_value_operation_ref01_data_dt0_load_result["id"], key_value_operation_ref01_data["id"])
 
   end)
 end)
@@ -101,6 +105,9 @@ function key_value_operation_basic_setup(extra)
 
   if env["KEYVAL_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
+      -- FIRST, so the generated fields below win: sdk-test-control.json's
+      -- test.client.options adds to the live client, it does not redirect it.
+      runner.live_client_options(),
       {
       },
       extra or {},

@@ -228,6 +228,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `key` | The key that was stored (auto-generated if '-' was used) |
 | `value` | The value that was stored |
 
@@ -265,6 +266,7 @@ Create an instance: `local key_value_operation = client:KeyValueOperation(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `key` | `string` | The key that was stored (auto-generated if '-' was used) |
 | `value` | `string` | The value that was stored |
 

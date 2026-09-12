@@ -97,6 +97,7 @@ key_value_operation = client.KeyValueOperation
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `String` | No |  |
 | `key` | `String` | No | The key that was stored (auto-generated if '-' was used) |
 | `value` | `String` | No | The value that was stored |
 

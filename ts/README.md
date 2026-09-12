@@ -148,7 +148,7 @@ await entity.load({ key: 'example_key' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -289,6 +289,7 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `key` | The key that was stored (auto-generated if '-' was used) |
 | `value` | The value that was stored |
 
@@ -326,6 +327,7 @@ Create an instance: `const key_value_operation = client.KeyValueOperation()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `key` | `string` | The key that was stored (auto-generated if '-' was used) |
 | `value` | `string` | The value that was stored |
 

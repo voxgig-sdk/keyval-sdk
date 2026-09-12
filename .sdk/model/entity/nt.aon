@@ -39,9 +39,13 @@ main: kit: entity: nt: {
           }
           method: "GET"
           orig: "/-/{value}"
-          parts: [
-            "-"
-            "{value}"
+          segments: [
+            {
+              lit: "-"
+            }
+            {
+              var: "value"
+            }
           ]
           select: {
             exist: [
