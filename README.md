@@ -105,7 +105,7 @@ local result, err = client:KeyValueOperation():load({ key = "example" })
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/releases) |
+| TypeScript | `@voxgig-sdk/keyval-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/releases) |
 | Python | `voxgig-sdk-keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/releases) |
 | PHP | `voxgig-sdk/keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/keyval-sdk/go` | `go get github.com/voxgig-sdk/keyval-sdk/go@latest` |
@@ -119,7 +119,7 @@ local result, err = client:KeyValueOperation():load({ key = "example" })
 ### TypeScript
 
 ```ts
-import { KeyvalSDK } from '@voxgig-sdk/keyval'
+import { KeyvalSDK } from '@voxgig-sdk/keyval-sdk'
 
 const client = new KeyvalSDK()
 

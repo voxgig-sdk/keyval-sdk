@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { KeyvalSDK } from '@voxgig-sdk/keyval'
+import { KeyvalSDK } from '@voxgig-sdk/keyval-sdk'
 
 const client = new KeyvalSDK()
 ```
@@ -444,7 +444,7 @@ keyval/
 Import the SDK from the package root:
 
 ```ts
-import { KeyvalSDK } from '@voxgig-sdk/keyval'
+import { KeyvalSDK } from '@voxgig-sdk/keyval-sdk'
 ```
 
 ### Entity state
