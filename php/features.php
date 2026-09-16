@@ -4,7 +4,10 @@ declare(strict_types=1);
 // Keyval SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class KeyvalFeatures
@@ -14,8 +17,14 @@ class KeyvalFeatures
         switch ($name) {
             case "base":
                 return new KeyvalBaseFeature();
+            case "ratelimit":
+                return new KeyvalRatelimitFeature();
+            case "retry":
+                return new KeyvalRetryFeature();
             case "test":
                 return new KeyvalTestFeature();
+            case "timeout":
+                return new KeyvalTimeoutFeature();
             default:
                 return new KeyvalBaseFeature();
         }
@@ -31,7 +40,10 @@ class KeyvalFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

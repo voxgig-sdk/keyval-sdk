@@ -64,6 +64,12 @@ main: kit: entity: key_value_operation: {
               }
             ]
           }
+          contract: {
+            id: "GET /set/{key}/{value}"
+            json: "{\"operationId\":\"setKeyValue\",\"parameters\":[{\"description\":\"The key to store. Use '-' to auto-generate a key.\",\"example\":\"mykey\",\"in\":\"path\",\"name\":\"key\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"The value to store for the specified key.\",\"example\":\"myvalue\",\"in\":\"path\",\"name\":\"value\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"key\":{\"description\":\"The key that was stored (auto-generated if '-' was used)\",\"type\":\"string\"},\"value\":{\"description\":\"The value that was stored\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successfully stored the key/value pair\"},\"400\":{\"description\":\"Bad request - invalid key or value\"},\"500\":{\"description\":\"Server error\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/set/{key}/{value}"
           segments: [
@@ -100,6 +106,12 @@ main: kit: entity: key_value_operation: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /get/{key}"
+            json: "{\"operationId\":\"getValueByKey\",\"parameters\":[{\"description\":\"The key to retrieve the value for.\",\"example\":\"mykey\",\"in\":\"path\",\"name\":\"key\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"key\":{\"description\":\"The requested key\",\"type\":\"string\"},\"value\":{\"description\":\"The value associated with the key\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successfully retrieved the value\"},\"400\":{\"description\":\"Bad request - invalid key\"},\"404\":{\"description\":\"Key not found\"},\"500\":{\"description\":\"Server error\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/get/{key}"

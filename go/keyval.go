@@ -29,8 +29,17 @@ func init() {
 	core.NewBaseFeatureFunc = func() core.Feature {
 		return feature.NewBaseFeature()
 	}
+	core.NewRatelimitFeatureFunc = func() core.Feature {
+		return feature.NewRatelimitFeature()
+	}
+	core.NewRetryFeatureFunc = func() core.Feature {
+		return feature.NewRetryFeature()
+	}
 	core.NewTestFeatureFunc = func() core.Feature {
 		return feature.NewTestFeature()
+	}
+	core.NewTimeoutFeatureFunc = func() core.Feature {
+		return feature.NewTimeoutFeature()
 	}
 	core.NewKeyValueOperationEntityFunc = func(client *core.KeyvalSDK, entopts map[string]any) core.KeyvalEntity {
 		return entity.NewKeyValueOperationEntity(client, entopts)
@@ -58,4 +67,7 @@ var SharedConfig = core.SharedConfig
 func New() *KeyvalSDK  { return NewKeyvalSDK(nil) }
 func Test() *KeyvalSDK { return TestSDK(nil, nil) }
 var NewBaseFeature = feature.NewBaseFeature
+var NewRatelimitFeature = feature.NewRatelimitFeature
+var NewRetryFeature = feature.NewRetryFeature
 var NewTestFeature = feature.NewTestFeature
+var NewTimeoutFeature = feature.NewTimeoutFeature

@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { KeyvalSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('KeyValueOperationEntity', async () => {
 
     const live = 'TRUE' === process.env.KEYVAL_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'key_value_operation.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'key_value_operation.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"id","req":false,"type":"`$STRING`","index$":0},{"active":true,"name":"key","req":false,"short":"The key that was stored (auto-generated if '-' was used)","type":"`$STRING`","index$":1},{"active":true,"name":"value","req":false,"short":"The value that was stored","type":"`$STRING`","index$":2}],"id":{"field":"id","from":{"key":"key","value":"value"},"name":"id","parts":["key","value"],"sep":"/"},"name":"key_value_operation","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"params":[{"active":true,"example":"mykey","kind":"param","name":"key","orig":"key","reqd":true,"type":"`$STRING`","index$":0},{"active":true,"example":"myvalue","kind":"param","name":"value","orig":"value","reqd":true,"type":"`$STRING`","index$":1}]},"contract":{"id":"GET /set/{key}/{value}","json":"{\"operationId\":\"setKeyValue\",\"parameters\":[{\"description\":\"The key to store. Use '-' to auto-generate a key.\",\"example\":\"mykey\",\"in\":\"path\",\"name\":\"key\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"The value to store for the specified key.\",\"example\":\"myvalue\",\"in\":\"path\",\"name\":\"value\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"key\":{\"description\":\"The key that was stored (auto-generated if '-' was used)\",\"type\":\"string\"},\"value\":{\"description\":\"The value that was stored\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successfully stored the key/value pair\"},\"400\":{\"description\":\"Bad request - invalid key or value\"},\"500\":{\"description\":\"Server error\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/set/{key}/{value}","segments":[{"lit":"set"},{"var":"key"},{"var":"value"}],"select":{"exist":["key","value"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0},{"active":true,"args":{"params":[{"active":true,"example":"mykey","kind":"param","name":"key","orig":"key","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /get/{key}","json":"{\"operationId\":\"getValueByKey\",\"parameters\":[{\"description\":\"The key to retrieve the value for.\",\"example\":\"mykey\",\"in\":\"path\",\"name\":\"key\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"key\":{\"description\":\"The requested key\",\"type\":\"string\"},\"value\":{\"description\":\"The value associated with the key\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successfully retrieved the value\"},\"400\":{\"description\":\"Bad request - invalid key\"},\"404\":{\"description\":\"Key not found\"},\"500\":{\"description\":\"Server error\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/get/{key}","segments":[{"lit":"get"},{"var":"key"}],"select":{"exist":["key"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"load"}},"relations":{"ancestors":[["get"],["set"]]},"key$":"key_value_operation","name__orig":"key_value_operation","Name":"KeyValueOperation","name_":"key_value_operation","name-":"key-value-operation","NAME":"KEY_VALUE_OPERATION","index$":0}, {"active":true,"entity":"key_value_operation","key$":"BasicKeyValueOperationFlow","kind":"basic","name":"BasicKeyValueOperationFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"key_value_operation_ref01","srcdatavar":"key_value_operation_ref01_data","suffix":"_dt0"},"match":{"id":"key_value_operation01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-key_value_operation_ref01"}}],"index$":0}]}, 'KeyValueOperation')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID': idmap,
     'KEYVAL_TEST_LIVE': 'FALSE',
@@ -127,7 +119,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.KEYVAL_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['KEYVAL_TEST_KEY_VALUE_OPERATION_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new KeyvalSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -139,7 +137,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -152,7 +151,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.KEYVAL_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 
