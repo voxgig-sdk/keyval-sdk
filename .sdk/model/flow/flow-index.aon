@@ -1,4 +1,4 @@
 # Flows
 
-@"BasicKeyValueOperationFlow.aon"
-@"BasicNtFlow.aon"
+@"./BasicKeyValueOperationFlow.aon"
+@"./BasicNtFlow.aon"

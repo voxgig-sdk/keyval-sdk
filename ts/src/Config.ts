@@ -127,12 +127,12 @@ class Config {
 
     entity: {
       
-      key_value_operation: {
-      },
-
-      nt: {
-      },
-
+        key_value_operation: {
+        },
+  
+        nt: {
+        },
+  
     }
   }
 

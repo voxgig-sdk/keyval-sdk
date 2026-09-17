@@ -105,12 +105,12 @@ local result, err = client:KeyValueOperation():load({ key = "example" })
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/keyval-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/releases) |
-| Python | `voxgig-sdk-keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/releases) |
-| PHP | `voxgig-sdk/keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/releases) |
+| TypeScript | `@voxgig-sdk/keyval-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/tags) |
+| Python | `voxgig-sdk-keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/tags) |
+| PHP | `voxgig-sdk/keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/keyval-sdk/go` | `go get github.com/voxgig-sdk/keyval-sdk/go@latest` |
-| Ruby | `voxgig-sdk-keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/releases) |
-| Lua | `voxgig-sdk-keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/releases) |
+| Ruby | `voxgig-sdk-keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/tags) |
+| Lua | `voxgig-sdk-keyval` | publish pending — [install from git tag](https://github.com/voxgig-sdk/keyval-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/keyval-sdk/go-cli` | `go install github.com/voxgig-sdk/keyval-sdk/go-cli/cmd/keyval@latest` |
 | Go MCP server | `github.com/voxgig-sdk/keyval-sdk/go-mcp` | `go get github.com/voxgig-sdk/keyval-sdk/go-mcp@latest` |
 
