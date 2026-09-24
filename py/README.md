@@ -38,7 +38,6 @@ client = KeyvalSDK()
 
 ### 3. Load a keyvalueoperation
 
-KeyValueOperation is nested under key, so provide the `key`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python

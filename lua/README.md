@@ -35,8 +35,6 @@ local client = sdk.new()
 
 ### 3. Load a keyvalueoperation
 
-KeyValueOperation is nested under key, so provide the `key`.
-
 ```lua
 local keyvalueoperation, err = client:KeyValueOperation():load({ key = "example_key" })
 if err then error(err) end

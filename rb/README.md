@@ -32,8 +32,6 @@ client = KeyvalSDK.new
 
 ### 3. Load a keyvalueoperation
 
-KeyValueOperation is nested under key, so provide the `key`.
-
 ```ruby
 begin
   # load returns the ENTITY — call data_get for the KeyValueOperation record (raises on error).

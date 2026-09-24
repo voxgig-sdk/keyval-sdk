@@ -92,17 +92,20 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "key",
-						"short": "The key that was stored (auto-generated if '-' was used)",
+						"title": "Key",
 						"type": "`$STRING`",
+						"short": "The key that was stored (auto-generated if '-' was used)",
 					},
 					map[string]any{
 						"name": "value",
-						"short": "The value that was stored",
+						"title": "Value",
 						"type": "`$STRING`",
+						"short": "The value that was stored",
 					},
 				},
 				"id": map[string]any{
@@ -125,26 +128,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "mykey",
-											"kind": "param",
-											"name": "key",
-											"orig": "key",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "myvalue",
-											"kind": "param",
-											"name": "value",
-											"orig": "value",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/set/{key}/{value}",
@@ -159,35 +142,44 @@ func MakeConfig() map[string]any {
 										"var": "value",
 									},
 								},
+								"parts": []any{
+									"set",
+									"{key}",
+									"{value}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "key",
+											"orig": "key",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "mykey",
+										},
+										map[string]any{
+											"name": "value",
+											"orig": "value",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "myvalue",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"key",
 										"value",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"set",
-									"{key}",
-									"{value}",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "mykey",
-											"kind": "param",
-											"name": "key",
-											"orig": "key",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/get/{key}",
@@ -199,45 +191,53 @@ func MakeConfig() map[string]any {
 										"var": "key",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"key",
-									},
+								"parts": []any{
+									"get",
+									"{key}",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"get",
-									"{key}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "key",
+											"orig": "key",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "mykey",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"key",
+									},
 								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"get",
-						},
-						[]any{
-							"set",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"nt": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "key",
-						"short": "The auto-generated key",
+						"title": "Key",
 						"type": "`$STRING`",
+						"short": "The auto-generated key",
 					},
 					map[string]any{
 						"name": "value",
-						"short": "The value that was stored",
+						"title": "Value",
 						"type": "`$STRING`",
+						"short": "The value that was stored",
 					},
 				},
 				"name": "nt",
@@ -247,18 +247,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "myvalue",
-											"kind": "param",
-											"name": "value",
-											"orig": "value",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/-/{value}",
@@ -270,29 +258,38 @@ func MakeConfig() map[string]any {
 										"var": "value",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"value",
-									},
+								"parts": []any{
+									"-",
+									"{value}",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"-",
-									"{value}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "value",
+											"orig": "value",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "myvalue",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"value",
+									},
 								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 		},

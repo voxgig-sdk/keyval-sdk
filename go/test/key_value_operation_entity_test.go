@@ -104,7 +104,7 @@ func key_value_operationBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"key_value_operation01", "key_value_operation02", "key_value_operation03", "get01", "get02", "get03", "set01", "set02", "set03"},
+		[]any{"key_value_operation01", "key_value_operation02", "key_value_operation03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

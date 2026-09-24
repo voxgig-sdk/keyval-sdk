@@ -70,7 +70,7 @@ def _nt_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["nt01", "nt02", "nt03", "01", "02", "03"],
+        ["nt01", "nt02", "nt03"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",

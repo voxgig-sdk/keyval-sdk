@@ -1,7 +1,7 @@
 // Typed models for the Keyval SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,9 +14,6 @@ import (
 
 // KeyValueOperation is the typed data model for the key_value_operation entity.
 type KeyValueOperation struct {
-	Id *string `json:"id,omitempty"`
-	Key *string `json:"key,omitempty"`
-	Value *string `json:"value,omitempty"`
 }
 
 // KeyValueOperationLoadMatch is the typed request payload for KeyValueOperation.LoadTyped.
@@ -27,8 +24,6 @@ type KeyValueOperationLoadMatch struct {
 
 // Nt is the typed data model for the nt entity.
 type Nt struct {
-	Key *string `json:"key,omitempty"`
-	Value *string `json:"value,omitempty"`
 }
 
 // NtLoadMatch is the typed request payload for Nt.LoadTyped.

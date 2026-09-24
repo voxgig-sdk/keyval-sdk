@@ -24,34 +24,103 @@
         "repr": "auto"
       },
       "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "key_value_operation": {
           "active": true,
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "id",
-              "req": false,
-              "type": "`$STRING`"
+          "fields": {
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "key",
-              "req": false,
-              "short": "The key that was stored (auto-generated if '-' was used)",
-              "type": "`$STRING`"
+            "key": {
+              "a": true,
+              "h": "Key",
+              "n": "key",
+              "r": false,
+              "sh": "The key that was stored (auto-generated if '-' was used)",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "value",
-              "req": false,
-              "short": "The value that was stored",
-              "type": "`$STRING`"
+            "value": {
+              "a": true,
+              "h": "Value",
+              "n": "value",
+              "r": false,
+              "sh": "The value that was stored",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "id": {
             "field": "id",
             "from": {
@@ -72,39 +141,45 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /set/{key}/{value}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "mykey",
-                        "kind": "param",
-                        "name": "key",
-                        "orig": "key",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "mykey",
+                        "k": "param",
+                        "n": "key",
+                        "or": "key",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "example": "myvalue",
-                        "kind": "param",
-                        "name": "value",
-                        "orig": "value",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "myvalue",
+                        "k": "param",
+                        "n": "value",
+                        "or": "value",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /set/{key}/{value}",
-                    "json": "{\"operationId\":\"setKeyValue\",\"parameters\":[{\"description\":\"The key to store. Use '-' to auto-generate a key.\",\"example\":\"mykey\",\"in\":\"path\",\"name\":\"key\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"The value to store for the specified key.\",\"example\":\"myvalue\",\"in\":\"path\",\"name\":\"value\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"key\":{\"description\":\"The key that was stored (auto-generated if '-' was used)\",\"type\":\"string\"},\"value\":{\"description\":\"The value that was stored\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successfully stored the key/value pair\"},\"400\":{\"description\":\"Bad request - invalid key or value\"},\"500\":{\"description\":\"Server error\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/set/{key}/{value}",
+                  "q": {
+                    "exist": [
+                      "key",
+                      "value"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/set/{key}/{value}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "set"
                     },
@@ -115,42 +190,41 @@
                       "var": "value"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "key",
-                      "value"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /get/{key}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "mykey",
-                        "kind": "param",
-                        "name": "key",
-                        "orig": "key",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "mykey",
+                        "k": "param",
+                        "n": "key",
+                        "or": "key",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /get/{key}",
-                    "json": "{\"operationId\":\"getValueByKey\",\"parameters\":[{\"description\":\"The key to retrieve the value for.\",\"example\":\"mykey\",\"in\":\"path\",\"name\":\"key\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"key\":{\"description\":\"The requested key\",\"type\":\"string\"},\"value\":{\"description\":\"The value associated with the key\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successfully retrieved the value\"},\"400\":{\"description\":\"Bad request - invalid key\"},\"404\":{\"description\":\"Key not found\"},\"500\":{\"description\":\"Server error\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/get/{key}",
+                  "q": {
+                    "exist": [
+                      "key"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/get/{key}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "get"
                     },
@@ -158,12 +232,7 @@
                       "var": "key"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "key"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -172,14 +241,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "get"
-              ],
-              [
-                "set"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "nt": {
@@ -187,22 +249,24 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "key",
-              "req": false,
-              "short": "The auto-generated key",
-              "type": "`$STRING`"
+          "fields": {
+            "key": {
+              "a": true,
+              "h": "Key",
+              "n": "key",
+              "r": false,
+              "sh": "The auto-generated key",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "value",
-              "req": false,
-              "short": "The value that was stored",
-              "type": "`$STRING`"
+            "value": {
+              "a": true,
+              "h": "Value",
+              "n": "value",
+              "r": false,
+              "sh": "The value that was stored",
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "nt",
           "op": {
             "load": {
@@ -210,30 +274,35 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /-/{value}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "myvalue",
-                        "kind": "param",
-                        "name": "value",
-                        "orig": "value",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "myvalue",
+                        "k": "param",
+                        "n": "value",
+                        "or": "value",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /-/{value}",
-                    "json": "{\"operationId\":\"setAutoGeneratedKey\",\"parameters\":[{\"description\":\"The value to store with an auto-generated key.\",\"example\":\"myvalue\",\"in\":\"path\",\"name\":\"value\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"key\":{\"description\":\"The auto-generated key\",\"type\":\"string\"},\"value\":{\"description\":\"The value that was stored\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successfully stored the value with an auto-generated key\"},\"400\":{\"description\":\"Bad request - invalid value\"},\"500\":{\"description\":\"Server error\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/-/{value}",
+                  "q": {
+                    "exist": [
+                      "value"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/-/{value}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "-"
                     },
@@ -241,12 +310,7 @@
                       "var": "value"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "value"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -255,11 +319,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                ""
-              ]
-            ]
+            "ancestors": []
           }
         }
       },
@@ -679,19 +739,19 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "key_value_operation_ref01",
                 "srcdatavar": "key_value_operation_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "key_value_operation01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -711,19 +771,19 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "nt_ref01",
                 "srcdatavar": "nt_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "nt01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {

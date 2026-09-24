@@ -1,0 +1,143 @@
+# Entity: key_value_operation
+
+main: kit: entity: key_value_operation: {
+
+  alias: field: {}
+
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    key: {
+      h: "Key"
+      n: "key"
+      r: false
+      sh: "The key that was stored (auto-generated if '-' was used)"
+      t: "`$STRING`"
+    }
+    value: {
+      h: "Value"
+      n: "value"
+      r: false
+      sh: "The value that was stored"
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    from: {
+      key: "key"
+      value: "value"
+    }
+    name: "id"
+    parts: [
+      "key"
+      "value"
+    ]
+    sep: "/"
+  }
+
+  name: "key_value_operation"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /set/{key}/{value}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "mykey"
+                k: "param"
+                n: "key"
+                or: "key"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "myvalue"
+                k: "param"
+                n: "value"
+                or: "value"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/set/{key}/{value}"
+          q: {
+            exist: [
+              "key"
+              "value"
+            ]
+          }
+          s: [
+            {
+              lit: "set"
+            }
+            {
+              var: "key"
+            }
+            {
+              var: "value"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /get/{key}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "mykey"
+                k: "param"
+                n: "key"
+                or: "key"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/get/{key}"
+          q: {
+            exist: [
+              "key"
+            ]
+          }
+          s: [
+            {
+              lit: "get"
+            }
+            {
+              var: "key"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

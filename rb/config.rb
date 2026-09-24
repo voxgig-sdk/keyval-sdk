@@ -100,17 +100,20 @@ module KeyvalConfig
           "fields" => [
             {
               "name" => "id",
+              "title" => "Id",
               "type" => "`$STRING`",
             },
             {
               "name" => "key",
-              "short" => "The key that was stored (auto-generated if '-' was used)",
+              "title" => "Key",
               "type" => "`$STRING`",
+              "short" => "The key that was stored (auto-generated if '-' was used)",
             },
             {
               "name" => "value",
-              "short" => "The value that was stored",
+              "title" => "Value",
               "type" => "`$STRING`",
+              "short" => "The value that was stored",
             },
           ],
           "id" => {
@@ -133,26 +136,6 @@ module KeyvalConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "example" => "mykey",
-                        "kind" => "param",
-                        "name" => "key",
-                        "orig" => "key",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                      {
-                        "example" => "myvalue",
-                        "kind" => "param",
-                        "name" => "value",
-                        "orig" => "value",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/set/{key}/{value}",
@@ -167,35 +150,44 @@ module KeyvalConfig
                       "var" => "value",
                     },
                   ],
+                  "parts" => [
+                    "set",
+                    "{key}",
+                    "{value}",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "key",
+                        "orig" => "key",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                        "example" => "mykey",
+                      },
+                      {
+                        "name" => "value",
+                        "orig" => "value",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                        "example" => "myvalue",
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "key",
                       "value",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "set",
-                    "{key}",
-                    "{value}",
-                  ],
                 },
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "example" => "mykey",
-                        "kind" => "param",
-                        "name" => "key",
-                        "orig" => "key",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/get/{key}",
@@ -207,45 +199,53 @@ module KeyvalConfig
                       "var" => "key",
                     },
                   ],
+                  "parts" => [
+                    "get",
+                    "{key}",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "key",
+                        "orig" => "key",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                        "example" => "mykey",
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "key",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "get",
-                    "{key}",
-                  ],
                 },
               ],
             },
           },
           "relations" => {
-            "ancestors" => [
-              [
-                "get",
-              ],
-              [
-                "set",
-              ],
-            ],
+            "ancestors" => [],
           },
         },
         "nt" => {
           "fields" => [
             {
               "name" => "key",
-              "short" => "The auto-generated key",
+              "title" => "Key",
               "type" => "`$STRING`",
+              "short" => "The auto-generated key",
             },
             {
               "name" => "value",
-              "short" => "The value that was stored",
+              "title" => "Value",
               "type" => "`$STRING`",
+              "short" => "The value that was stored",
             },
           ],
           "name" => "nt",
@@ -255,18 +255,6 @@ module KeyvalConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "example" => "myvalue",
-                        "kind" => "param",
-                        "name" => "value",
-                        "orig" => "value",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/-/{value}",
@@ -278,29 +266,38 @@ module KeyvalConfig
                       "var" => "value",
                     },
                   ],
+                  "parts" => [
+                    "-",
+                    "{value}",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "value",
+                        "orig" => "value",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                        "example" => "myvalue",
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "value",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "-",
-                    "{value}",
-                  ],
                 },
               ],
             },
           },
           "relations" => {
-            "ancestors" => [
-              [
-                "",
-              ],
-            ],
+            "ancestors" => [],
           },
         },
       },

@@ -98,7 +98,7 @@ func ntBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"nt01", "nt02", "nt03", "01", "02", "03"},
+		[]any{"nt01", "nt02", "nt03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

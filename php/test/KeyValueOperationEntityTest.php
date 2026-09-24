@@ -74,7 +74,7 @@ function key_value_operation_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["key_value_operation01", "key_value_operation02", "key_value_operation03", "get01", "get02", "get03", "set01", "set02", "set03"] as $k) {
+    foreach (["key_value_operation01", "key_value_operation02", "key_value_operation03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

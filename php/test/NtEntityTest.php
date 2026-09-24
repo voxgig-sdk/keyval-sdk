@@ -70,7 +70,7 @@ function nt_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["nt01", "nt02", "nt03", "01", "02", "03"] as $k) {
+    foreach (["nt01", "nt02", "nt03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

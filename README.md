@@ -14,7 +14,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -123,11 +123,8 @@ import { KeyvalSDK } from '@voxgig-sdk/keyval-sdk'
 
 const client = new KeyvalSDK()
 
-
-// Load a specific keyvalueoperation (returns a KeyValueOperation)
-const keyvalueoperation = await client.KeyValueOperation().load({
-  key: 'example_key',
-})
+// Load keyvalueoperation data (returns a KeyValueOperation)
+const keyvalueoperation = await client.KeyValueOperation().load()
 console.log(keyvalueoperation)
 ```
 
@@ -211,11 +208,8 @@ import sdk "github.com/voxgig-sdk/keyval-sdk/go"
 
 client := sdk.New()
 
-
-// Load a specific keyvalueoperation
-keyValueOperation, err := client.KeyValueOperation(nil).Load(
-    map[string]any{"key": "example_key"}, nil,
-)
+// Load keyvalueoperation data
+keyValueOperation, err := client.KeyValueOperation(nil).Load(map[string]any{"key": "example_key"}, nil)
 if err != nil {
     panic(err)
 }

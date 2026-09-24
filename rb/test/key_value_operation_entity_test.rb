@@ -66,7 +66,7 @@ def key_value_operation_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["key_value_operation01", "key_value_operation02", "key_value_operation03", "get01", "get02", "get03", "set01", "set02", "set03"],
+    ["key_value_operation01", "key_value_operation02", "key_value_operation03"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",
