@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 KeyvalUtility.registrar = ->(u) {
   u.clean = KeyvalUtilities::Clean
+  u.clean_add = KeyvalUtilities::CleanAdd
+  u.clean_explain = KeyvalUtilities::CleanExplain
   u.done = KeyvalUtilities::Done
   u.make_error = KeyvalUtilities::MakeError
   u.feature_add = KeyvalUtilities::FeatureAdd

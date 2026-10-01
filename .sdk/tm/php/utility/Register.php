@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 KeyvalUtility::setRegistrar(function (KeyvalUtility $u): void {
     $u->clean = [KeyvalClean::class, 'call'];
+    $u->clean_add = [KeyvalClean::class, 'add'];
+    $u->clean_explain = [KeyvalDone::class, 'clean_explain'];
     $u->done = [KeyvalDone::class, 'call'];
     $u->make_error = [KeyvalMakeError::class, 'call'];
     $u->feature_add = [KeyvalFeatureAdd::class, 'call'];
