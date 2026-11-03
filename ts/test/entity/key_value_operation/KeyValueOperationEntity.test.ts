@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { KeyvalSDK, BaseFeature, stdutil } from '../../..'
+import { KeyvalSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,17 +41,29 @@ describe('KeyValueOperationEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = KeyvalSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.KeyValueOperation().load({"key":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.KEYVAL_TEST_LIVE
-    for (const op of ['load']) {
+    for (const op of []) {
       if (!live && maybeSkipControl(t, 'entityOp', 'key_value_operation.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":0},"key":{"a":true,"h":"Key","n":"key","r":false,"sh":"The key that was stored (auto-generated if '-' was used)","t":"`$STRING`","key$":"key","index$":1},"value":{"a":true,"h":"Value","n":"value","r":false,"sh":"The value that was stored","t":"`$STRING`","key$":"value","index$":2}},"id":{"field":"id","from":{"key":"key","value":"value"},"name":"id","parts":["key","value"],"sep":"/"},"name":"key_value_operation","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /set/{key}/{value}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"mykey","k":"param","n":"key","or":"key","r":true,"t":"`$STRING`","index$":0},{"a":true,"ex":"myvalue","k":"param","n":"value","or":"value","r":true,"t":"`$STRING`","index$":1}]},"k":"http","m":"GET","o":"/set/{key}/{value}","q":{"exist":["key","value"]},"r":{},"s":[{"lit":"set"},{"var":"key"},{"var":"value"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /get/{key}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"mykey","k":"param","n":"key","or":"key","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/get/{key}","q":{"exist":["key"]},"r":{},"s":[{"lit":"get"},{"var":"key"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"key_value_operation","name__orig":"key_value_operation","Name":"KeyValueOperation","name_":"key_value_operation","name-":"key-value-operation","NAME":"KEY_VALUE_OPERATION","index$":0}, {"active":true,"entity":"key_value_operation","key$":"BasicKeyValueOperationFlow","kind":"basic","name":"BasicKeyValueOperationFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"key_value_operation_ref01","srcdatavar":"key_value_operation_ref01_data","suffix":"_dt0"},"m":{"id":"key_value_operation01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-key_value_operation_ref01"}}],"index$":0}]}, 'KeyValueOperation', {"GET /set/{key}/{value}":{"protocol":"http","parameters":[{"name":"key","in":"path","required":true,"description":"The key to store. Use '-' to auto-generate a key.","schema":{"type":"string"},"example":"mykey","index$":0},{"name":"value","in":"path","required":true,"description":"The value to store for the specified key.","schema":{"type":"string"},"example":"myvalue","index$":1}]},"GET /get/{key}":{"protocol":"http","parameters":[{"name":"key","in":"path","required":true,"description":"The key to retrieve the value for.","schema":{"type":"string"},"example":"mykey","index$":0}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"key":{"a":true,"h":"Key","n":"key","r":false,"sh":"The requested key","t":"`$STRING`","key$":"key","index$":0},"value":{"a":true,"h":"Value","n":"value","r":false,"sh":"The value associated with the key","t":"`$STRING`","key$":"value","index$":1}},"name":"key_value_operation","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /get/{key}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"mykey","k":"param","n":"key","or":"key","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/get/{key}","q":{"exist":["key"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"get"},{"var":"key"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"key_value_operation","name__orig":"key_value_operation","Name":"KeyValueOperation","name_":"key_value_operation","name-":"key-value-operation","NAME":"KEY_VALUE_OPERATION","index$":0}, {"active":true,"entity":"key_value_operation","key$":"BasicKeyValueOperationFlow","kind":"basic","name":"BasicKeyValueOperationFlow","param":{},"step":[{"a":false,"d":{},"i":{"ref":"key_value_operation_ref01","srcdatavar":"key_value_operation_ref01_data","suffix":"_dt0"},"m":{"id":"key_value_operation01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-key_value_operation_ref01"}}],"unreachable":true}]}, 'KeyValueOperation', {"GET /get/{key}":{"protocol":"http","parameters":[{"name":"key","in":"path","required":true,"description":"The key to retrieve the value for.","schema":{"type":"string"},"example":"mykey","index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -61,18 +73,16 @@ describe('KeyValueOperationEntity', async () => {
 
     let key_value_operation_ref01_data = Object.values(setup.data.existing.key_value_operation)[0] as any
 
-    // LOAD
-    const key_value_operation_ref01_ent = client.KeyValueOperation()
-    const key_value_operation_ref01_match_dt0: any = {}
-    key_value_operation_ref01_match_dt0.id = key_value_operation_ref01_data.id
-    const key_value_operation_ref01_data_dt0 = (await key_value_operation_ref01_ent.load(key_value_operation_ref01_match_dt0)).data()
-    assert(key_value_operation_ref01_data_dt0.id === key_value_operation_ref01_data.id)
-
-
   })
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

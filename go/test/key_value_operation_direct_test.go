@@ -10,6 +10,12 @@ import (
 	"github.com/voxgig-sdk/keyval-sdk/go/core"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const key_value_operationDirectLiveStrict = true
+
 func TestKeyValueOperationDirect(t *testing.T) {
 	t.Run("direct-load-key_value_operation", func(t *testing.T) {
 		setup := key_value_operationDirectSetup(map[string]any{"id": "direct01"})
@@ -30,32 +36,25 @@ func TestKeyValueOperationDirect(t *testing.T) {
 		query := map[string]any{}
 		if setup.live {
 			params["key"] = "mykey"
-			params["value"] = "myvalue"
 		} else {
 			params["key"] = "direct01"
-			params["value"] = "direct02"
 		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "set/{key}/{value}",
+			"path":   "get/{key}",
 			"method": "GET",
 			"params": params,
 			"query":  query,
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx. Skip
-			// rather than fail when the load endpoint isn't reachable with
-			// the IDs we can construct from setup.idmap — unless the model
-			// sets main.kit.test.live.strict.
 			if err != nil {
-				t.Fatalf("load call failed (likely synthetic IDs against live API): %v", err)
+				liveMiss(t, key_value_operationDirectLiveStrict, "Live load failed: %v", err)
 			}
-			if result["ok"] != true {
-				t.Fatalf("load call not ok (likely synthetic IDs against live API): %v", result)
+			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
+				liveMiss(t, key_value_operationDirectLiveStrict, "Live load failed: %s", liveDescribe(result))
 			}
-			status := core.ToInt(result["status"])
-			if status < 200 || status >= 300 {
-				t.Fatalf("expected 2xx status, got %v", result["status"])
+			if result["data"] == nil {
+				liveMiss(t, key_value_operationDirectLiveStrict, "Live load returned no data: %s", liveDescribe(result))
 			}
 		} else {
 			if err != nil {
@@ -91,9 +90,6 @@ func TestKeyValueOperationDirect(t *testing.T) {
 			if url, ok := call["url"].(string); ok {
 				if !strings.Contains(url, "direct01") {
 					t.Fatalf("expected url to contain direct01, got %v", url)
-				}
-				if !strings.Contains(url, "direct02") {
-					t.Fatalf("expected url to contain direct02, got %v", url)
 				}
 			}
 		}
@@ -139,6 +135,12 @@ func key_value_operationDirectSetup(mockres any) *key_value_operationDirectSetup
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {
 				idmap = entidMap
+			}
+		}
+		// A path parameter's example stands in for an id *_ENTID does not give.
+		for k, v := range map[string]any{"key01": "mykey"} {
+			if idmap[k] == nil {
+				idmap[k] = v
 			}
 		}
 

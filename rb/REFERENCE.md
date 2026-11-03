@@ -45,10 +45,6 @@ client = KeyvalSDK.test
 
 Create a new `KeyValueOperation` entity instance. Pass `nil` for no initial data.
 
-#### `Nt(data = nil)`
-
-Create a new `Nt` entity instance. Pass `nil` for no initial data.
-
 #### `options_map -> Hash`
 
 Return a deep copy of the current SDK options.
@@ -97,15 +93,14 @@ key_value_operation = client.KeyValueOperation
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `String` | No |  |
-| `key` | `String` | No | The key that was stored (auto-generated if '-' was used) |
-| `value` | `String` | No | The value that was stored |
+| `key` | `String` | No | The requested key |
+| `value` | `String` | No | The value associated with the key |
 
 ### Operations
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria. Raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
 result = client.KeyValueOperation.load({ "key" => "key" })
@@ -132,59 +127,6 @@ Set the entity match criteria.
 #### `make -> Entity`
 
 Create a new `KeyValueOperationEntity` instance with the same client and
-options.
-
-#### `get_name -> String`
-
-Return the entity name.
-
-
----
-
-## NtEntity
-
-```ruby
-nt = client.Nt
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `key` | `String` | No | The auto-generated key |
-| `value` | `String` | No | The value that was stored |
-
-### Operations
-
-#### `load(reqmatch, ctrl = nil) -> result`
-
-Load a single entity matching the given criteria. Raises on error.
-
-```ruby
-result = client.Nt.load({ "value" => "value" })
-```
-
-### Common Methods
-
-#### `data_get -> Hash`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get -> Hash`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make -> Entity`
-
-Create a new `NtEntity` instance with the same client and
 options.
 
 #### `get_name -> String`
@@ -351,6 +293,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

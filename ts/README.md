@@ -15,7 +15,7 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/keyval-sdk/releases)), or from a
+release tag (`ts/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/keyval-sdk/tags)), or from a
 clone, which carries the compiled `dist/`:
 
 ```bash
@@ -39,12 +39,12 @@ const client = new KeyvalSDK()
 
 ### 3. Load a keyvalueoperation
 
-`load()` returns the entity directly and throws on failure:
+`load()` returns the entity and throws on failure; `.data()` reads its record:
 
 ```ts
 try {
   const keyvalueoperation = await client.KeyValueOperation().load({ key: 'example_key' })
-  console.log(keyvalueoperation)
+  console.log(keyvalueoperation.data())
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -58,14 +58,15 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 ```ts
 try {
   const keyvalueoperation = await client.KeyValueOperation().load({ key: "example" })
-  console.log(keyvalueoperation)
+  console.log(keyvalueoperation.data())
 } catch (err) {
   console.error('load failed:', err)
 }
 ```
 
 The low-level `direct()` method does **not** throw — it returns the
-value or an `Error`, so check the result before using it:
+result envelope. Branch on `ok`; on failure `status` holds the HTTP status
+(for error responses) and `err` holds the error:
 
 ```ts
 const result = await client.direct({
@@ -74,8 +75,8 @@ const result = await client.direct({
   params: { id: 'example_id' },
 })
 
-if (result instanceof Error) {
-  throw result
+if (!result.ok) {
+  console.error('request failed:', result.status, result.err)
 }
 ```
 
@@ -93,9 +94,6 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
-if (result instanceof Error) {
-  throw result
-}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -125,9 +123,8 @@ Create a mock client for unit testing — no server required:
 const client = KeyvalSDK.test()
 
 const keyvalueoperation = await client.KeyValueOperation().load({ key: 'example_key' })
-// keyvalueoperation is the entity, populated with mock response data
-// — call keyvalueoperation.data() for the record itself
-console.log(keyvalueoperation)
+// keyvalueoperation is the KeyValueOperation entity; .data() reads its mock record
+console.log(keyvalueoperation.data())
 ```
 
 You can also use the instance method:
@@ -149,7 +146,7 @@ await entity.load({ key: 'example_key' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id)
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -226,7 +223,6 @@ new KeyvalSDK(options?: {
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `KeyValueOperation(data?)` | `KeyValueOperationEntity` | Create a KeyValueOperation entity instance. |
-| `Nt(data?)` | `NtEntity` | Create a Nt entity instance. |
 | `tester(testopts?, sdkopts?)` | `KeyvalSDK` | Create a test-mode client instance. |
 
 #### Static methods
@@ -243,7 +239,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria, and return it. |
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
@@ -252,8 +248,8 @@ All entities share the same interface.
 
 #### Return values
 
-Entity operations resolve to the entity data directly — there is no
-result envelope:
+Entity operations resolve to the entity itself — there is no result
+envelope, and an entity's `data()` reads its record:
 
 - `load` resolves to a single entity object.
 
@@ -295,24 +291,12 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
-| `key` | The key that was stored (auto-generated if '-' was used) |
-| `value` | The value that was stored |
+| `key` | The requested key |
+| `value` | The value associated with the key |
 
 Operations: load.
 
-API path: `/set/{key}/{value}`
-
-#### Nt
-
-| Field | Description |
-| --- | --- |
-| `key` | The auto-generated key |
-| `value` | The value that was stored |
-
-Operations: load.
-
-API path: `/-/{value}`
+API path: `/get/{key}`
 
 
 
@@ -333,38 +317,13 @@ Create an instance: `const key_value_operation = client.KeyValueOperation()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `string` |  |
-| `key` | `string` | The key that was stored (auto-generated if '-' was used) |
-| `value` | `string` | The value that was stored |
+| `key` | `string` | The requested key |
+| `value` | `string` | The value associated with the key |
 
 #### Example: Load
 
 ```ts
 const key_value_operation = await client.KeyValueOperation().load({ key: 'key' })
-```
-
-
-### Nt
-
-Create an instance: `const nt = client.Nt()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `key` | `string` | The auto-generated key |
-| `value` | `string` | The value that was stored |
-
-#### Example: Load
-
-```ts
-const nt = await client.Nt().load({ value: 'value' })
 ```
 
 ## Features

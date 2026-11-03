@@ -15,7 +15,6 @@ declare(strict_types=1);
 /** KeyValueOperation entity data model. */
 class KeyValueOperation
 {
-    public ?string $id = null;
     public ?string $key = null;
     public ?string $value = null;
 }
@@ -24,19 +23,5 @@ class KeyValueOperation
 class KeyValueOperationLoadMatch
 {
     public string $key;
-    public ?string $value = null;
-}
-
-/** Nt entity data model. */
-class Nt
-{
-    public ?string $key = null;
-    public ?string $value = null;
-}
-
-/** Request payload for Nt#load. */
-class NtLoadMatch
-{
-    public string $value;
 }
 

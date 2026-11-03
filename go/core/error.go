@@ -12,6 +12,8 @@ type KeyvalError struct {
 	Ctx    *Context `json:"-"`
 	Result any
 	Spec   any
+	// The HTTP status, -1 when there was no response.
+	Status int
 }
 
 func NewKeyvalError(code string, msg string, ctx *Context) *KeyvalError {
@@ -21,7 +23,12 @@ func NewKeyvalError(code string, msg string, ctx *Context) *KeyvalError {
 		Code:               code,
 		Msg:                msg,
 		Ctx:                ctx,
+		Status:             -1,
 	}
+}
+
+func (e *KeyvalError) NotFound() bool {
+	return 404 == e.Status
 }
 
 func (e *KeyvalError) Error() string {
@@ -35,6 +42,7 @@ func (e *KeyvalError) Record() map[string]any {
 		"sdk":     e.Sdk,
 		"code":    e.Code,
 		"message": e.Msg,
+		"status":  e.Status,
 		"result":  e.Result,
 		"spec":    e.Spec,
 	}

@@ -13,35 +13,6 @@ const PLAN = [
         "accessor": "KeyValueOperation",
         "op": "load",
         "method": "GET",
-        "path": "/set/{key}/{value}",
-        "args": [
-            {
-                "name": "key",
-                "wire": "key",
-                "value": "mykey"
-            },
-            {
-                "name": "value",
-                "wire": "value",
-                "value": "myvalue"
-            }
-        ],
-        "select": {},
-        "headers": [],
-        "query": [],
-        "auth": null,
-        "status": 200,
-        "sample": {
-            "key": "x",
-            "value": "x"
-        },
-        "idField": "id"
-    },
-    {
-        "entity": "key_value_operation",
-        "accessor": "KeyValueOperation",
-        "op": "load",
-        "method": "GET",
         "path": "/get/{key}",
         "args": [
             {
@@ -52,31 +23,12 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
-        "query": [],
-        "auth": null,
-        "status": 200,
-        "sample": {
-            "key": "x",
-            "value": "x"
-        },
-        "idField": "id"
-    },
-    {
-        "entity": "nt",
-        "accessor": "Nt",
-        "op": "load",
-        "method": "GET",
-        "path": "/-/{value}",
-        "args": [
-            {
-                "name": "value",
-                "wire": "value",
-                "value": "myvalue"
-            }
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
         ],
-        "select": {},
-        "headers": [],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {

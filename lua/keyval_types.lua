@@ -7,20 +7,11 @@
 -- edit by hand.
 
 ---@class KeyValueOperation
----@field id? string
 ---@field key? string
 ---@field value? string
 
 ---@class KeyValueOperationLoadMatch
 ---@field key string
----@field value? string
-
----@class Nt
----@field key? string
----@field value? string
-
----@class NtLoadMatch
----@field value string
 
 local M = {}
 

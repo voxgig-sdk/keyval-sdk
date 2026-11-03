@@ -17,23 +17,9 @@ from typing import TypedDict, Any
 
 
 class KeyValueOperation(TypedDict, total=False):
-    id: str
     key: str
     value: str
 
 
-class KeyValueOperationLoadMatchRequired(TypedDict):
+class KeyValueOperationLoadMatch(TypedDict):
     key: str
-
-
-class KeyValueOperationLoadMatch(KeyValueOperationLoadMatchRequired, total=False):
-    value: str
-
-
-class Nt(TypedDict, total=False):
-    key: str
-    value: str
-
-
-class NtLoadMatch(TypedDict):
-    value: str

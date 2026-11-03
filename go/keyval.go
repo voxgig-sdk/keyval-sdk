@@ -13,7 +13,12 @@ type Context = core.Context
 type Utility = core.Utility
 type Feature = core.Feature
 type Entity = core.Entity
-type KeyvalEntity = core.KeyvalEntity
+type KeyvalEntityBase = core.KeyvalEntityBase
+
+// Deprecated: use KeyvalEntityBase.
+type KeyvalEntity = core.KeyvalEntityBase
+
+type StreamItem = core.StreamItem
 type FetcherFunc = core.FetcherFunc
 type Spec = core.Spec
 type Result = core.Result
@@ -41,11 +46,8 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
-	core.NewKeyValueOperationEntityFunc = func(client *core.KeyvalSDK, entopts map[string]any) core.KeyvalEntity {
+	core.NewKeyValueOperationEntityFunc = func(client *core.KeyvalSDK, entopts map[string]any) core.KeyvalEntityBase {
 		return entity.NewKeyValueOperationEntity(client, entopts)
-	}
-	core.NewNtEntityFunc = func(client *core.KeyvalSDK, entopts map[string]any) core.KeyvalEntity {
-		return entity.NewNtEntity(client, entopts)
 	}
 }
 

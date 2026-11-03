@@ -20,7 +20,7 @@ import (
 const prompt = "keyval"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "key_value_operation nt"
+const entitiesHelp = "key_value_operation"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

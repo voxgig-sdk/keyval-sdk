@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -84,42 +85,23 @@ func MakeConfig() map[string]any {
 			},
 			"entity": map[string]any{
 				"key_value_operation": map[string]any{},
-				"nt": map[string]any{},
 			},
 		},
 		"entity": map[string]any{
 			"key_value_operation": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"name": "id",
-						"title": "Id",
-						"type": "`$STRING`",
-					},
-					map[string]any{
 						"name": "key",
 						"title": "Key",
 						"type": "`$STRING`",
-						"short": "The key that was stored (auto-generated if '-' was used)",
+						"short": "The requested key",
 					},
 					map[string]any{
 						"name": "value",
 						"title": "Value",
 						"type": "`$STRING`",
-						"short": "The value that was stored",
+						"short": "The value associated with the key",
 					},
-				},
-				"id": map[string]any{
-					"field": "id",
-					"from": map[string]any{
-						"key": "key",
-						"value": "value",
-					},
-					"name": "id",
-					"parts": []any{
-						"key",
-						"value",
-					},
-					"sep": "/",
 				},
 				"name": "key_value_operation",
 				"op": map[string]any{
@@ -127,58 +109,6 @@ func MakeConfig() map[string]any {
 						"input": "data",
 						"name": "load",
 						"points": []any{
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/set/{key}/{value}",
-								"segments": []any{
-									map[string]any{
-										"lit": "set",
-									},
-									map[string]any{
-										"var": "key",
-									},
-									map[string]any{
-										"var": "value",
-									},
-								},
-								"parts": []any{
-									"set",
-									"{key}",
-									"{value}",
-								},
-								"rename": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "key",
-											"orig": "key",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-											"example": "mykey",
-										},
-										map[string]any{
-											"name": "value",
-											"orig": "value",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-											"example": "myvalue",
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"key",
-										"value",
-									},
-								},
-							},
 							map[string]any{
 								"kind": "http",
 								"method": "GET",
@@ -217,72 +147,9 @@ func MakeConfig() map[string]any {
 										"key",
 									},
 								},
-							},
-						},
-					},
-				},
-				"relations": map[string]any{
-					"ancestors": []any{},
-				},
-			},
-			"nt": map[string]any{
-				"fields": []any{
-					map[string]any{
-						"name": "key",
-						"title": "Key",
-						"type": "`$STRING`",
-						"short": "The auto-generated key",
-					},
-					map[string]any{
-						"name": "value",
-						"title": "Value",
-						"type": "`$STRING`",
-						"short": "The value that was stored",
-					},
-				},
-				"name": "nt",
-				"op": map[string]any{
-					"load": map[string]any{
-						"input": "data",
-						"name": "load",
-						"points": []any{
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/-/{value}",
-								"segments": []any{
-									map[string]any{
-										"lit": "-",
-									},
-									map[string]any{
-										"var": "value",
-									},
-								},
-								"parts": []any{
-									"-",
-									"{value}",
-								},
-								"rename": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "value",
-											"orig": "value",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-											"example": "myvalue",
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"value",
-									},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},

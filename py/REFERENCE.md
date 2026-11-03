@@ -45,10 +45,6 @@ client = KeyvalSDK.test()
 
 Create a new `KeyValueOperationEntity` instance. Pass `None` for no initial data.
 
-#### `Nt(data=None)`
-
-Create a new `NtEntity` instance. Pass `None` for no initial data.
-
 #### `options_map() -> dict`
 
 Return a deep copy of the current SDK options.
@@ -91,15 +87,14 @@ key_value_operation = client.KeyValueOperation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `str` | No |  |
-| `key` | `str` | No | The key that was stored (auto-generated if '-' was used) |
-| `value` | `str` | No | The value that was stored |
+| `key` | `str` | No | The requested key |
+| `value` | `str` | No | The value associated with the key |
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> dict`
+#### `load(reqmatch, ctrl=None) -> KeyValueOperationEntity`
 
-Load a single entity matching the given criteria. Returns the entity data and raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
 
 ```python
 result = client.KeyValueOperation().load({"key": "key"})
@@ -126,58 +121,6 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `KeyValueOperationEntity` instance with the same options.
-
-#### `get_name() -> str`
-
-Return the entity name.
-
-
----
-
-## NtEntity
-
-```python
-nt = client.Nt()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `key` | `str` | No | The auto-generated key |
-| `value` | `str` | No | The value that was stored |
-
-### Operations
-
-#### `load(reqmatch, ctrl=None) -> dict`
-
-Load a single entity matching the given criteria. Returns the entity data and raises on error.
-
-```python
-result = client.Nt().load({"value": "value"})
-```
-
-### Common Methods
-
-#### `data_get() -> dict`
-
-Get the entity data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> dict`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `NtEntity` instance with the same options.
 
 #### `get_name() -> str`
 
@@ -343,6 +286,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

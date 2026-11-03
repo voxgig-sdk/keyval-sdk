@@ -75,12 +75,10 @@ func runOp(client *sdk.KeyvalSDK, op string, query *eng.Value, entityAtom eng.Va
 
 // entityFor dispatches on the lowercase entity name. The generator
 // emits one `case "<name>":` per entity defined in the SDK model.
-func entityFor(client *sdk.KeyvalSDK, name string) (sdk.KeyvalEntity, error) {
+func entityFor(client *sdk.KeyvalSDK, name string) (sdk.KeyvalEntityBase, error) {
 	switch strings.ToLower(name) {
 	case "key_value_operation":
 		return client.KeyValueOperation(nil), nil
-	case "nt":
-		return client.Nt(nil), nil
 
 	}
 	return nil, fmt.Errorf("unknown entity %q", name)

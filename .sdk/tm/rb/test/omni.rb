@@ -301,7 +301,7 @@ module KeyvalOmni
       err_map = res_map['err']
       if err_map.is_a?(::Hash) && err_map['message'].is_a?(::String) &&
          !err_map['message'].empty?
-        ctx.result.err = KeyvalError.new('', err_map['message'])
+        ctx.result.err = KeyvalError.new(err_map['message'])
       end
     end
 

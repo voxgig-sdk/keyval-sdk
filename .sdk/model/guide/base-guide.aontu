@@ -4,21 +4,12 @@
 #   guide.aontu
 
 guide: {
-  metrics: count: entity: 2
-  metrics: count: path: 3
-  metrics: count: method: 3
+  metrics: count: entity: 1
+  metrics: count: path: 1
+  metrics: count: method: 1
 
   entity: key_value_operation: {
     path: "/get/{key}": {
-      op: load: method: *GET
-    }
-    path: "/set/{key}/{value}": {
-      op: load: method: *GET
-    }
-  }
-
-  entity: nt: {
-    path: "/-/{value}": {
       op: load: method: *GET
     }
   }

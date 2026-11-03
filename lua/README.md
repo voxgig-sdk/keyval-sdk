@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:KeyVal
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/keyval-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/keyval-sdk/tags)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -35,10 +35,12 @@ local client = sdk.new()
 
 ### 3. Load a keyvalueoperation
 
+`load` returns the entity; `data_get()` reads its record.
+
 ```lua
 local keyvalueoperation, err = client:KeyValueOperation():load({ key = "example_key" })
 if err then error(err) end
-print(keyvalueoperation)
+for k, val in pairs(keyvalueoperation:data_get()) do print(k, val) end
 ```
 
 
@@ -107,7 +109,7 @@ Create a mock client for unit testing — no server required:
 local client = sdk.test()
 
 local result, err = client:KeyValueOperation():load({ key = "example" })
--- result is the returned data; err is set on failure
+-- result is the entity; data_get() reads its mock record; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -186,7 +188,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `KeyValueOperation` | `(data) -> KeyValueOperationEntity` | Create a KeyValueOperation entity instance. |
-| `Nt` | `(data) -> NtEntity` | Create a Nt entity instance. |
 
 ### Entity interface
 
@@ -194,7 +195,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
+| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria, and return it. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -204,18 +205,18 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(value, err)`. The `value` is the operation's
-data **directly** — there is no wrapper:
+Entity operations return `(value, err)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` | the entity record (a `table`) |
+| `load` | the entity, whose `data_get()` reads its record (a `table`) |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local key_value_operation, err = client:KeyValueOperation():load()
+    local key_value_operation, err = client:KeyValueOperation():load({ key = "example" })
     if err then error(err) end
-    -- key_value_operation is the loaded record
+    -- key_value_operation is the loaded entity
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -226,24 +227,12 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
-| `key` | The key that was stored (auto-generated if '-' was used) |
-| `value` | The value that was stored |
+| `key` | The requested key |
+| `value` | The value associated with the key |
 
 Operations: Load.
 
-API path: `/set/{key}/{value}`
-
-#### Nt
-
-| Field | Description |
-| --- | --- |
-| `key` | The auto-generated key |
-| `value` | The value that was stored |
-
-Operations: Load.
-
-API path: `/-/{value}`
+API path: `/get/{key}`
 
 
 
@@ -264,38 +253,13 @@ Create an instance: `local key_value_operation = client:KeyValueOperation(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `string` |  |
-| `key` | `string` | The key that was stored (auto-generated if '-' was used) |
-| `value` | `string` | The value that was stored |
+| `key` | `string` | The requested key |
+| `value` | `string` | The value associated with the key |
 
 #### Example: Load
 
 ```lua
 local key_value_operation, err = client:KeyValueOperation():load({ key = "key" })
-```
-
-
-### Nt
-
-Create an instance: `local nt = client:Nt(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `key` | `string` | The auto-generated key |
-| `value` | `string` | The value that was stored |
-
-#### Example: Load
-
-```lua
-local nt, err = client:Nt():load({ value = "value" })
 ```
 
 ## Features

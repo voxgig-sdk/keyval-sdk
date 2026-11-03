@@ -44,10 +44,6 @@ local client = sdk.test()
 
 Create a new `KeyValueOperation` entity instance. Pass `nil` for no initial data.
 
-#### `Nt(data)`
-
-Create a new `Nt` entity instance. Pass `nil` for no initial data.
-
 #### `options_map() -> table`
 
 Return a deep copy of the current SDK options.
@@ -94,15 +90,14 @@ local key_value_operation = client:KeyValueOperation(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | No |  |
-| `key` | `string` | No | The key that was stored (auto-generated if '-' was used) |
-| `value` | `string` | No | The value that was stored |
+| `key` | `string` | No | The requested key |
+| `value` | `string` | No | The value associated with the key |
 
 ### Operations
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:KeyValueOperation():load({ key = "key" })
@@ -129,59 +124,6 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `KeyValueOperationEntity` instance with the same client and
-options.
-
-#### `get_name() -> string`
-
-Return the entity name.
-
-
----
-
-## NtEntity
-
-```lua
-local nt = client:Nt(nil)
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `key` | `string` | No | The auto-generated key |
-| `value` | `string` | No | The value that was stored |
-
-### Operations
-
-#### `load(reqmatch, ctrl) -> any, err`
-
-Load a single entity matching the given criteria.
-
-```lua
-local result, err = client:Nt():load({ value = "value" })
-```
-
-### Common Methods
-
-#### `data_get() -> table`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> table`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `NtEntity` instance with the same client and
 options.
 
 #### `get_name() -> string`
@@ -348,6 +290,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

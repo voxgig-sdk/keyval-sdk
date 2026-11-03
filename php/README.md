@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/keyval-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/keyval-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -211,7 +211,6 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `KeyValueOperation` | `($data): KeyValueOperationEntity` | Create a KeyValueOperation entity instance. |
-| `Nt` | `($data): NtEntity` | Create a Nt entity instance. |
 
 ### Entity interface
 
@@ -219,7 +218,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
+| `load` | `($reqmatch, $ctrl): mixed` | Load a single entity by match criteria, and return it. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -229,9 +228,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -251,24 +250,12 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
-| `key` | The key that was stored (auto-generated if '-' was used) |
-| `value` | The value that was stored |
+| `key` | The requested key |
+| `value` | The value associated with the key |
 
 Operations: Load.
 
-API path: `/set/{key}/{value}`
-
-#### Nt
-
-| Field | Description |
-| --- | --- |
-| `key` | The auto-generated key |
-| `value` | The value that was stored |
-
-Operations: Load.
-
-API path: `/-/{value}`
+API path: `/get/{key}`
 
 
 
@@ -289,40 +276,14 @@ Create an instance: `$key_value_operation = $client->KeyValueOperation();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `string` |  |
-| `key` | `string` | The key that was stored (auto-generated if '-' was used) |
-| `value` | `string` | The value that was stored |
+| `key` | `string` | The requested key |
+| `value` | `string` | The value associated with the key |
 
 #### Example: Load
 
 ```php
 // load() returns the ENTITY — call data_get() for the KeyValueOperation record (throws on error).
 $key_value_operation = $client->KeyValueOperation()->load(["key" => "key"]);
-```
-
-
-### Nt
-
-Create an instance: `$nt = $client->Nt();`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `key` | `string` | The auto-generated key |
-| `value` | `string` | The value that was stored |
-
-#### Example: Load
-
-```php
-// load() returns the ENTITY — call data_get() for the Nt record (throws on error).
-$nt = $client->Nt()->load(["value" => "value"]);
 ```
 
 ## Features

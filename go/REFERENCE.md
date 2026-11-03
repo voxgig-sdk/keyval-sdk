@@ -47,13 +47,9 @@ client := sdk.TestSDK(testopts, sdkopts)
 
 ### Instance Methods
 
-#### `KeyValueOperation(data map[string]any) KeyvalEntity`
+#### `KeyValueOperation(data map[string]any) KeyvalEntityBase`
 
 Create a new `KeyValueOperation` entity instance. Pass `nil` for no initial data.
-
-#### `Nt(data map[string]any) KeyvalEntity`
-
-Create a new `Nt` entity instance. Pass `nil` for no initial data.
 
 #### `OptionsMap() map[string]any`
 
@@ -102,22 +98,21 @@ fmt.Println(keyValueOperation.GetName()) // "key_value_operation"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | No |  |
-| `key` | `string` | No | The key that was stored (auto-generated if '-' was used) |
-| `value` | `string` | No | The value that was stored |
+| `key` | `string` | No | The requested key |
+| `value` | `string` | No | The value associated with the key |
 
 ### Operations
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `Data()` reads; `err` is non-nil on failure.
 
 ```go
 result, err := client.KeyValueOperation(nil).Load(map[string]any{"key": "key"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data())
 ```
 
 ### Common Methods
@@ -137,57 +132,13 @@ Get or set the entity match criteria. Works the same as `Data()`.
 Create a new `KeyValueOperationEntity` instance with the same client and
 options.
 
-#### `GetName() string`
+#### `Stream(action string, args map[string]any, callopts map[string]any) <-chan StreamItem`
 
-Return the entity name.
-
-
----
-
-## NtEntity
-
-```go
-nt := client.Nt(nil)
-fmt.Println(nt.GetName()) // "nt"
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `key` | `string` | No | The auto-generated key |
-| `value` | `string` | No | The value that was stored |
-
-### Operations
-
-#### `Load(reqmatch, ctrl map[string]any) (any, error)`
-
-Load a single entity matching the given criteria.
-
-```go
-result, err := client.Nt(nil).Load(map[string]any{"value": "value"}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(result)
-```
-
-### Common Methods
-
-#### `Data(args ...any) any`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `Match(args ...any) any`
-
-Get or set the entity match criteria. Works the same as `Data()`.
-
-#### `Make() Entity`
-
-Create a new `NtEntity` instance with the same client and
-options.
+Run an operation through the pipeline and send its result items on the
+returned channel, which closes when the stream ends. A `StreamItem` holds
+one item in `Item`, or in `Err` the error that ended the stream: the
+error the operation itself would return, sent as the last value. Under
+`throw: false` in `callopts["ctrl"]`, no error is sent.
 
 #### `GetName() string`
 
@@ -353,6 +304,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

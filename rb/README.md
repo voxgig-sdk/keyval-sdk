@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/keyval-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/keyval-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -45,7 +45,7 @@ client = KeyvalSDK.new
 begin
   # load returns the ENTITY — call data_get for the KeyValueOperation record (raises on error).
   keyvalueoperation = client.KeyValueOperation.load({ "key" => "example_key" })
-  puts keyvalueoperation
+  puts keyvalueoperation.data_get
 rescue => err
   warn "load failed: #{err}"
 end
@@ -127,9 +127,9 @@ Create a mock client for unit testing — no server required:
 client = KeyvalSDK.test
 
 # Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
+# data_get reads its mock record.
 keyvalueoperation = client.KeyValueOperation.load({ "key" => "example" })
-puts keyvalueoperation
+puts keyvalueoperation.data_get
 ```
 
 ### Use a custom fetch function
@@ -206,7 +206,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `KeyValueOperation` | `(data) -> KeyValueOperationEntity` | Create a KeyValueOperation entity instance. |
-| `Nt` | `(data) -> NtEntity` | Create a Nt entity instance. |
 
 ### Entity interface
 
@@ -214,7 +213,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -224,9 +223,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `KeyvalError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`KeyvalError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -245,24 +245,12 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
-| `key` | The key that was stored (auto-generated if '-' was used) |
-| `value` | The value that was stored |
+| `key` | The requested key |
+| `value` | The value associated with the key |
 
 Operations: Load.
 
-API path: `/set/{key}/{value}`
-
-#### Nt
-
-| Field | Description |
-| --- | --- |
-| `key` | The auto-generated key |
-| `value` | The value that was stored |
-
-Operations: Load.
-
-API path: `/-/{value}`
+API path: `/get/{key}`
 
 
 
@@ -283,40 +271,14 @@ Create an instance: `key_value_operation = client.KeyValueOperation`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `String` |  |
-| `key` | `String` | The key that was stored (auto-generated if '-' was used) |
-| `value` | `String` | The value that was stored |
+| `key` | `String` | The requested key |
+| `value` | `String` | The value associated with the key |
 
 #### Example: Load
 
 ```ruby
 # load returns the ENTITY — call data_get for the KeyValueOperation record (raises on error).
 key_value_operation = client.KeyValueOperation.load({ "key" => "key" })
-```
-
-
-### Nt
-
-Create an instance: `nt = client.Nt`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `key` | `String` | The auto-generated key |
-| `value` | `String` | The value that was stored |
-
-#### Example: Load
-
-```ruby
-# load returns the ENTITY — call data_get for the Nt record (raises on error).
-nt = client.Nt.load({ "value" => "value" })
 ```
 
 ## Features

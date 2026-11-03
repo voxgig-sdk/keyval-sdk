@@ -1,12 +1,14 @@
 # KeyVal API
 
-A super simple key value database with APIs for setting and getting key/value pairs.
+> A super simple key value database with APIs for setting and getting key/value pairs.
+>
+> GET /set/&#123;key&#125;/&#123;value&#125; and GET /-/&#123;value&#125; are left out: they store data through GET, so no SDK test, live or offline, should call them, and a GET-only guard cannot tell them from reads.
 
 ## Start here
 
 This guide introduces the API, the client libraries, and the companion tools in this repository. Start with the API capabilities, choose a client for your application, and use the linked reference when you need exact request and response details.
 
-The selected API surface contains 2 entities and 3 HTTP routes. There are 6 SDK targets and 2 companion tools.
+The selected API surface contains 1 entities and 1 HTTP routes. There are 6 SDK targets and 2 companion tools.
 
 An entity groups related API operations. An operation can have several routes with different inputs or authentication requirements. The SDK exposes the entity and its operations using the conventions of the selected language.
 
@@ -14,25 +16,14 @@ An entity groups related API operations. An operation can have several routes wi
 
 ### KeyValueOperation
 
-Results: Successfully stored the key/value pair; Successfully retrieved the value.
+Results: Successfully retrieved the value.
 
 SDK operations: `load`.
 
 Key fields to recognise:
 
-- `key`: The key that was stored (auto-generated if &#39;-&#39; was used)
-- `value`: The value that was stored
-
-### Nt
-
-Results: Successfully stored the value with an auto-generated key.
-
-SDK operations: `load`.
-
-Key fields to recognise:
-
-- `key`: The auto-generated key
-- `value`: The value that was stored
+- `key`: The requested key
+- `value`: The value associated with the key
 
 ### Route map
 
@@ -40,9 +31,7 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 
 | Entity | SDK operation | HTTP route | Authentication |
 | --- | --- | --- | --- |
-| KeyValueOperation | `load` | `GET /set/{key}/{value}` | See reference |
 | KeyValueOperation | `load` | `GET /get/{key}` | See reference |
-| Nt | `load` | `GET /-/{value}` | See reference |
 
 ## Connect to the API
 
@@ -91,7 +80,7 @@ Use the MCP server to expose supported API operations to an MCP client.
 Repository directory: `go-mcp/`. Not published. Build from the go-mcp directory.
 
 - `keyval_list`: List records for an entity. No active entity supports this operation.
-- `keyval_load`: Load one record for an entity. Supported entities: `key_value_operation`, `nt`.
+- `keyval_load`: Load one record for an entity. Supported entities: `key_value_operation`.
 
 ## Operational features
 

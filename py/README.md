@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/keyval-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/keyval-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -43,7 +43,7 @@ client = KeyvalSDK()
 ```python
 try:
     keyvalueoperation = client.KeyValueOperation().load({"key": "example_key"})
-    print(keyvalueoperation)
+    print(keyvalueoperation.data_get())
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -56,7 +56,7 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 ```python
 try:
     keyvalueoperation = client.KeyValueOperation().load({"key": "example"})
-    print(keyvalueoperation)
+    print(keyvalueoperation.data_get())
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -122,10 +122,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = KeyvalSDK.test()
 
-# Entity ops return the ENTITY and raises on error;
-# call data_get() for the record.
+# Entity ops return the entity, and list one per record; they raise on error.
 keyvalueoperation = client.KeyValueOperation().load({"key": "example"})
-# keyvalueoperation contains the mock response record
+# data_get() on an entity reads its mock response record
 ```
 
 ### Use a custom fetch function
@@ -202,7 +201,6 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `KeyValueOperation` | `(data) -> KeyValueOperationEntity` | Create a KeyValueOperation entity instance. |
-| `Nt` | `(data) -> NtEntity` | Create a Nt entity instance. |
 
 ### Entity interface
 
@@ -210,7 +208,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -220,9 +218,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
-ops, a `list` for `list`) and raise on error. Wrap calls in
-`try`/`except` to handle failures.
+Entity operations return the entity, and `list` a `list` of entities, one
+per record; an entity's `data_get()` reads its record (a `dict`). They raise
+on error, so wrap calls in `try`/`except` to handle failures.
 
 The `direct()` escape hatch never raises — it returns a result `dict`
 you branch on via `result["ok"]`:
@@ -242,24 +240,12 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `id` |  |
-| `key` | The key that was stored (auto-generated if '-' was used) |
-| `value` | The value that was stored |
+| `key` | The requested key |
+| `value` | The value associated with the key |
 
 Operations: Load.
 
-API path: `/set/{key}/{value}`
-
-#### Nt
-
-| Field | Description |
-| --- | --- |
-| `key` | The auto-generated key |
-| `value` | The value that was stored |
-
-Operations: Load.
-
-API path: `/-/{value}`
+API path: `/get/{key}`
 
 
 
@@ -280,38 +266,13 @@ Create an instance: `key_value_operation = client.KeyValueOperation()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | `str` |  |
-| `key` | `str` | The key that was stored (auto-generated if '-' was used) |
-| `value` | `str` | The value that was stored |
+| `key` | `str` | The requested key |
+| `value` | `str` | The value associated with the key |
 
 #### Example: Load
 
 ```python
 key_value_operation = client.KeyValueOperation().load({"key": "key"})
-```
-
-
-### Nt
-
-Create an instance: `nt = client.Nt()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `key` | `str` | The auto-generated key |
-| `value` | `str` | The value that was stored |
-
-#### Example: Load
-
-```python
-nt = client.Nt().load({"value": "value"})
 ```
 
 ## Features

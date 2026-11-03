@@ -45,10 +45,6 @@ $client = KeyvalSDK::test();
 
 Create a new `KeyValueOperationEntity` instance. Pass `null` for no initial data.
 
-#### `Nt($data = null)`
-
-Create a new `NtEntity` instance. Pass `null` for no initial data.
-
 #### `options_map(): array`
 
 Return a deep copy of the current SDK options.
@@ -96,15 +92,14 @@ $key_value_operation = $client->KeyValueOperation();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | No |  |
-| `key` | `string` | No | The key that was stored (auto-generated if '-' was used) |
-| `value` | `string` | No | The value that was stored |
+| `key` | `string` | No | The requested key |
+| `value` | `string` | No | The value associated with the key |
 
 ### Operations
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->KeyValueOperation()->load(["key" => "key"]);
@@ -131,59 +126,6 @@ Set the entity match criteria.
 #### `make(): KeyValueOperationEntity`
 
 Create a new `KeyValueOperationEntity` instance with the same client and
-options.
-
-#### `get_name(): string`
-
-Return the entity name.
-
-
----
-
-## NtEntity
-
-```php
-$nt = $client->Nt();
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `key` | `string` | No | The auto-generated key |
-| `value` | `string` | No | The value that was stored |
-
-### Operations
-
-#### `load(array $reqmatch, ?array $ctrl = null): mixed`
-
-Load a single entity matching the given criteria. Throws on error.
-
-```php
-$result = $client->Nt()->load(["value" => "value"]);
-```
-
-### Common Methods
-
-#### `data_get(): array`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set($data): void`
-
-Set the entity data.
-
-#### `match_get(): array`
-
-Get the entity match criteria.
-
-#### `match_set($match): void`
-
-Set the entity match criteria.
-
-#### `make(): NtEntity`
-
-Create a new `NtEntity` instance with the same client and
 options.
 
 #### `get_name(): string`
@@ -350,6 +292,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

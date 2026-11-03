@@ -60,18 +60,6 @@ Create a new `KeyValueOperation` entity instance.
 
 **Returns:** `KeyValueOperationEntity` instance.
 
-#### `Nt(data?: object)`
-
-Create a new `Nt` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `NtEntity` instance.
-
 #### `options()`
 
 Return a deep copy of the current SDK options.
@@ -99,8 +87,10 @@ Make a direct HTTP request to any API endpoint.
 | `fetchargs.headers` | `object` | Request headers (merged with defaults). |
 | `fetchargs.body` | `any` | Request body (objects are JSON-serialized). |
 | `fetchargs.ctrl` | `object` | Control options (e.g. `{ explain: true }`). |
+| `fetchargs.ctrl.signal` | `AbortSignal` | Aborts the request in flight: `ok` is then `false` and `err.code` is `request_aborted`. |
 
-**Returns:** `Promise<{ ok, status, headers, data } | Error>`
+**Returns:** `Promise<{ ok, status, headers, data }>`. On a failure
+`ok` is `false` and `err` holds the error.
 
 #### `prepare(fetchargs?: object)`
 
@@ -115,6 +105,15 @@ Alias for `KeyvalSDK.test()`.
 
 **Returns:** `KeyvalSDK` instance in test mode.
 
+#### Cancelling a call
+
+Every entity operation takes an optional `ctrl` object after its match or
+data, and an `AbortSignal` in `ctrl.signal` cancels the request in flight.
+The operation then rejects with an error whose `code` is
+`request_aborted` and whose `cause` is the signal's reason. A request
+whose signal has already aborted is not sent. `stream()` takes the signal
+as `callopts.signal`, and ends when it aborts.
+
 
 ---
 
@@ -128,15 +127,14 @@ const key_value_operation = client.KeyValueOperation()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | No |  |
-| `key` | `string` | No | The key that was stored (auto-generated if '-' was used) |
-| `value` | `string` | No | The value that was stored |
+| `key` | `string` | No | The requested key |
+| `value` | `string` | No | The value associated with the key |
 
 ### Operations
 
 #### `load(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Resolves to the entity, whose record `data()` reads.
 
 ```ts
 const result = await client.KeyValueOperation().load({ key: 'key' })
@@ -157,57 +155,6 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `KeyValueOperationEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `KeyvalSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## NtEntity
-
-```ts
-const nt = client.Nt()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `key` | `string` | No | The auto-generated key |
-| `value` | `string` | No | The value that was stored |
-
-### Operations
-
-#### `load(match: object, ctrl?: object)`
-
-Load a single entity matching the given criteria.
-
-```ts
-const result = await client.Nt().load({ value: 'value' })
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `NtEntity` instance with the same client and
 options.
 
 #### `client()`
@@ -378,6 +325,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

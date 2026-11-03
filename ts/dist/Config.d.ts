@@ -57,6 +57,7 @@ declare class Config {
             };
             optspec: {
                 clearTimer: string;
+                now: string;
                 setTimer: string;
             };
             strict: boolean;
@@ -70,75 +71,10 @@ declare class Config {
         };
         entity: {
             key_value_operation: {};
-            nt: {};
         };
     };
     entity: {
         key_value_operation: {
-            fields: ({
-                name: string;
-                title: string;
-                type: string;
-                short?: undefined;
-            } | {
-                name: string;
-                title: string;
-                type: string;
-                short: string;
-            })[];
-            id: {
-                field: string;
-                from: {
-                    key: string;
-                    value: string;
-                };
-                name: string;
-                parts: string[];
-                sep: string;
-            };
-            name: string;
-            op: {
-                load: {
-                    input: string;
-                    name: string;
-                    points: {
-                        kind: string;
-                        method: string;
-                        orig: string;
-                        segments: ({
-                            lit: string;
-                            var?: undefined;
-                        } | {
-                            var: string;
-                            lit?: undefined;
-                        })[];
-                        parts: string[];
-                        rename: {};
-                        transform: {
-                            req: string;
-                            res: string;
-                        };
-                        args: {
-                            params: {
-                                name: string;
-                                orig: string;
-                                type: string;
-                                kind: string;
-                                reqd: boolean;
-                                example: string;
-                            }[];
-                        };
-                        select: {
-                            exist: string[];
-                        };
-                    }[];
-                };
-            };
-            relations: {
-                ancestors: never[];
-            };
-        };
-        nt: {
             fields: {
                 name: string;
                 title: string;
@@ -179,6 +115,10 @@ declare class Config {
                         };
                         select: {
                             exist: string[];
+                        };
+                        response: {
+                            kind: string;
+                            media: string;
                         };
                     }[];
                 };

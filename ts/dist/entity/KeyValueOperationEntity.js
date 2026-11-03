@@ -84,9 +84,12 @@ class KeyValueOperationEntity extends KeyvalEntityBase_1.KeyvalEntityBase {
         catch (err) {
             // What a hook throws here must not escape the cleaning below.
             try {
-                fres = featureHook(ctx, 'PreUnexpected');
-                if (fres instanceof Promise) {
-                    await fres;
+                // Once per operation: makeError fires it for its own error.
+                if (!ctx.unexpectedFired) {
+                    fres = featureHook(ctx, 'PreUnexpected');
+                    if (fres instanceof Promise) {
+                        await fres;
+                    }
                 }
             }
             catch (hookerr) {
@@ -98,7 +101,7 @@ class KeyValueOperationEntity extends KeyvalEntityBase_1.KeyvalEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<KeyValueOperation> return stays clean under strict null checks.
+                // Promise<KeyValueOperationEntity> return stays clean under strict null checks.
                 return undefined;
             }
         }

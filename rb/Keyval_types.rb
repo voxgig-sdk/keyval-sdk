@@ -10,16 +10,12 @@
 
 # KeyValueOperation entity data model.
 #
-# @!attribute [rw] id
-#   @return [String, nil]
-#
 # @!attribute [rw] key
 #   @return [String, nil]
 #
 # @!attribute [rw] value
 #   @return [String, nil]
 KeyValueOperation = Struct.new(
-  :id,
   :key,
   :value,
   keyword_init: true
@@ -29,34 +25,8 @@ KeyValueOperation = Struct.new(
 #
 # @!attribute [rw] key
 #   @return [String]
-#
-# @!attribute [rw] value
-#   @return [String, nil]
 KeyValueOperationLoadMatch = Struct.new(
   :key,
-  :value,
-  keyword_init: true
-)
-
-# Nt entity data model.
-#
-# @!attribute [rw] key
-#   @return [String, nil]
-#
-# @!attribute [rw] value
-#   @return [String, nil]
-Nt = Struct.new(
-  :key,
-  :value,
-  keyword_init: true
-)
-
-# Request payload for Nt#load.
-#
-# @!attribute [rw] value
-#   @return [String]
-NtLoadMatch = Struct.new(
-  :value,
   keyword_init: true
 )
 

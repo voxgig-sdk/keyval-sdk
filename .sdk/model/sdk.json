@@ -97,19 +97,12 @@
             "field": {}
           },
           "fields": {
-            "id": {
-              "a": true,
-              "h": "Id",
-              "n": "id",
-              "r": false,
-              "t": "`$STRING`"
-            },
             "key": {
               "a": true,
               "h": "Key",
               "n": "key",
               "r": false,
-              "sh": "The key that was stored (auto-generated if '-' was used)",
+              "sh": "The requested key",
               "t": "`$STRING`"
             },
             "value": {
@@ -117,22 +110,9 @@
               "h": "Value",
               "n": "value",
               "r": false,
-              "sh": "The value that was stored",
+              "sh": "The value associated with the key",
               "t": "`$STRING`"
             }
-          },
-          "id": {
-            "field": "id",
-            "from": {
-              "key": "key",
-              "value": "value"
-            },
-            "name": "id",
-            "parts": [
-              "key",
-              "value"
-            ],
-            "sep": "/"
           },
           "name": "key_value_operation",
           "op": {
@@ -140,61 +120,6 @@
               "input": "data",
               "name": "load",
               "points": [
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /set/{key}/{value}",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "params": [
-                      {
-                        "a": true,
-                        "ex": "mykey",
-                        "k": "param",
-                        "n": "key",
-                        "or": "key",
-                        "r": true,
-                        "t": "`$STRING`"
-                      },
-                      {
-                        "a": true,
-                        "ex": "myvalue",
-                        "k": "param",
-                        "n": "value",
-                        "or": "value",
-                        "r": true,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/set/{key}/{value}",
-                  "q": {
-                    "exist": [
-                      "key",
-                      "value"
-                    ]
-                  },
-                  "r": {},
-                  "s": [
-                    {
-                      "lit": "set"
-                    },
-                    {
-                      "var": "key"
-                    },
-                    {
-                      "var": "value"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                },
                 {
                   "a": true,
                   "co": {
@@ -224,90 +149,16 @@
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "get"
                     },
                     {
                       "var": "key"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                }
-              ]
-            }
-          },
-          "relations": {
-            "ancestors": []
-          }
-        },
-        "nt": {
-          "active": true,
-          "alias": {
-            "field": {}
-          },
-          "fields": {
-            "key": {
-              "a": true,
-              "h": "Key",
-              "n": "key",
-              "r": false,
-              "sh": "The auto-generated key",
-              "t": "`$STRING`"
-            },
-            "value": {
-              "a": true,
-              "h": "Value",
-              "n": "value",
-              "r": false,
-              "sh": "The value that was stored",
-              "t": "`$STRING`"
-            }
-          },
-          "name": "nt",
-          "op": {
-            "load": {
-              "input": "data",
-              "name": "load",
-              "points": [
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /-/{value}",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "params": [
-                      {
-                        "a": true,
-                        "ex": "myvalue",
-                        "k": "param",
-                        "n": "value",
-                        "or": "value",
-                        "r": true,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/-/{value}",
-                  "q": {
-                    "exist": [
-                      "value"
-                    ]
-                  },
-                  "r": {},
-                  "s": [
-                    {
-                      "lit": "-"
-                    },
-                    {
-                      "var": "value"
                     }
                   ],
                   "t": {
@@ -645,6 +496,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -765,38 +617,6 @@
               ]
             }
           ]
-        },
-        "BasicNtFlow": {
-          "active": true,
-          "entity": "nt",
-          "key$": "BasicNtFlow",
-          "kind": "basic",
-          "name": "BasicNtFlow",
-          "param": {},
-          "step": [
-            {
-              "a": true,
-              "d": {},
-              "i": {
-                "ref": "nt_ref01",
-                "srcdatavar": "nt_ref01_data",
-                "suffix": "_dt0"
-              },
-              "m": {
-                "id": "nt01"
-              },
-              "o": "load",
-              "s": [],
-              "v": [
-                {
-                  "apply": "TextFieldMark",
-                  "def": {
-                    "mark": "Mark01-nt_ref01"
-                  }
-                }
-              ]
-            }
-          ]
         }
       },
       "info": {
@@ -804,7 +624,7 @@
         "contact": {
           "url": "https://keyval.org"
         },
-        "description": "A super simple key value database with APIs for setting and getting key/value pairs.",
+        "description": "A super simple key value database with APIs for setting and getting key/value pairs.\n\nGET /set/{key}/{value} and GET /-/{value} are left out: they store data through GET, so no SDK test, live or offline, should call them, and a GET-only guard cannot tell them from reads.",
         "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
@@ -821,7 +641,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -874,6 +694,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -1104,7 +929,10 @@
             "version": "0.0.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -1481,6 +1309,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

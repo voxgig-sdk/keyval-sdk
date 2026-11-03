@@ -8,7 +8,9 @@ main: {
       contact: {
         url: "https://keyval.org"
       }
-      description: "A super simple key value database with APIs for setting and getting key/value pairs."
+      description: `A super simple key value database with APIs for setting and getting key/value pairs.
+
+GET /set/{key}/{value} and GET /-/{value} are left out: they store data through GET, so no SDK test, live or offline, should call them, and a GET-only guard cannot tell them from reads.`
       servers: [
         {
           description: "Production server"

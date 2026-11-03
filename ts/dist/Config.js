@@ -87,6 +87,7 @@ class Config {
             },
             "optspec": {
                 "clearTimer": "`$FUNCTION`",
+                "now": "`$FUNCTION`",
                 "setTimer": "`$FUNCTION`"
             },
             "strict": false,
@@ -100,101 +101,30 @@ class Config {
         },
         entity: {
             key_value_operation: {},
-            nt: {},
         }
     };
     entity = {
         "key_value_operation": {
             "fields": [
                 {
-                    "name": "id",
-                    "title": "Id",
-                    "type": "`$STRING`"
-                },
-                {
                     "name": "key",
                     "title": "Key",
                     "type": "`$STRING`",
-                    "short": "The key that was stored (auto-generated if '-' was used)"
+                    "short": "The requested key"
                 },
                 {
                     "name": "value",
                     "title": "Value",
                     "type": "`$STRING`",
-                    "short": "The value that was stored"
+                    "short": "The value associated with the key"
                 }
             ],
-            "id": {
-                "field": "id",
-                "from": {
-                    "key": "key",
-                    "value": "value"
-                },
-                "name": "id",
-                "parts": [
-                    "key",
-                    "value"
-                ],
-                "sep": "/"
-            },
             "name": "key_value_operation",
             "op": {
                 "load": {
                     "input": "data",
                     "name": "load",
                     "points": [
-                        {
-                            "kind": "http",
-                            "method": "GET",
-                            "orig": "/set/{key}/{value}",
-                            "segments": [
-                                {
-                                    "lit": "set"
-                                },
-                                {
-                                    "var": "key"
-                                },
-                                {
-                                    "var": "value"
-                                }
-                            ],
-                            "parts": [
-                                "set",
-                                "{key}",
-                                "{value}"
-                            ],
-                            "rename": {},
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "args": {
-                                "params": [
-                                    {
-                                        "name": "key",
-                                        "orig": "key",
-                                        "type": "`$STRING`",
-                                        "kind": "param",
-                                        "reqd": true,
-                                        "example": "mykey"
-                                    },
-                                    {
-                                        "name": "value",
-                                        "orig": "value",
-                                        "type": "`$STRING`",
-                                        "kind": "param",
-                                        "reqd": true,
-                                        "example": "myvalue"
-                                    }
-                                ]
-                            },
-                            "select": {
-                                "exist": [
-                                    "key",
-                                    "value"
-                                ]
-                            }
-                        },
                         {
                             "kind": "http",
                             "method": "GET",
@@ -232,73 +162,10 @@ class Config {
                                 "exist": [
                                     "key"
                                 ]
-                            }
-                        }
-                    ]
-                }
-            },
-            "relations": {
-                "ancestors": []
-            }
-        },
-        "nt": {
-            "fields": [
-                {
-                    "name": "key",
-                    "title": "Key",
-                    "type": "`$STRING`",
-                    "short": "The auto-generated key"
-                },
-                {
-                    "name": "value",
-                    "title": "Value",
-                    "type": "`$STRING`",
-                    "short": "The value that was stored"
-                }
-            ],
-            "name": "nt",
-            "op": {
-                "load": {
-                    "input": "data",
-                    "name": "load",
-                    "points": [
-                        {
-                            "kind": "http",
-                            "method": "GET",
-                            "orig": "/-/{value}",
-                            "segments": [
-                                {
-                                    "lit": "-"
-                                },
-                                {
-                                    "var": "value"
-                                }
-                            ],
-                            "parts": [
-                                "-",
-                                "{value}"
-                            ],
-                            "rename": {},
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
                             },
-                            "args": {
-                                "params": [
-                                    {
-                                        "name": "value",
-                                        "orig": "value",
-                                        "type": "`$STRING`",
-                                        "kind": "param",
-                                        "reqd": true,
-                                        "example": "myvalue"
-                                    }
-                                ]
-                            },
-                            "select": {
-                                "exist": [
-                                    "value"
-                                ]
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
